@@ -1,9 +1,11 @@
-%define 	gp2c_version 0.0.0pl6
+%include	/usr/lib/rpm/macros.perl
+%define		gp2c_version 0.0.0pl6
+%define		math_pari_version 2.010201
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
-Version:	2.1.1
-Release:	6
+Version:	2.1.2
+Release:	1
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
@@ -11,12 +13,13 @@ Group(pl):	Aplikacje/Matematyczne
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
-Source3:	%{name}.desktop
-Source4:	%{name}.xpm
+Source3:	ftp://ftp.perl.org/pub/CPAN/authors/id/I/IL/ILYAZ/Math-Pari-%{math_pari_version}.tar.gz
+Source4:	%{name}.desktop
+Source5:	%{name}.xpm
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
-Patch2:		%{name}-emacsfix.patch
-Patch3:		%{name}-CLK_TCK.patch
+#Patch2:		%{name}-emacsfix.patch
+#Patch3:		%{name}-CLK_TCK.patch
 Patch4:		%{name}-termcap.patch
 Icon:		parigp.xpm
 URL:		http://www.parigp-home.de/
@@ -29,6 +32,8 @@ BuildRequires:	tetex-ams
 BuildRequires:	tetex-dvips
 BuildRequires:	tetex-fonts
 BuildRequires:	tetex-pdftex
+BuildRequires:	rpm-perlprov >= 3.0.3-16
+BuildRequires:	perl
 Requires:	pari = %{version}
 Requires:	xdvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -175,12 +180,25 @@ PARI/GP editing mode for Xemacs.
 %description -n xemacs-parigp-mode-pkg -l pl
 Tryb edycji plików PARI/GP do Xemacsa.
 
+%package -n perl-Math-Pari
+Summary:	Math-Pari perl module
+Summary(pl):	Modu³ perla Math-Pari
+Group:		Development/Languages/Perl
+Group(de):	Entwicklung/Sprachen/Perl
+Group(pl):	Programowanie/Jêzyki/Perl
+
+%description -n perl-Math-Pari
+The PERL interface to the PARI part of GP/PARI
+
+%description -n perl-Math-Pari -l pl
+Interfejs perl-a do biblioteki PARI
+
 %prep
-%setup -q -n pari-%{version} -a 2
+%setup -q -n pari-%{version} -a 2 -a 3
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
+#%patch2 -p1
+#%patch3 -p1
 %patch4 -p1
 
 %build
@@ -201,6 +219,14 @@ autoconf
 %configure \
 	--datadir=%{_datadir}/parigp
 %{__make}
+cd ..
+
+# math-pari
+ cd Math-Pari-%{math_pari_version}
+ perl Makefile.PL
+ %{__make}
+ %{__make} test
+ cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -238,11 +264,25 @@ cd gp2c-%{gp2c_version}
 	DESTDIR=$RPM_BUILD_ROOT
 cd ..
 
+# math-pari
+cd Math-Pari-%{math_pari_version}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+cd ..
+
 gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
 	MACHINES NEW README README.DOS TODO emacs/pariemacs.txt \
 	gp2c-%{gp2c_version}/NEWS gp2c-%{gp2c_version}/README \
 	gp2c-%{gp2c_version}/ChangeLog gp2c-%{gp2c_version}/AUTHORS \
-	examples/EXPLAIN examples/Inputrc
+	examples/EXPLAIN examples/Inputrc \
+	Math-Pari-%{math_pari_version}/Changes \
+	Math-Pari-%{math_pari_version}/INSTALL \
+	Math-Pari-%{math_pari_version}/MANIFEST \
+	Math-Pari-%{math_pari_version}/README \
+	Math-Pari-%{math_pari_version}/TODO \
+	Math-Pari-%{math_pari_version}/notes \
+	Math-Pari-%{math_pari_version}/notes1 \
+	Math-Pari-%{math_pari_version}/typemap
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -297,3 +337,12 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gp2c
 %doc gp2c-%{gp2c_version}/*.gz
 %{_datadir}/parigp/gp2c
+
+%files -n perl-Math-Pari
+%defattr(644,root,root,755)
+%doc *.gz
+%doc %{_mandir}/man3/*
+%{perl_sitearch}/Math
+%dir %{perl_sitearch}/auto/Math/Pari
+%{perl_sitearch}/auto/Math/Pari/Pari.bs
+%attr(755,root,root) %{perl_sitearch}/auto/Math/Pari/Pari.so
