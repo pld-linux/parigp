@@ -15,9 +15,13 @@ Release:	7
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
+# Source0-md5:	f790435b3008b3a5054989fa467c5a51
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
+# Source1-md5:	25eab5f9dfdb8715b9ace8cd68210425
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
+# Source2-md5:	dbd7534590fee5ba4d7468a83824eb84
 Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_version}.tar.gz
+# Source3-md5:	1985a1204254db7f3cfc90bfef79c7c3
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-FHS.patch
