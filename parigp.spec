@@ -11,7 +11,7 @@ Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
-Source3:	ftp://ftp.perl.org/pub/CPAN/authors/id/I/IL/ILYAZ/Math-Pari-%{math_pari_version}.tar.gz
+Source3:	ftp://ftp.cpan.org/pub/CPAN/authors/id/I/IL/ILYAZ/Math-Pari-%{math_pari_version}.tar.gz
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-FHS.patch
