@@ -190,7 +190,7 @@ ln -s ../ pari
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__install} -d $RPM_BUILD_ROOT{%{_applnkdir}/Scientific,%{_examplesdir}/parigp} \
-	$RPM_BUILD_ROOT{%{_datadir}/parigp/galdata,%{_pixmapsdir}
+	$RPM_BUILD_ROOT{%{_datadir}/parigp/galdata,%{_pixmapsdir}}
 
 # parigp, pari & pari-devel
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
