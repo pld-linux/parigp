@@ -11,6 +11,8 @@ Group(pl):	Aplikacje/Matematyczne
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
+Source3:	%{name}.desktop
+Source4:	%{name}.xpm
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
 Patch2:		%{name}-emacsfix.patch
@@ -191,6 +193,8 @@ rm -rf $RPM_BUILD_ROOT
 # parigp, pari & pari-devel
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 %{__install} src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc
+%{__install} ${SOURCE3} $RPM_BUILD_ROOT%{_applnkdir}/Scientific
+%{__install} ${SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 # pari-static
 %{__install} Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
@@ -245,6 +249,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/parigp/doc/*
 %{_datadir}/parigp/misc/*
 %{_mandir}/man1/*.gz
+%{_applnkdir}/Scientific/*
+%{_pixmapsdir}/*
 
 %files -n pari
 %defattr(644,root,root,755)
