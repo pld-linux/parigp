@@ -11,6 +11,7 @@ Group(pl):	Aplikacje/Matematyczne
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
+Source3:	parigp-emacs_tags
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
 Patch2:		%{name}-emacsfix.patch
@@ -193,6 +194,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__install} -d $RPM_BUILD_ROOT%{_datadir}/parigp/misc
 %{__install} misc/gprc.dft $RPM_BUILD_ROOT%{_datadir}/parigp/misc/gprc
 %{__install} src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc/vi_tags
+%{__install} %{SOURCE3} %$RPM_BUILD_ROOT%{_datadir}/parigp/misc/emacs_tags
 
 # pari-static
 %{__install} Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
