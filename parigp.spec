@@ -18,6 +18,7 @@ Requires:	xdvi
 BuildRequires:	xemacs
 BuildRequires:	tetex
 BuildRequires:	tetex-dvips
+BuildRequires:  tetex-ams
 BuildRequires:	readline-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	perl
