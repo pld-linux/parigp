@@ -6,7 +6,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
@@ -206,13 +206,13 @@ perl Makefile.PL
  
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_applnkdir}/Scientific,%{_examplesdir}/parigp} \
+install -d $RPM_BUILD_ROOT{%{_applnkdir}/Scientific/Mathematics,%{_examplesdir}/parigp} \
 	$RPM_BUILD_ROOT{%{_datadir}/parigp/galdata,%{_pixmapsdir}}
 
 # parigp, pari & pari-devel
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 install src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc
-install %{SOURCE4} $RPM_BUILD_ROOT%{_applnkdir}/Scientific
+install %{SOURCE4} $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Mathematics
 install %{SOURCE5} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 # pari-static
@@ -267,7 +267,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/parigp/doc
 %{_datadir}/parigp/misc
 %{_mandir}/man1/*
-%{_applnkdir}/Scientific/*
+%{_applnkdir}/Scientific/Mathematics/*
 %{_pixmapsdir}/*
 
 %files -n pari
