@@ -1,0 +1,11 @@
+--- pari-2.1.4.orig/config/arch-osname	Sun Jul 21 23:53:50 2002
++++ pari-2.1.4/config/arch-osname	Sun Jul 21 23:53:50 2002
+@@ -15,7 +15,7 @@
+   nextstep) arch=`file /bin/sh | sed 's/.*(for architecture \(.*\))/\1/'`;;
+   osf1)     case "$5" in alpha) arch=alpha;; esac;;
+   cygwin*)  arch=$HOSTTYPE; osname=cygwin;;
+-  linux)    arch=`uname -m`
++  linux)    arch=`uname -m | sed s/i.86/ix86/`
+ 	    case "`cat /proc/cpuinfo`" in
+ 	    *SuperSparc*)   arch=sparcv8_super;;
+ 	    *TMS390Z5[05]*) arch=sparcv8_super;; # SuperSparc I or II
