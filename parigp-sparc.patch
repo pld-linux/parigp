@@ -73,7 +73,7 @@
  	 : "=r" (__value), "=r" (hiremainder) \
  	 : "r" (__arg1), "r" (__arg2), "r" (__arg3) \
 -         : "%g5"); \
-+         : ); \
++         ); \
  __value; }) 			
  
  #define shiftlr(a,b) \
@@ -91,7 +91,7 @@
  	 : "=r" (__value), "=r" (hiremainder) \
  	 : "r" (__arg1) \
 -         : "%g5"); \
-+         : ); \
++         ); \
  __value; }) 			
  
  #define shiftlr2(a,b,c) \
@@ -100,7 +100,7 @@
  	 : "=r" (__value), "=r" (hiremainder) \
  	 : "r" (__arg1), "r" (__arg2), "r" (__arg3) \
 -         : "%g5"); \
-+         : ); \
++         ); \
  __value; }) 			
  
  #define mulll(a,b) \
@@ -109,7 +109,7 @@
  	 : "=r" (__value), "=r" (hiremainder) \
  	 : "r" (__arg1), "r" (__arg2) \
 -         : "%g5");	\
-+         : );	\
++         );	\
  __value;})								
  
  #define addmul(a,b) \
@@ -183,7 +183,7 @@
  	 : "=r" (__value), "=r" (hiremainder) \
  	 : "r" (__arg1), "r" (__arg2), "r" (__arg3) \
 -         : "%g5"); \
-+         : ); \
++         ); \
  __value; }) 			
  
  #define shiftlr(a,b) \
@@ -201,7 +201,7 @@
  	 : "=r" (__value), "=r" (hiremainder) \
  	 : "r" (__arg1) \
 -         : "%g5"); \
-+         : ); \
++         ); \
  __value; }) 			
  
  #define shiftlr2(a,b,c) \
@@ -210,7 +210,7 @@
  	 : "=r" (__value), "=r" (hiremainder) \
  	 : "r" (__arg1), "r" (__arg2), "r" (__arg3) \
 -         : "%g5"); \
-+         : ); \
++         ); \
  __value; }) 			
  
  #define mulll(a,b) \
@@ -219,7 +219,7 @@
  	 : "=r" (__value), "=r" (hiremainder) \
  	 : "r" (__arg1), "r" (__arg2) \
 -         : "%g5");	\
-+         : );	\
++         );	\
  __value;})								
  
  #define addmul(a,b) \
@@ -228,7 +228,7 @@
  	 : "=r" (__value), "=r" (hiremainder) \
  	 : "r" (__arg1), "r" (__arg2) \
 -         : "%g5");	\
-+         : );	\
++         );	\
  __value;})								
  
  #define divll(a,b) \
