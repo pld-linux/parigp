@@ -23,6 +23,7 @@ BuildRequires:	tetex
 BuildRequires:	tetex-dvips
 BuildRequires:	tetex-ams
 BuildRequires:	tetex-pdftex
+BuildRequires:	xemacs
 Requires:	pari = %{version}
 Requires:	xdvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -132,8 +133,6 @@ Group:		Applications/Editors/Emacs
 Group(de):	Applikationen/Editors/Emacs
 Group(pl):	Aplikacje/Edytory/Emacs
 Requires:	xemacs
-BuildRequires:	xemacs
-BuildArch:	noarch
 
 %package gp2c
 Summary:	PARI/GP to C translator.
