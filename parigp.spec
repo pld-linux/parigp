@@ -1,3 +1,7 @@
+#
+#	Conditional build:
+# _without_tex - don't build tex documentation
+#
 %include	/usr/lib/rpm/macros.perl
 %define		pari_version		2.1.4
 %define		gp2c_version		0.0.2pl3
@@ -6,7 +10,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	6
+Release:	7
 %define gp2c_release	%{release}
 License:	GPL
 Group:		Applications/Math
@@ -30,10 +34,14 @@ BuildRequires:	autoconf
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	rpm-perlprov >= 3.0.3-16
 BuildRequires:	tetex
-BuildRequires:	tetex-ams
+BuildRequires:	tetex-amstex
+BuildRequires:	tetex-csplain
 BuildRequires:	tetex-dvips
-BuildRequires:	tetex-fonts
+BuildRequires:	tetex-fonts-cm
+BuildRequires:	tetex-format-plain
 BuildRequires:	tetex-pdftex
+BuildRequires:	tetex-tex-babel
+BuildRequires:	tetex-tex-ruhyphen
 BuildRequires:	perl-devel
 Requires:	pari = %{pari_version}
 Requires:	xdvi
@@ -186,7 +194,7 @@ Interfejs perl-a do biblioteki PARI
 	--share-prefix=%{_datadir}
 
 %{__make} all CFLAGS="%{rpmcflags} -DGCC_INLINE"
-%{__make} doc
+%{!?_without_tex:%{__make} doc}
 src/make_vi_tags src
 %ifarch %{ix86}
 ln -s Olinux-%{_target_cpu} Olinux-ix86
@@ -207,7 +215,8 @@ cd ..
 
 # math-pari
 cd Math-Pari-%{math_pari_version}
-perl Makefile.PL
+%{__perl} Makefile.PL \
+	INSTALLDIRS=vendor
 %{__make} OPTIMIZE="%{rpmcflags}"
 # %{__make} test
  
@@ -217,7 +226,8 @@ install -d $RPM_BUILD_ROOT{%{_applnkdir}/Scientific/Mathematics,%{_examplesdir}/
 	$RPM_BUILD_ROOT{%{_datadir}/parigp/galdata,%{_pixmapsdir}}
 
 # parigp, pari & pari-devel
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 install src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc
 install %{SOURCE4} $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Mathematics
 install %{SOURCE5} $RPM_BUILD_ROOT%{_pixmapsdir}
@@ -271,7 +281,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS Announce* CHANGES COMPAT MACHINES NEW README TODO
 %doc examples/Inputrc doc/refcard.ps
 %dir %{_datadir}/parigp
-%{_datadir}/parigp/doc
+%{?!_without_tex:%{_datadir}/parigp/doc}
 %{_datadir}/parigp/misc
 %{_mandir}/man1/[^g]*.1*
 %{_mandir}/man1/gp.1*
@@ -309,15 +319,15 @@ rm -rf $RPM_BUILD_ROOT
 %files gp2c
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gp2c*
-%doc gp2c-%{gp2c_version}/{AUTHORS,ChangeLog,NEWS,README,BUGS,doc/gp2c.dvi,doc/html/*}
+%doc gp2c-%{gp2c_version}/{AUTHORS,ChangeLog,NEWS,README,BUGS%{?!_without_tex:,doc/gp2c.dvi},doc/html/*}
 %{_datadir}/parigp/gp2c
 %{_mandir}/man1/gp2c*.1*
 
 %files -n perl-Math-Pari
 %defattr(644,root,root,755)
 %doc Math-Pari-%{math_pari_version}/{Changes,README,TODO}
-%{perl_sitearch}/Math/*
-%dir %{perl_sitearch}/auto/Math/Pari
-%{perl_sitearch}/auto/Math/Pari/Pari.bs
-%attr(755,root,root) %{perl_sitearch}/auto/Math/Pari/Pari.so
+%{perl_vendorarch}/Math/*
+%dir %{perl_vendorarch}/auto/Math/Pari
+%{perl_vendorarch}/auto/Math/Pari/Pari.bs
+%attr(755,root,root) %{perl_vendorarch}/auto/Math/Pari/Pari.so
 %{_mandir}/man3/*
