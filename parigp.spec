@@ -169,14 +169,14 @@ rm -rf $RPM_BUILD_ROOT
 tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/data/
 
 # # xemacs-parigp-mode-pkg
-# %{__install} -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
-# cp -a emacs/*.el $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
-# cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode/auto-autoloads.el
-# (autoload 'gp-mode "pari" nil t)
-# (autoload 'gp-script-mode "pari" nil t)
-# (autoload 'gp "pari" nil t)
-# (autoload 'gpman "pari" nil t)
-# EOF
+%{__install} -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
+cp -a emacs/*.el $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
+cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode/auto-autoloads.el
+(autoload 'gp-mode "pari" nil t)
+(autoload 'gp-script-mode "pari" nil t)
+(autoload 'gp "pari" nil t)
+(autoload 'gpman "pari" nil t)
+EOF
 
 gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
 	MACHINES NEW README README.DOS TODO emacs/*
@@ -193,7 +193,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gp
 %attr(755,root,root) %{_bindir}/gphelp
 %attr(755,root,root) %{_bindir}/tex2mail
-%doc *.gz misc/*.gz doc/*.gz emacs
+%doc *.gz misc/*.gz doc/*.gz
 %dir %{_datadir}/parigp
 %{_datadir}/parigp/*.tex
 %{_datadir}/parigp/*.dvi
@@ -221,3 +221,7 @@ rm -rf $RPM_BUILD_ROOT
 %files galdata
 %defattr(644,root,root,755)
 %{_datadir}/parigp/data/*
+
+%files -n xemacs-parigp-mode-pkg
+%defattr(644,root,root,755)
+%{_datadir}/xemacs-packages/lisp/*
