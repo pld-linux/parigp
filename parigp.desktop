@@ -4,6 +4,6 @@ Name[pl]=PariGP
 Comment=Program for number theory computations
 Comment[pl]=Program do obliczeñ z teorii liczb
 Icon=parigp.xpm
-Exec=parigp
+Exec=gp
 Terminal=1
 Type=Application
