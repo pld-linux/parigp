@@ -6,7 +6,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
@@ -19,6 +19,7 @@ Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
 Patch2:		%{name}-termcap.patch
 Patch3:		%{name}-arch.patch
+Patch4:		%{name}-sparc.patch
 Patch30:	Math-Pari-alpha.patch
 Icon:		parigp.xpm
 URL:		http://www.parigp-home.de/
@@ -165,6 +166,7 @@ Interfejs perl-a do biblioteki PARI
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 %patch30 -p0
 
 %build
@@ -179,6 +181,10 @@ Interfejs perl-a do biblioteki PARI
 src/make_vi_tags src
 %ifarch %{ix86}
 ln -s Olinux-%{_target_cpu} Olinux-ix86
+%endif
+%ifarch sparc sparc64
+# allow building sparc package on sparc64
+ln -s Olinux-sparc Olinux-sparc64
 %endif
 
 # gp2c
