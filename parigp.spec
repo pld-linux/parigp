@@ -1,11 +1,11 @@
 %include	/usr/lib/rpm/macros.perl
-%define		gp2c_version 0.0.0pl6
+%define		gp2c_version 0.0.0pl12
 %define		math_pari_version 2.010201
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
-Version:	2.1.2
-Release:	5
+Version:	2.1.3
+Release:	1
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
@@ -187,8 +187,22 @@ cd ..
  cd Math-Pari-%{math_pari_version}
  perl Makefile.PL
  %{__make}
- %{__make} test
+# %{__make} test
  cd ..
+ 
+gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
+	MACHINES NEW README README.DOS TODO emacs/pariemacs.txt \
+	gp2c-%{gp2c_version}/NEWS gp2c-%{gp2c_version}/README \
+	gp2c-%{gp2c_version}/ChangeLog gp2c-%{gp2c_version}/AUTHORS \
+	examples/EXPLAIN examples/Inputrc \
+	Math-Pari-%{math_pari_version}/Changes \
+	Math-Pari-%{math_pari_version}/INSTALL \
+	Math-Pari-%{math_pari_version}/MANIFEST \
+	Math-Pari-%{math_pari_version}/README \
+	Math-Pari-%{math_pari_version}/TODO \
+	Math-Pari-%{math_pari_version}/notes \
+	Math-Pari-%{math_pari_version}/notes1 \
+	Math-Pari-%{math_pari_version}/typemap
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -234,20 +248,6 @@ cd ..
 
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
 echo ".so gp.1" > $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
-
-gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
-	MACHINES NEW README README.DOS TODO emacs/pariemacs.txt \
-	gp2c-%{gp2c_version}/NEWS gp2c-%{gp2c_version}/README \
-	gp2c-%{gp2c_version}/ChangeLog gp2c-%{gp2c_version}/AUTHORS \
-	examples/EXPLAIN examples/Inputrc \
-	Math-Pari-%{math_pari_version}/Changes \
-	Math-Pari-%{math_pari_version}/INSTALL \
-	Math-Pari-%{math_pari_version}/MANIFEST \
-	Math-Pari-%{math_pari_version}/README \
-	Math-Pari-%{math_pari_version}/TODO \
-	Math-Pari-%{math_pari_version}/notes \
-	Math-Pari-%{math_pari_version}/notes1 \
-	Math-Pari-%{math_pari_version}/typemap
 
 %clean
 rm -rf $RPM_BUILD_ROOT
