@@ -20,9 +20,9 @@ BuildRequires:	XFree86-devel
 BuildRequires:	perl
 BuildRequires:	readline-devel
 BuildRequires:	tetex
-BuildRequires:	tetex-dvips
 BuildRequires:	tetex-ams
-BuildRequires:	tetex-pdftex
+BuildRequires:	tetex-dvips
+BuildRequires:	tetex-fonts
 Requires:	pari = %{version}
 Requires:	xdvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -168,7 +168,7 @@ Tryb edycji plików PARI/GP do Xemacsa.
 # pari & parigp
 ./Configure --target=%{_target_cpu} --prefix=%{_prefix}
 
-%{__make} all
+%{__make} all CFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS -DGCC_INLINE}"
 %{__make} doc
 
 # gp2c
