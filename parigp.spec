@@ -11,6 +11,7 @@ Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
+Patch2:		%{name}-emacsfix.patch
 Icon:		%{name}.xpm
 URL:		http://www.parigp-home.de/
 Requires:	pari = %{version}
@@ -21,6 +22,7 @@ BuildRequires:  tetex-ams
 BuildRequires:	readline-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	perl
+BuildArch:	%{_target_cpu}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -127,6 +129,8 @@ Group:		Applications/Editors/Emacs
 Group(de):	Applikationen/Editors/Emacs
 Group(pl):	Aplikacje/Edytory/Emacs
 Requires:	xemacs
+BuildRequires:	xemacs
+BuildArch:	noarch
 
 %description -n xemacs-parigp-mode-pkg
 PARI/GP editing mode for Xemacs.
@@ -138,6 +142,7 @@ Tryb edycji plików PARI/GP do Xemacsa.
 %setup0 -q -n pari-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 
@@ -156,6 +161,8 @@ rm -rf $RPM_BUILD_ROOT
 	MANDIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
 	MISCDIR=$RPM_BUILD_ROOT%{_datadir}/parigp \
 	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}/pari
+%{__install} -d $RPM_BUILD_ROOT%{_datadir}/parigp/misc
+%{__install} misc/gprc.dft $RPM_BUILD_ROOT%{_datadir}/parigp/misc/gprc
 
 # pari-static
 %{__install} Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
@@ -179,7 +186,7 @@ cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode/auto-auto
 EOF
 
 gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
-	MACHINES NEW README README.DOS TODO emacs/*
+	MACHINES NEW README README.DOS TODO emacs/pariemacs.txt
 
 %post   -n pari -p /sbin/ldconfig
 %postun -n pari -p /sbin/ldconfig
@@ -201,6 +208,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/parigp/translations
 %{_mandir}/man1/*
 %dir %{_datadir}/parigp/data
+%dir %{_datadir}/parigp/misc
+%dir %{_datadir}/parigp/misc/*
 
 %files -n pari
 %defattr(644,root,root,755)
@@ -225,3 +234,4 @@ rm -rf $RPM_BUILD_ROOT
 %files -n xemacs-parigp-mode-pkg
 %defattr(644,root,root,755)
 %{_datadir}/xemacs-packages/lisp/*
+%doc emacs/*.gz
