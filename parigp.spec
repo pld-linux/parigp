@@ -15,7 +15,6 @@ Icon:		%{name}.xpm
 URL:		http://www.parigp-home.de/
 Requires:	pari = %{version}
 Requires:	xdvi
-BuildRequires:	xemacs
 BuildRequires:	tetex
 BuildRequires:	tetex-dvips
 BuildRequires:  tetex-ams
@@ -77,35 +76,21 @@ Pliki nag³ówkowe biblioteki wspó³dzielonej PARI. Bêdziesz ich
 potrzebowa³, je¿eli bêdziesz chcia³ wykorzystywaæ procedury PARI w
 swoich programach.
 
-%package static
-Summary:	PARI/GP statically linked with PARI library
-Summary(pl):	PARI/GP konsolidowane statycznie z bibliotek± PARI
-Group:		Applications/Math
-Group(de):	Applikationen/Mathematik
-Group(pl):	Aplikacje/Matematyczne
-Requires:	%{name} = %{version}
+%package -n pari-static
+Summary:	Static PARI library
+Summary(pl):	Statyczna biblioteka PARI
+Group:		Development/Libraries
+Group(de):	Entwicklung/Libraries
+Group(fr):	Development/Librairies
+Group(pl):	Programowanie/Biblioteki
+Requires:	pari-devel = %{version}
 
-%description static
-PARI/GP is a package which is aimed at efficient computations in
-number theory, but also contains a large number of other useful
-functions. It is somewhat related to a Computer Algebra System, but is
-not really one since it treats symbolic expressions as mathematical
-entities such as matrices, polynomials, series, etc..., and not as
-expressions per se. However it is often much faster than other CAS,
-and contains a large number of specific functions not found elsewhere,
-essentially for use in number theory. This package is statically
-linked with PARI library.
+%description -n pari-static
+Static PARI library. You need it to statically link your programs with PARI.
 
-%description static -l pl
-System PARI/GP jest przeznaczony do wydajnych obliczeñ z zakresu
-teorii liczb, ale zawiera równie¿ inne przydatne funkcje. Jest nieco
-spokrewniony z Komputerowymi Systemami Algebraicznymi, ale nie
-identyczny, poniewa¿ traktuje wyra¿enia symboliczne jako obiekty
-matematyczne (macierze, wielomiany, szeregi itp.) a nie jako wyra¿enia
-same w sobie. Jest jednak czêsto znacznie szybszy od innych KSA-ów a
-ponadto zawiera wiele innych funkcji nie spotykanych gdzie indziej, a
-przydatnych zw³aszcza w teorii liczb. Ten pakiet zosta³ zkonsolidowany
-statycznie z bibliotek± PARI.
+%description -l pl -n pari-static
+Biblioteka statyczna PARI. Potrzebujesz jej do konsolidowania statycznego 
+swoich programów korzystaj±cych z biblioteki PARI.
 
 %package demos
 Summary:	Example PARI/GP scripts
@@ -172,9 +157,7 @@ rm -rf $RPM_BUILD_ROOT
 	MISCDIR=$RPM_BUILD_ROOT%{_datadir}/parigp \
 	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}/pari
 
-# parigp-static
-%{__install} Olinux-%{_target_cpu}/gp-sta $RPM_BUILD_ROOT%{_bindir}/gp-2.1.static
-ln -sf gp-2.1.static $RPM_BUILD_ROOT%{_bindir}/gp.static
+# pari-static
 %{__install} Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
 
 # parigp-demos
@@ -227,10 +210,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/pari
 
-%files static
+%files -n pari-static
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/gp-2.1.static
-%attr(755,root,root) %{_bindir}/gp.static
 %{_libdir}/*.a
 
 %files demos
