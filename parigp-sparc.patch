@@ -1,14 +1,5 @@
---- pari-2.1.5/src/kernel/sparcv8/Makefile.SH.orig	2002-06-30 20:26:53.000000000 +0200
-+++ pari-2.1.5/src/kernel/sparcv8/Makefile.SH	2004-03-05 19:41:45.007006384 +0100
-@@ -14,7 +14,7 @@
- kernel1=$ker/level0_$asmarch.S
- kernel2=$ker/level0.S
- 
--if test "$osname" = "nextstep" -o "$osname" = "linux"
-+if test "$osname" = "nextstep"
- then
-   level0=$src/kernel/none/asm0.h
- else
+--- pari-2.1.6/src/kernel/sparcv8/Makefile.SH.orig	2002-06-30 20:26:53.000000000 +0200
++++ pari-2.1.6/src/kernel/sparcv8/Makefile.SH	2004-03-05 19:41:45.007006384 +0100
 @@ -26,9 +26,9 @@
  then
  cat >> $file << EOT
