@@ -16,15 +16,15 @@ Patch1:		%{name}-target_arch.patch
 Patch2:		%{name}-emacsfix.patch
 Icon:		parigp.xpm
 URL:		http://www.parigp-home.de/
-Requires:	pari = %{version}
-Requires:	xdvi
+BuildRequires:	XFree86-devel
+BuildRequires:	perl
+BuildRequires:	readline-devel
 BuildRequires:	tetex
 BuildRequires:	tetex-dvips
 BuildRequires:	tetex-ams
-BuildRequires:	readline-devel
-BuildRequires:	XFree86-devel
-BuildRequires:	perl
-BuildArch:	%{_target_cpu}
+BuildRequires:	tetex-pdftex
+Requires:	pari = %{version}
+Requires:	xdvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
