@@ -3,7 +3,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeÒ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	2.1.1
-Release:	5
+Release:	6
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
@@ -17,11 +17,13 @@ Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
 Patch2:		%{name}-emacsfix.patch
 Patch3:		%{name}-CLK_TCK.patch
+Patch4:		%{name}-termcap.patch
 Icon:		parigp.xpm
 URL:		http://www.parigp-home.de/
+BuildRequires:	autoconf
 BuildRequires:	XFree86-devel
-BuildRequires:	perl
 BuildRequires:	readline-devel >= 4.2
+BuildRequires:	perl
 BuildRequires:	tetex
 BuildRequires:	tetex-ams
 BuildRequires:	tetex-dvips
@@ -59,11 +61,14 @@ Group(de):	Libraries
 Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
+Group(pt_BR):	Bibliotecas
+Group(ru):	‚…¬Ã…œ‘≈À…
+Group(uk):	‚¶¬Ã¶œ‘≈À…
 
 %description -n pari
 Shared PARI library. You need it to run PARI/GP.
 
-%description -l pl -n pari
+%description -n pari -l pl
 Biblioteka wspÛ≥dzielona PARI. Potrzebujesz jej do uruchomienia
 PARI/GP.
 
@@ -72,15 +77,19 @@ Summary:	Include files for PARI shared library
 Summary(pl):	Pliki nag≥Ûwkowe do biblioteki wspÛ≥dzielonej PARI
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	Ú¡⁄“¡¬œ‘À¡/‚…¬Ã…œ‘≈À…
+Group(uk):	Úœ⁄“œ¬À¡/‚¶¬Ã¶œ‘≈À…
 Requires:	pari = %{version}
 
 %description -n pari-devel
 Include files for shared PARI library. You need them to use PARI
 routines in you own programs.
 
-%description -l pl -n pari-devel 
+%description -n pari-devel -l pl
 Pliki nag≥Ûwkowe biblioteki wspÛ≥dzielonej PARI. BÍdziesz ich
 potrzebowa≥, jeøeli bÍdziesz chcia≥ wykorzystywaÊ procedury PARI w
 swoich programach.
@@ -90,15 +99,19 @@ Summary:	Static PARI library
 Summary(pl):	Statyczna biblioteka PARI
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	Ú¡⁄“¡¬œ‘À¡/‚…¬Ã…œ‘≈À…
+Group(uk):	Úœ⁄“œ¬À¡/‚¶¬Ã¶œ‘≈À…
 Requires:	pari-devel = %{version}
 
 %description -n pari-static
 Static PARI library. You need it to statically link your programs with
 PARI.
 
-%description -l pl -n pari-static
+%description -n pari-static -l pl
 Biblioteka statyczna PARI. Potrzebujesz jej do konsolidowania
 statycznego swoich programÛw korzystaj±cych z biblioteki PARI.
 
@@ -159,18 +172,18 @@ Requires:	xemacs
 %description -n xemacs-parigp-mode-pkg
 PARI/GP editing mode for Xemacs.
 
-%description -l pl -n xemacs-parigp-mode-pkg
+%description -n xemacs-parigp-mode-pkg -l pl
 Tryb edycji plikÛw PARI/GP do Xemacsa.
 
 %prep
-%setup0 -q -n pari-%{version} -a 2 gp2c-%{gp2c_version}
+%setup -q -n pari-%{version} -a 2
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
-
 # pari & parigp
 ./Configure \
 	--target=%{_target_cpu} \
@@ -183,7 +196,8 @@ src/make_vi_tags src
 
 # gp2c
 cd gp2c-%{gp2c_version}
-ln -s ../ pari
+ln -sf ../ pari
+autoconf
 %configure \
 	--datadir=%{_datadir}/parigp
 %{__make}
@@ -230,11 +244,11 @@ gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
 	gp2c-%{gp2c_version}/ChangeLog gp2c-%{gp2c_version}/AUTHORS \
 	examples/EXPLAIN examples/Inputrc
 
-%post   -n pari -p /sbin/ldconfig
-%postun -n pari -p /sbin/ldconfig
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post   -n pari -p /sbin/ldconfig
+%postun -n pari -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)

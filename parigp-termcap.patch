@@ -1,0 +1,29 @@
+--- pari-2.1.1/Configure.orig	Wed Oct 31 20:04:37 2001
++++ pari-2.1.1/Configure	Wed Oct 31 20:26:26 2001
+@@ -503,26 +503,6 @@
+   rl_fullname=$try
+ 
+   if test -n "$readline"; then
+-# Readline -- TermCap
+-    lib=$rl_fullname; sym=tgetent; . ./locatesymbol
+-    if test -n "$try"; then # tgetent needed
+-      lib=ncurses; . ./locatelib
+-      if test -n "$try"; then # ncurses found. Does it contain tgetent ?
+-        lib=$try; . ./locatesymbol
+-      fi
+-      if test -n "$try"; then
+-        rl_ncurses=$ncurses
+-      else
+-        lib=termcap; . ./locatelib
+-        rl_termcap=$termcap
+-      fi
+-    fi
+-# Readline -- Allocation
+-    lib=$rl_fullname; sym=alloca; . ./locatesymbol
+-    if test -n "$try"; then # alloca needed
+-      lib=iberty; . ./locatelib
+-      rl_liberty="$try"
+-    fi
+ # Readline -- Headers
+     case "$osname" in
+       os2) incpth=`echo $C_INCLUDE_PATH | sed -e 's/\([^;]\)$/\1;/g' -e 's%;%/readline %g' -e 's,\\\\,/,g'` ;;
