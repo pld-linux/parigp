@@ -5,7 +5,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	2.1.2
-Release:	4
+Release:	5
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
@@ -263,7 +263,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/tex2mail
 %doc *.gz examples/Inputrc.gz doc/refcard.ps
 %dir %{_datadir}/parigp
-%{_datadir}/parigp/galdata
 %{_datadir}/parigp/doc
 %{_datadir}/parigp/misc
 %{_mandir}/man1/*
@@ -290,7 +289,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files galdata
 %defattr(644,root,root,755)
-%{_datadir}/parigp/galdata/*
+%{_datadir}/parigp/galdata
 
 %files -n xemacs-parigp-mode-pkg
 %defattr(644,root,root,755)
