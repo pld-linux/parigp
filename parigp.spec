@@ -7,6 +7,7 @@ Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody t
 Name:		parigp
 Version:	%{pari_version}
 Release:	6
+%define gp2c_release	%{release}
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
@@ -128,7 +129,7 @@ Summary:	PARI/GP to C translator
 Summary(pl):	Konwerter skryptów PARI/GP do jêzyka C
 Epoch:		1
 Version:	%{gp2c_version}
-Release:	1
+Release:	%{gp2c_release}
 Group:		Development/Tools
 Requires:	pari-devel
 Requires:	parigp
