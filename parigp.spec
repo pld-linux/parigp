@@ -149,13 +149,14 @@ Requires:	%{name} = %{pari_version}-%{release}
 
 %description gp2c
 PARI/GP to C translator. Use it to compile your own C programs which
-use pari library, without necessarily being a C programmer. Note: use gp2c-run
-to run your programs inside the PARI/GP environment.
+use pari library, without necessarily being a C programmer. Note: use
+gp2c-run to run your programs inside the PARI/GP environment.
 
 %description gp2c -l pl
 Konwerter skryptów PARI/GP do jêzyka C. Mo¿na nim tworzyæ w³asne
 programy w C korzystaj±ce z biblioteki pari. Znajomo¶æ jêzyka C nie
-jest wymagana. Uwaga: u¿ywaj gp2c-run, by uruchamiaæ swoje programy wewn±trz ¶rodowiska PARI/GP.
+jest wymagana. Uwaga: do uruchamiania programów w ¶rodowisku PARI/GP
+nale¿y u¿ywaæ gp2c-run.
 
 %package -n xemacs-parigp-mode-pkg
 Summary:	PARI/GP mode for Octave
@@ -176,10 +177,10 @@ Version:	%{math_pari_version}
 Group:		Development/Languages/Perl
 
 %description -n perl-Math-Pari
-The Perl interface to the PARI part of GP/PARI
+The Perl interface to the PARI part of GP/PARI.
 
 %description -n perl-Math-Pari -l pl
-Interfejs Perla do biblioteki PARI
+Interfejs Perla do biblioteki PARI.
 
 %prep
 %setup -q -n pari-%{pari_version} -a 2 -a 3
