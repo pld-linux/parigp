@@ -189,6 +189,8 @@ ln -s ../ pari
 
 %install
 rm -rf $RPM_BUILD_ROOT
+%{__install} -d $RPM_BUILD_ROOT{%{_applnkdir}/Scientific,%{_examplesdir}/parigp} \
+	$RPM_BUILD_ROOT%{_datadir}/parigp/galdata
 
 # parigp, pari & pari-devel
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
@@ -200,11 +202,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__install} Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
 
 # parigp-demos
-%{__install} -d $RPM_BUILD_ROOT%{_examplesdir}/parigp
 %{__install} examples/* $RPM_BUILD_ROOT%{_examplesdir}/parigp
 
 # galdata
-%{__install} -d $RPM_BUILD_ROOT%{_datadir}/parigp/galdata
 tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/galdata/
 
 # xemacs-parigp-mode-pkg
