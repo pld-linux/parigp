@@ -190,7 +190,7 @@ ln -s ../ pari
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__install} -d $RPM_BUILD_ROOT{%{_applnkdir}/Scientific,%{_examplesdir}/parigp} \
-	$RPM_BUILD_ROOT%{_datadir}/parigp/galdata
+	$RPM_BUILD_ROOT{%{_datadir}/parigp/galdata,%{_pixmapsdir}
 
 # parigp, pari & pari-devel
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
@@ -243,12 +243,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/tex2mail
 %doc *.gz examples/Inputrc.gz doc/refcard.ps doc/*.gz
 %dir %{_datadir}/parigp
-%dir %{_datadir}/parigp/galdata
-%dir %{_datadir}/parigp/doc
-%dir %{_datadir}/parigp/misc
-%{_datadir}/parigp/doc/*
-%{_datadir}/parigp/misc/*
-%{_mandir}/man1/*.gz
+%{_datadir}/parigp/galdata
+%{_datadir}/parigp/doc
+%{_datadir}/parigp/misc
+%{_mandir}/man1/*
 %{_applnkdir}/Scientific/*
 %{_pixmapsdir}/*
 
@@ -266,9 +264,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files demos
 %defattr(644,root,root,755)
-%dir %{_examplesdir}/parigp
-%{_examplesdir}/parigp/*.gp
 %doc examples/EXPLAIN.gz
+%{_examplesdir}/parigp
 
 %files galdata
 %defattr(644,root,root,755)
@@ -276,12 +273,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n xemacs-parigp-mode-pkg
 %defattr(644,root,root,755)
-%{_datadir}/xemacs-packages/lisp/*
 %doc emacs/*.gz
+%{_datadir}/xemacs-packages/lisp/*
 
 %files gp2c
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gp2c
-%dir %{_datadir}/parigp/gp2c
-%{_datadir}/parigp/gp2c/*
 %doc gp2c-%{gp2c_version}/*.gz
+%{_datadir}/parigp/gp2c
