@@ -10,7 +10,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
@@ -334,7 +334,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n perl-Math-Pari
 %defattr(644,root,root,755)
 %doc Math-Pari-%{math_pari_version}/{Changes,README,TODO}
-%{perl_vendorarch}/Math/*
+%{perl_vendorarch}/Math/*.pm
 %dir %{perl_vendorarch}/auto/Math/Pari
 %{perl_vendorarch}/auto/Math/Pari/Pari.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Math/Pari/Pari.so
