@@ -201,7 +201,7 @@ cd Math-Pari-%{math_pari_version}
 	--share-prefix=%{_datadir}
 
 %{__make} all \
-	CFLAGS="%{rpmcflags} -DGCC_INLINE"
+	CFLAGS="%{rpmcflags} -fPIC -DGCC_INLINE"
 
 %{?with_tex:%{__make} doc}
 src/make_vi_tags src
