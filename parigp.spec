@@ -20,7 +20,7 @@ Requires:	pari = %{version}
 Requires:	xdvi
 BuildRequires:	tetex
 BuildRequires:	tetex-dvips
-BuildRequires:  tetex-ams
+BuildRequires:	tetex-ams
 BuildRequires:	readline-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	perl
@@ -52,6 +52,7 @@ Summary:	Shared PARI library (required by the parigp package)
 Summary(pl):	Biblioteka wspó³dzielona PARI (wymagana przez pakiet parigp)
 Group:		Libraries
 Group(de):	Libraries
+Group(es):	Bibliotecas
 Group(fr):	Librairies
 Group(pl):	Biblioteki
 
@@ -59,7 +60,8 @@ Group(pl):	Biblioteki
 Shared PARI library. You need it to run PARI/GP.
 
 %description -l pl -n pari
-Biblioteka wspó³dzielona PARI. Potrzebujesz jej do uruchomienia PARI/GP.
+Biblioteka wspó³dzielona PARI. Potrzebujesz jej do uruchomienia
+PARI/GP.
 
 %package -n pari-devel
 Summary:	Include files for PARI shared library
@@ -89,11 +91,12 @@ Group(pl):	Programowanie/Biblioteki
 Requires:	pari-devel = %{version}
 
 %description -n pari-static
-Static PARI library. You need it to statically link your programs with PARI.
+Static PARI library. You need it to statically link your programs with
+PARI.
 
 %description -l pl -n pari-static
-Biblioteka statyczna PARI. Potrzebujesz jej do konsolidowania statycznego 
-swoich programów korzystaj±cych z biblioteki PARI.
+Biblioteka statyczna PARI. Potrzebujesz jej do konsolidowania
+statycznego swoich programów korzystaj±cych z biblioteki PARI.
 
 %package demos
 Summary:	Example PARI/GP scripts
@@ -107,8 +110,7 @@ Requires:	%{name} = %{version}
 Example PARI/GP scripts. You can write such programs on your own.
 
 %description demos -l pl
-Przyk³adowe skrypty pisane w jêzyku PARI/GP. Sam mo¿esz takie
-napisaæ.
+Przyk³adowe skrypty pisane w jêzyku PARI/GP. Sam mo¿esz takie napisaæ.
 
 %package galdata
 Summary:	Galois data resolvents for PARI/GP
@@ -143,10 +145,13 @@ Group(pl):	Programowanie/Narzêdzia
 Requires:	pari-devel
 
 %description gp2c
-PARI/GP to C translator. Use it to compile your own C programs which use pari library, without necessarily being a C programmer.
+PARI/GP to C translator. Use it to compile your own C programs which
+use pari library, without necessarily being a C programmer.
 
 %description gp2c -l pl
-Konwerter skryptów PARI/GP do jêzyka C. Mo¿na nim tworzyæ w³asne programy w C korzystaj±ce z biblioteki pari. Znajomo¶æ jêzyka C nie jest wymagana.
+Konwerter skryptów PARI/GP do jêzyka C. Mo¿na nim tworzyæ w³asne
+programy w C korzystaj±ce z biblioteki pari. Znajomo¶æ jêzyka C nie
+jest wymagana.
 
 %description -n xemacs-parigp-mode-pkg
 PARI/GP editing mode for Xemacs.
