@@ -118,6 +118,7 @@ Przyk³adowe skrypty pisane w jêzyku PARI/GP. Sam mo¿esz takie napisaæ.
 
 %package galdata
 Summary:	Galois data resolvents for PARI/GP
+Summary(pl):	Reprezentacje danych Galois fla PARI/GP
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
@@ -128,14 +129,6 @@ Galois data resolvents for PARI/GP.
 
 %description galdata -l pl
 Reprezentacje danych Galois do PARI/GP.
-
-%package -n xemacs-parigp-mode-pkg
-Summary:	PARI/GP mode for Octave
-Summary(pl):	Tryb edycji plików PARI/GP do XEmacsa
-Group:		Applications/Editors/Emacs
-Group(de):	Applikationen/Editors/Emacs
-Group(pl):	Aplikacje/Edytory/Emacs
-Requires:	xemacs
 
 %package gp2c
 Summary:	PARI/GP to C translator
@@ -154,6 +147,14 @@ use pari library, without necessarily being a C programmer.
 Konwerter skryptów PARI/GP do jêzyka C. Mo¿na nim tworzyæ w³asne
 programy w C korzystaj±ce z biblioteki pari. Znajomo¶æ jêzyka C nie
 jest wymagana.
+
+%package -n xemacs-parigp-mode-pkg
+Summary:	PARI/GP mode for Octave
+Summary(pl):	Tryb edycji plików PARI/GP do XEmacsa
+Group:		Applications/Editors/Emacs
+Group(de):	Applikationen/Editors/Emacs
+Group(pl):	Aplikacje/Edytory/Emacs
+Requires:	xemacs
 
 %description -n xemacs-parigp-mode-pkg
 PARI/GP editing mode for Xemacs.
@@ -241,7 +242,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gp
 %attr(755,root,root) %{_bindir}/gphelp
 %attr(755,root,root) %{_bindir}/tex2mail
-%doc *.gz examples/Inputrc.gz doc/refcard.ps doc/*.gz
+%doc *.gz examples/Inputrc.gz doc/refcard.ps
 %dir %{_datadir}/parigp
 %{_datadir}/parigp/galdata
 %{_datadir}/parigp/doc
@@ -257,6 +258,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n pari-devel
 %defattr(644,root,root,755)
 %{_includedir}/pari
+%attr(755,root,root) %{_libdir}/*.so
 
 %files -n pari-static
 %defattr(644,root,root,755)
