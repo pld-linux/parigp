@@ -2,8 +2,9 @@
 Name=PariGP
 Name[pl]=PariGP
 Comment=Program for number theory computations
-Comment[pl]=Program do obliczeñ z teorii liczb
+Comment[pl]=Program do obliczeÅ„ z teorii liczb
 Icon=parigp.xpm
 Exec=gp
 Terminal=1
 Type=Application
+# vi: encoding=utf-8
