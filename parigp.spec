@@ -24,7 +24,7 @@ BuildRequires:	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-PARI / GP is a package which is aimed at efficient computations in
+PARI/GP is a package which is aimed at efficient computations in
 number theory, but also contains a large number of other useful
 functions. It is somewhat related to a Computer Algebra System, but is
 not really one since it treats symbolic expressions as mathematical
@@ -34,7 +34,7 @@ and contains a large number of specific functions not found elsewhere,
 essentially for use in number theory.
 
 %description -l pl
-System PARI / GP jest przeznaczony do wydajnych obliczeñ z zakresu
+System PARI/GP jest przeznaczony do wydajnych obliczeñ z zakresu
 teorii liczb, ale zawiera równie¿ inne przydatne funkcje. Jest nieco
 spokrewniony z Komputerowymi Systemami Algebraicznymi, ale nie
 identyczny, poniewa¿ traktuje wyra¿enia symboliczne jako obiekty
@@ -52,7 +52,7 @@ Group(fr):	Librairies
 Group(pl):	Biblioteki
 
 %description -n pari
-Shared PARI library. You need it to run PARI / GP.
+Shared PARI library. You need it to run PARI/GP.
 
 %description -l pl -n pari
 Biblioteka wspó³dzielona PARI. Potrzebujesz jej do uruchomienia PARI /
@@ -77,15 +77,15 @@ potrzebowa³, je¿eli bêdziesz chcia³ wykorzystywaæ procedury PARI w
 swoich programach.
 
 %package static
-Summary:	PARI / GP statically linked with PARI library
-Summary(pl):	PARI / GP konsolidowane statycznie z bibliotek± PARI
+Summary:	PARI/GP statically linked with PARI library
+Summary(pl):	PARI/GP konsolidowane statycznie z bibliotek± PARI
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
 Requires:	%{name} = %{version}
 
 %description static
-PARI / GP is a package which is aimed at efficient computations in
+PARI/GP is a package which is aimed at efficient computations in
 number theory, but also contains a large number of other useful
 functions. It is somewhat related to a Computer Algebra System, but is
 not really one since it treats symbolic expressions as mathematical
@@ -96,7 +96,7 @@ essentially for use in number theory. This package is statically
 linked with PARI library.
 
 %description static -l pl
-System PARI / GP jest przeznaczony do wydajnych obliczeñ z zakresu
+System PARI/GP jest przeznaczony do wydajnych obliczeñ z zakresu
 teorii liczb, ale zawiera równie¿ inne przydatne funkcje. Jest nieco
 spokrewniony z Komputerowymi Systemami Algebraicznymi, ale nie
 identyczny, poniewa¿ traktuje wyra¿enia symboliczne jako obiekty
@@ -107,46 +107,46 @@ przydatnych zw³aszcza w teorii liczb. Ten pakiet zosta³ zkonsolidowany
 statycznie z bibliotek± PARI.
 
 %package demos
-Summary:	Example PARI / GP scripts
-Summary(pl):	Przyk³adowe skrypty pisane w jêzyku PARI / GP
+Summary:	Example PARI/GP scripts
+Summary(pl):	Przyk³adowe skrypty pisane w jêzyku PARI/GP
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
 Requires:	%{name} = %{version}
 
 %description demos
-Example PARI / GP scripts. You can write such programs on your own.
+Example PARI/GP scripts. You can write such programs on your own.
 
 %description demos -l pl
-Przyk³adowe skrypty pisane w jêzyku PARI / GP. Sam mo¿esz takie
+Przyk³adowe skrypty pisane w jêzyku PARI/GP. Sam mo¿esz takie
 napisaæ.
 
 %package galdata
-Summary:	Galois data resolvents for PARI / GP
+Summary:	Galois data resolvents for PARI/GP
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
 Requires:	%{name} = %{version}
 
 %description galdata
-Galois data resolvents for PARI / GP.
+Galois data resolvents for PARI/GP.
 
 %description galdata -l pl
-Reprezentacje danych Galois do PARI / GP.
+Reprezentacje danych Galois do PARI/GP.
 
 %package -n xemacs-parigp-mode-pkg
-Summary:	PARI / GP mode for Octave
-Summary(pl):	Tryb edycji plików PARI / GP do XEmacsa
+Summary:	PARI/GP mode for Octave
+Summary(pl):	Tryb edycji plików PARI/GP do XEmacsa
 Group:		Applications/Editors/Emacs
 Group(de):	Applikationen/Editors/Emacs
 Group(pl):	Aplikacje/Edytory/Emacs
 Requires:	xemacs
 
 %description -n xemacs-parigp-mode-pkg
-PARI / GP editing mode for Xemacs.
+PARI/GP editing mode for Xemacs.
 
 %description -l pl -n xemacs-parigp-mode-pkg
-Tryb edycji plików PARI / GP do Xemacsa.
+Tryb edycji plików PARI/GP do Xemacsa.
 
 %prep
 %setup0 -q -n pari-%{version}
