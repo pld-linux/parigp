@@ -8,7 +8,7 @@ Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
-Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tar.gz
+Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
 Icon:		%{name}.xpm
