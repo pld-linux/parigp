@@ -13,7 +13,7 @@ Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
-Source3:	ftp://ftp.cpan.org/pub/CPAN/modules/by-module/Math/Math-Pari-%{math_pari_version}.tar.gz
+Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_version}.tar.gz
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-FHS.patch
