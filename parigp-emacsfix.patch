@@ -1,0 +1,98 @@
+diff -urN pari-2.1.0/config/Makefile.SH pari-2.1.0-EMACSFIX/config/Makefile.SH
+--- pari-2.1.0/config/Makefile.SH	Mon Mar 27 19:43:42 2000
++++ pari-2.1.0-EMACSFIX/config/Makefile.SH	Mon Jan 22 11:30:45 2001
+@@ -11,7 +11,7 @@
+ case "$misc_dir"   in /*) misc=$misc_dir ;;    *) misc=../$misc_dir ;; esac
+ case "$data_dir"   in /*) data=$data_dir ;;  *) data=../$data_dir ;; esac
+ case "$doc_dir"    in /*) doc=$doc_dir ;;    *) doc=../$doc_dir ;; esac
+-case "$emacs_dir"  in /*) emx=$emacs_dir ;;  *) emx=../$emacs_dir ;; esac
++# case "$emacs_dir"  in /*) emx=$emacs_dir ;;  *) emx=../$emacs_dir ;; esac
+ case "$config_dir" in /*) cfg=$config_dir ;; *) cfg=../$config_dir ;; esac
+ 
+ # File lists
+@@ -104,13 +104,13 @@
+   exec="gp-sta gp-dyn"
+ fi
+ doexec="env \"LD_LIBRARY_PATH=.;\$\$LD_LIBRARY_PATH\" $src/test/dotest $sizeof_long"
+-if test -z "$emacs"; then
+-  install_emacs_files=
+-  pari_elc=
+-else
+-  install_emacs_files=install_emacs_files
+-  pari_elc=$emx/pari.elc
+-fi
++# if test -z "$emacs"; then
++#  install_emacs_files=
++#  pari_elc=
++#else
++#  install_emacs_files=install_emacs_files
++#  pari_elc=$emx/pari.elc
++# fi
+ case "$static" in
+   n) dft=dyn; libdft=lib-dyn;;
+   y) dft=sta; libdft= ;;
+@@ -284,7 +284,7 @@
+ 	-\$(RM) \$(MANDIR)/pari.1
+ 	-\$(LN) gp.1 \$(MANDIR)/pari.1
+ 
+-install-misc: $install_emacs_files
++install-misc: # $install_emacs_files
+ 	\$(INSTALL_PROGRAM) $misc/tex2mail \$(BINDIR)
+ 
+ install-doc:
+@@ -375,21 +375,21 @@
+ EOT
+ fi
+ 
+-if test -n "$emacs"; then
+-  cat >> $file << EOT
+-$pari_elc: $emx/pari.el
+-	@echo "Byte-Compiling pari.el..."
+-	-cd $emx; $emacs -batch -l compile
+-
+-$install_emacs_files: $pari_elc
+-	-mkdir -p \$(MISCDIR)
+-	-\$(INSTALL_DATA)   $pari_elc           \$(MISCDIR)
+-	\$(INSTALL_DATA)    $emx/pari.el        \$(MISCDIR)
+-	\$(INSTALL_DATA)    $emx/pariemacs.txt  \$(MISCDIR)
+-	\$(INSTALL_DATA)    $emx/with-syntax.el     \$(MISCDIR)
+-	\$(INSTALL_DATA)    $emx/pari-translator.el \$(MISCDIR)
+-EOT
+-fi
++# if test -n "$emacs"; then
++#  cat >> $file << EOT
++# $pari_elc: $emx/pari.el
++#	@echo "Byte-Compiling pari.el..."
++#	-cd $emx; $emacs -batch -l compile
++#
++$install_emacs_files: # $pari_elc
++#	-mkdir -p \$(MISCDIR)
++#	-\$(INSTALL_DATA)   $pari_elc           \$(MISCDIR)
++#	\$(INSTALL_DATA)    $emx/pari.el        \$(MISCDIR)
++#	\$(INSTALL_DATA)    $emx/pariemacs.txt  \$(MISCDIR)
++#	\$(INSTALL_DATA)    $emx/with-syntax.el     \$(MISCDIR)
++#	\$(INSTALL_DATA)    $emx/pari-translator.el \$(MISCDIR)
++# EOT
++# fi
+ 
+ if test -s $src_dir/kernel/$asmarch/Makefile.SH; then
+   . $src_dir/kernel/$asmarch/Makefile.SH rules
+diff -urN pari-2.1.0/emacs/pari.el.in pari-2.1.0-EMACSFIX/emacs/pari.el.in
+--- pari-2.1.0/emacs/pari.el.in	Tue Nov 14 19:55:03 2000
++++ pari-2.1.0-EMACSFIX/emacs/pari.el.in	Mon Jan 22 11:29:47 2001
+@@ -75,6 +75,7 @@
+ (eval-and-compile
+ (defvar old-emacs-versionp t)
+ (save-excursion
++  (get-buffer-create "*Messages*")
+   (set-buffer "*Messages*")
+   (let ((pt (point)))
+        (emacs-version t)
+@@ -2000,6 +2001,7 @@
+   "Make the regexp that matches the prompt p."
+   ;; We use the buffer *Messages* to analyse the prompt.
+   (save-excursion
++    (get-buffer-create "*Messages*")
+     (set-buffer "*Messages*")
+     (goto-char (point-max))
+     (insert "\n" p) ; The "\n" is most probably useless.
