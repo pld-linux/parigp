@@ -1,0 +1,53 @@
+Math::Pari doesn't work properly with Data::Dumper[1], so try at least to
+avoid crash when trying to DESTROY something restored from dump
+(most likely to happen on 64-bit machines, when Data::Dumper uses string
+instead of int for pointer values which don't fit in 32 bits).
+
+[1] Data::Dumper returns something like
+bless( do{\(my $o = POINTER_VAL)}, 'Math::Pari' );
+where POINTER_VAL is just value of pointer to already existing Pari
+object (which may be destroyed later!).
+
+--- pari-2.1.5/Math-Pari-2.010501/Pari.xs.orig	2004-01-31 10:06:08.000000000 +0100
++++ pari-2.1.5/Math-Pari-2.010501/Pari.xs	2004-05-15 21:11:38.894463600 +0200
+@@ -986,6 +986,13 @@
+   SV* nextsv;
+   long ret=0;
+   
++  /* check if it exists on stack to avoid crash */
++  for (sv1 = PariStack; sv1 != sv; sv1 = nextsv) {
++    nextsv = (SV *) SvPVX(sv1);
++    if((char*)nextsv == GENfirstOnStack)
++      return -1; /* not on stack! */
++  }
++  
+   for (sv1 = PariStack; sv1 != sv; sv1 = nextsv) {
+     ret++;
+     nextsv = (SV *) SvPVX(sv1);
+@@ -3336,7 +3343,7 @@
+ 	 long oldavma = SvCUR(sv) + bot; /* The value of avma on the entry
+ 					  * to function having the SV as
+ 					  * argument. */
+-	 long howmany;
++	 long howmany = 0;
+ #if 1
+ 	 if (SvMAGICAL(sv) && SvTYPE(sv) == SVt_PVAV) {
+ 	     MAGIC *mg = mg_find(sv, 'P');
+@@ -3364,6 +3371,7 @@
+ 	     /* Now fall through: */
+ /* case (IV)GENfirstOnStack: */
+ 	     /* Now sv is the newest one on stack. */
++	     if (howmany >= 0) {
+ 	     onStack_dec;
+ 	     perlavma = oldavma;
+ 	     if (oldavma > sentinel) {
+@@ -3372,7 +3380,9 @@
+ 		 avma = oldavma;	/* Mark the space on stack as free. */
+ 	     }
+ 	     PariStack = (SV*)type; /* The same on the Perl/PARI side. */
++	     }
+ 	 }
++	 if (howmany >= 0)
+ 	 SVnum_dec;
+      }
+ 
