@@ -1,7 +1,7 @@
-#
-#	Conditional build:
-# _without_tex - don't build tex documentation
-#
+
+# Conditional build:
+%bcond_without	tex	# don't build tex documentation
+
 %include	/usr/lib/rpm/macros.perl
 %define		pari_version		2.1.5
 %define		gp2c_version		0.0.2pl5
@@ -37,6 +37,7 @@ BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	rpm-perlprov >= 3.0.3-16
+%if %{with tex}
 BuildRequires:	tetex
 BuildRequires:	tetex-amstex
 BuildRequires:	tetex-csplain
@@ -46,6 +47,7 @@ BuildRequires:	tetex-format-plain
 BuildRequires:	tetex-pdftex
 BuildRequires:	tetex-tex-babel
 BuildRequires:	tetex-tex-ruhyphen
+%endif
 BuildRequires:	perl-devel
 Requires:	pari = %{pari_version}
 Requires:	xdvi
@@ -201,7 +203,7 @@ cd Math-Pari-%{math_pari_version}
 %{__make} all \
 	CFLAGS="%{rpmcflags} -DGCC_INLINE"
 
-%{!?_without_tex:%{__make} doc}
+%{?with_tex:%{__make} doc}
 src/make_vi_tags src
 %ifarch %{ix86}
 ln -s Olinux-%{_target_cpu} Olinux-ix86
@@ -284,7 +286,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS Announce* CHANGES COMPAT MACHINES NEW README TODO
 %doc examples/Inputrc doc/refcard.ps
 %dir %{_datadir}/parigp
-%{?!_without_tex:%{_datadir}/parigp/doc}
+%{?with_tex:%{_datadir}/parigp/doc}
 %{_datadir}/parigp/misc
 %{_mandir}/man1/[!g]*.1*
 %{_mandir}/man1/gp.1*
@@ -322,7 +324,7 @@ rm -rf $RPM_BUILD_ROOT
 %files gp2c
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gp2c*
-%doc gp2c-%{gp2c_version}/{AUTHORS,ChangeLog,NEWS,README,BUGS%{?!_without_tex:,doc/gp2c.dvi},doc/html/*}
+%doc gp2c-%{gp2c_version}/{AUTHORS,ChangeLog,NEWS,README,BUGS%{?with_tex:,doc/gp2c.dvi},doc/html/*}
 %{_datadir}/parigp/gp2c
 %{_mandir}/man1/gp2c*.1*
 
