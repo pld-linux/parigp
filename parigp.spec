@@ -140,7 +140,7 @@ Reprezentacje danych Galois do PARI/GP.
 Summary:	PARI/GP to C translator
 Summary(pl):	Konwerter skryptów PARI/GP do jêzyka C
 Epoch:		1
-Version:	%{gp2c_version}-%{release}
+Version:	%{gp2c_version}
 Group:		Development/Tools
 Requires:	pari-devel = %{pari_version}-%{release}
 Requires:	%{name} = %{pari_version}-%{release}
