@@ -253,7 +253,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n pari
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*.so.*.*.*
+%attr(755,root,root) %{_libdir}/*.so.*.*
 
 %files -n pari-devel
 %defattr(644,root,root,755)
