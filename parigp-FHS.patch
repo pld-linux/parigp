@@ -1,16 +1,21 @@
-diff -urN pari-2.1.0/Configure pari-2.1.0-FHS/Configure
---- pari-2.1.0/Configure	Mon Nov 13 15:35:43 2000
-+++ pari-2.1.0-FHS/Configure	Sat Dec  2 20:25:25 2000
-@@ -1153,10 +1153,10 @@
- dflt=$prefix/include/pari; . ./myread; includedir=$ans
+diff -urN pari-2.1.1/Configure pari-2.1.1.patch/Configure
+--- pari-2.1.1/Configure	Fri Apr 27 15:51:44 2001
++++ pari-2.1.1.patch/Configure	Thu May 10 12:55:15 2001
+@@ -1145,7 +1145,7 @@
+   dfltall=$prefix/lib/pari
+ else
+   dfltman=$share_prefix/man/man1
+-  dfltall=$share_prefix/doc/pari
++  dfltall=$share_prefix/parigp
+ fi
  
- echo $n ..."manual pages ? $c"
--dflt=$prefix/man/man1; . ./myread; mandir=$ans
-+dflt=$prefix/share/man/man1; . ./myread; mandir=$ans
- 
- echo $n ..."documentation, help scripts, and emacs macros ? $c"
--dflt=$prefix/lib/pari; . ./myread; miscdir=$ans
-+dflt=$prefix/share/parigp; . ./myread; miscdir=$ans
+ echo $n ..."\"gp\" executable ? $c"
+@@ -1166,7 +1166,7 @@
+ if test -z "$share_prefix"; then
+   dfltdat=$miscdir/galdata
+ else
+-  dfltdat=$share_prefix/pari/galdata
++  dfltdat=$share_prefix/parigp/galdata
+ fi
  
  echo $n ..."miscellaneous data (galois resolvents) ? $c"
- dflt=$miscdir/data; . ./myread; datadir=$ans
