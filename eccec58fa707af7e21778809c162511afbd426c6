@@ -1,0 +1,2 @@
+- a small error in %files -n pari-devel:
+%%{_libdir}/libpari.so.*.* --> %%{_libdir}/libpari.so.*.*.*
