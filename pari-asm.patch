@@ -1,0 +1,23 @@
+--- pari-1.39.03/src/i386.c~	Tue Jan 23 14:21:44 2001
++++ pari-1.39.03/src/i386.c	Tue Jan 23 14:22:42 2001
+@@ -10,20 +10,7 @@
+ 
+ /* written by Bruno Haible 14.11.1992 */
+ 
+-#if defined(__EMX__) || defined(__DJGCC__) || defined(__GO32__) || defined(linux) || defined(__386BSD__) || defined(__NetBSD__)
+-/* GNU assembler */
+-#ifdef __STDC__
+-/* ANSI C concatenation */
+-#define C(entrypoint) _##entrypoint
+-#else
+-/* traditional C concatenation */
+-#define C(entrypoint) _/**/entrypoint
+-#endif
+-#else
+-/* SUN assembler or Consensys assembler or MWC assembler */
+-/* no concatenation needed */
+ #define C(entrypoint) entrypoint
+-#endif
+ 
+ #if defined(__EMX__) || defined(__DJGCC__) || defined(__GO32__) || defined(linux) || defined(__386BSD__) || defined(__NetBSD__) || defined(COHERENT)
+ /* GNU assembler or MWC assembler */
