@@ -1,9 +1,9 @@
-%define 	gp2c_version 0.0.0pl5
+%define 	gp2c_version 0.0.0pl6
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
-Version:	2.1.0
-Release:	4
+Version:	2.1.1
+Release:	1
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
@@ -167,7 +167,8 @@ Tryb edycji plików PARI/GP do Xemacsa.
 %build
 
 # pari & parigp
-./Configure --target=%{_target_cpu} --prefix=%{_prefix}
+./Configure --target=%{_target_cpu} --prefix=%{_prefix} \
+	--share-prefix=%{_datadir}
 
 %{__make} all CFLAGS="%{rpmcflags} -DGCC_INLINE"
 %{__make} doc
@@ -184,15 +185,8 @@ ln -s ../ pari
 rm -rf $RPM_BUILD_ROOT
 
 # parigp, pari & pari-devel
-%{__make} install LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
-	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
-	DATADIR=$RPM_BUILD_ROOT%{_datadir}/parigp/data \
-	MANDIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
-	MISCDIR=$RPM_BUILD_ROOT%{_datadir}/parigp \
-	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}/pari
-%{__install} -d $RPM_BUILD_ROOT%{_datadir}/parigp/misc
-%{__install} misc/gprc.dft $RPM_BUILD_ROOT%{_datadir}/parigp/misc/gprc
-%{__install} src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc/vi_tags
+%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__install} src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc
 
 # pari-static
 %{__install} Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
@@ -202,8 +196,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__install} examples/* $RPM_BUILD_ROOT%{_examplesdir}/parigp
 
 # galdata
-%{__install} -d $RPM_BUILD_ROOT%{_datadir}/parigp/data
-tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/data/
+%{__install} -d $RPM_BUILD_ROOT%{_datadir}/parigp/galdata
+tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/galdata/
 
 # xemacs-parigp-mode-pkg
 %{__install} -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
@@ -224,7 +218,8 @@ cd ..
 gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
 	MACHINES NEW README README.DOS TODO emacs/pariemacs.txt \
 	gp2c-%{gp2c_version}/NEWS gp2c-%{gp2c_version}/README \
-	gp2c-%{gp2c_version}/ChangeLog gp2c-%{gp2c_version}/AUTHORS
+	gp2c-%{gp2c_version}/ChangeLog gp2c-%{gp2c_version}/AUTHORS \
+	examples/EXPLAIN examples/Inputrc
 
 %post   -n pari -p /sbin/ldconfig
 %postun -n pari -p /sbin/ldconfig
@@ -238,16 +233,14 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gp
 %attr(755,root,root) %{_bindir}/gphelp
 %attr(755,root,root) %{_bindir}/tex2mail
-%doc *.gz
+%doc *.gz examples/Inputrc.gz doc/refcard.ps doc/*.gz
 %dir %{_datadir}/parigp
-%{_datadir}/parigp/*.tex
-%{_datadir}/parigp/*.dvi
-%{_datadir}/parigp/refcard.ps
-%{_datadir}/parigp/translations
-%{_mandir}/man1/*.gz
-%dir %{_datadir}/parigp/data
+%dir %{_datadir}/parigp/galdata
+%dir %{_datadir}/parigp/doc
 %dir %{_datadir}/parigp/misc
+%{_datadir}/parigp/doc/*
 %{_datadir}/parigp/misc/*
+%{_mandir}/man1/*.gz
 
 %files -n pari
 %defattr(644,root,root,755)
@@ -263,11 +256,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files demos
 %defattr(644,root,root,755)
-%{_examplesdir}/parigp
+%dir %{_examplesdir}/parigp
+%{_examplesdir}/parigp/*.gp
+%doc examples/EXPLAIN.gz
 
 %files galdata
 %defattr(644,root,root,755)
-%{_datadir}/parigp/data/*
+%{_datadir}/parigp/galdata/*
 
 %files -n xemacs-parigp-mode-pkg
 %defattr(644,root,root,755)
