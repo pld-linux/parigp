@@ -201,8 +201,7 @@ gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
 	Math-Pari-%{math_pari_version}/README \
 	Math-Pari-%{math_pari_version}/TODO \
 	Math-Pari-%{math_pari_version}/notes \
-	Math-Pari-%{math_pari_version}/notes1 \
-	Math-Pari-%{math_pari_version}/typemap
+	Math-Pari-%{math_pari_version}/notes1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -304,7 +303,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n perl-Math-Pari
 %defattr(644,root,root,755)
-%doc *.gz
+%doc Math-Pari-%{math_pari_version}*.gz
 %doc %{_mandir}/man3/*
 %{perl_sitearch}/Math
 %dir %{perl_sitearch}/auto/Math/Pari
