@@ -3,10 +3,10 @@ Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody t
 Name:		parigp
 Version:	2.1.0
 Release:	1
+License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
-License:	GPL
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tar.gz
 Patch0:		%{name}-FHS.patch
@@ -46,7 +46,6 @@ przydatnych zw³aszcza w teorii liczb.
 %package -n pari
 Summary:	Shared PARI library (required by the parigp package)
 Summary(pl):	Biblioteka wspó³dzielona PARI (wymagana przez pakiet parigp)
-License:	GPL
 Group:		Libraries
 Group(de):	Libraries
 Group(fr):	Librairies
@@ -78,8 +77,8 @@ potrzebowa³, je¿eli bêdziesz chcia³ wykorzystywaæ procedury PARI w
 swoich programach.
 
 %package static
-Summary:	PARI / GP statically linked with PARI library.
-Summary(pl):	PARI / GP konsolidowane statycznie z bibliotek± PARI.
+Summary:	PARI / GP statically linked with PARI library
+Summary(pl):	PARI / GP konsolidowane statycznie z bibliotek± PARI
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
@@ -135,18 +134,19 @@ Galois data resolvents for PARI / GP.
 %description galdata -l pl
 Reprezentacje danych Galois do PARI / GP.
 
-%package -n xemacs-parigp-mode-pkg # Summary: PARI / GP mode for Octave
+%package -n xemacs-parigp-mode-pkg
+Summary:	PARI / GP mode for Octave
 Summary(pl):	Tryb edycji plików PARI / GP do XEmacsa
 Group:		Applications/Editors/Emacs
 Group(de):	Applikationen/Editors/Emacs
 Group(pl):	Aplikacje/Edytory/Emacs
 Requires:	xemacs
 
-# %description -n xemacs-parigp-mode-pkg # PARI / GP editing mode for
-Xemacs
+%description -n xemacs-parigp-mode-pkg
+PARI / GP editing mode for Xemacs.
 
-# %description -l pl -n xemacs-parigp-mode-pkg # Tryb edycji plików
-PARI / GP do Xemacsa
+%description -l pl -n xemacs-parigp-mode-pkg
+Tryb edycji plików PARI / GP do Xemacsa.
 
 %prep
 %setup0 -q -n pari-%{version}
