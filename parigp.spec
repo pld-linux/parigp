@@ -10,7 +10,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
@@ -30,6 +30,7 @@ Patch3:		%{name}-arch.patch
 Patch4:		%{name}-sparc.patch
 Patch5:		%{name}-athlon.patch
 Patch6:		%{name}-no-proccpuinfo.patch
+Patch7:		perl-Math-Pari-crash-workaround.patch
 Icon:		parigp.xpm
 URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	XFree86-devel
@@ -189,6 +190,7 @@ Interfejs perl-a do biblioteki PARI
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch7 -p1
 
 %build
 # pari & parigp
