@@ -5,7 +5,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	2.1.3
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
@@ -297,7 +297,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files gp2c
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/gp2c
+%attr(755,root,root) %{_bindir}/gp2c*
 %doc gp2c-%{gp2c_version}/*.gz
 %{_datadir}/parigp/gp2c
 
