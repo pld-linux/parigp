@@ -1,26 +1,22 @@
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
-Name:		parigp
-Version:	2.1.0
+Name:		pari
+Version:	1.39.03
 Release:	1
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
-Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
-Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
-Patch0:		%{name}-FHS.patch
-Patch1:		%{name}-target_arch.patch
-Icon:		%{name}.xpm
+Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/OLD/pari-%{version}.tar.gz
+Patch0:		%{name}-asm.patch
 URL:		http://www.parigp-home.de/
-Requires:	pari = %{version}
+ExclusiveArch:	%{ix86}
 Requires:	xdvi
 BuildRequires:	tetex
 BuildRequires:	tetex-dvips
 BuildRequires:  tetex-ams
 BuildRequires:	readline-devel
 BuildRequires:	XFree86-devel
-BuildRequires:	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -43,22 +39,7 @@ same w sobie. Jest jednak czêsto znacznie szybszy od innych KSA-ów a
 ponadto zawiera wiele innych funkcji nie spotykanych gdzie indziej, a
 przydatnych zw³aszcza w teorii liczb.
 
-%package -n pari
-Summary:	Shared PARI library (required by the parigp package)
-Summary(pl):	Biblioteka wspó³dzielona PARI (wymagana przez pakiet parigp)
-Group:		Libraries
-Group(de):	Libraries
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-
-%description -n pari
-Shared PARI library. You need it to run PARI/GP.
-
-%description -l pl -n pari
-Biblioteka wspó³dzielona PARI. Potrzebujesz jej do uruchomienia PARI /
-GP.
-
-%package -n pari-devel
+%package devel
 Summary:	Include files for PARI shared library
 Summary(pl):	Pliki nag³ówkowe do biblioteki wspó³dzielonej PARI
 Group:		Development/Libraries
@@ -67,30 +48,14 @@ Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
 Requires:	pari = %{version}
 
-%description -n pari-devel
-Include files for shared PARI library. You need them to use PARI
+%description devel
+Include files and PARI library. You need them to use PARI
 routines in you own programs.
 
-%description -l pl -n pari-devel 
-Pliki nag³ówkowe biblioteki wspó³dzielonej PARI. Bêdziesz ich
-potrzebowa³, je¿eli bêdziesz chcia³ wykorzystywaæ procedury PARI w
-swoich programach.
-
-%package -n pari-static
-Summary:	Static PARI library
-Summary(pl):	Statyczna biblioteka PARI
-Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Requires:	pari-devel = %{version}
-
-%description -n pari-static
-Static PARI library. You need it to statically link your programs with PARI.
-
-%description -l pl -n pari-static
-Biblioteka statyczna PARI. Potrzebujesz jej do konsolidowania statycznego 
-swoich programów korzystaj±cych z biblioteki PARI.
+%description -l pl devel 
+Pliki nag³ówkowe i biblioteki PARI. Bêdziesz ich potrzebowa³,
+je¿eli bêdziesz chcia³ wykorzystywaæ procedury PARI w swoich
+programach.
 
 %package demos
 Summary:	Example PARI/GP scripts
@@ -107,121 +72,47 @@ Example PARI/GP scripts. You can write such programs on your own.
 Przyk³adowe skrypty pisane w jêzyku PARI/GP. Sam mo¿esz takie
 napisaæ.
 
-%package galdata
-Summary:	Galois data resolvents for PARI/GP
-Group:		Applications/Math
-Group(de):	Applikationen/Mathematik
-Group(pl):	Aplikacje/Matematyczne
-Requires:	%{name} = %{version}
-
-%description galdata
-Galois data resolvents for PARI/GP.
-
-%description galdata -l pl
-Reprezentacje danych Galois do PARI/GP.
-
-%package -n xemacs-parigp-mode-pkg
-Summary:	PARI/GP mode for Octave
-Summary(pl):	Tryb edycji plików PARI/GP do XEmacsa
-Group:		Applications/Editors/Emacs
-Group(de):	Applikationen/Editors/Emacs
-Group(pl):	Aplikacje/Edytory/Emacs
-Requires:	xemacs
-
-%description -n xemacs-parigp-mode-pkg
-PARI/GP editing mode for Xemacs.
-
-%description -l pl -n xemacs-parigp-mode-pkg
-Tryb edycji plików PARI/GP do Xemacsa.
-
 %prep
-%setup0 -q -n pari-%{version}
+%setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
-
-./Configure --target=%{_target_cpu} --prefix=%{_prefix}
-
-%{__make} all
-%{__make} doc
+cd src
+CFLAGS="$RPM_OPT_FLAGS -ansi" \
+XLIBOPTION="-L/usr/X11R6/lib" ./Makemakefile i386
+%{__make}
+cd ../doc
+%{__make}
+dvips users.dvi -o
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_includedir}/pari} \
+	$RPM_BUILD_ROOT{%{_mandir}/man1,%{_examplesdir}/pari}
 
 # parigp, pari & pari-devel
-%{__make} install LIBDIR=$RPM_BUILD_ROOT%{_libdir} \
-	BINDIR=$RPM_BUILD_ROOT%{_bindir} \
-	DATADIR=$RPM_BUILD_ROOT%{_datadir}/parigp/data \
-	MANDIR=$RPM_BUILD_ROOT%{_mandir}/man1 \
-	MISCDIR=$RPM_BUILD_ROOT%{_datadir}/parigp \
-	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}/pari
+%{__make} -C src install \
+	PREFIX=$RPM_BUILD_ROOT%{_prefix} \
+	MANDIR=$RPM_BUILD_ROOT%{_mandir}
 
-# pari-static
-%{__install} Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
+%{__install} examples/* $RPM_BUILD_ROOT%{_examplesdir}/pari
 
-# parigp-demos
-%{__install} -d $RPM_BUILD_ROOT%{_examplesdir}/parigp
-%{__install} examples/* $RPM_BUILD_ROOT%{_examplesdir}/parigp
-
-# galdata
-%{__install} -d $RPM_BUILD_ROOT%{_datadir}/parigp/data
-tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/data/
-
-# # xemacs-parigp-mode-pkg
-%{__install} -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
-cp -a emacs/*.el $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
-cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode/auto-autoloads.el
-(autoload 'gp-mode "pari" nil t)
-(autoload 'gp-script-mode "pari" nil t)
-(autoload 'gp "pari" nil t)
-(autoload 'gpman "pari" nil t)
-EOF
-
-gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
-	MACHINES NEW README README.DOS TODO emacs/*
-
-%post   -n pari -p /sbin/ldconfig
-%postun -n pari -p /sbin/ldconfig
+gzip -9nf src/{README,THANKS,TODO} doc/*.ps
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/gp-2.1
+%doc src/*.gz doc/*.gz
 %attr(755,root,root) %{_bindir}/gp
-%attr(755,root,root) %{_bindir}/gphelp
-%attr(755,root,root) %{_bindir}/tex2mail
-%doc *.gz misc/*.gz doc/*.gz
-%dir %{_datadir}/parigp
-%{_datadir}/parigp/*.tex
-%{_datadir}/parigp/*.dvi
-%{_datadir}/parigp/refcard.ps
-%{_datadir}/parigp/translations
 %{_mandir}/man1/*
-%dir %{_datadir}/parigp/data
 
-%files -n pari
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*.so.*.*
-
-%files -n pari-devel
+%files devel
 %defattr(644,root,root,755)
 %{_includedir}/pari
-
-%files -n pari-static
-%defattr(644,root,root,755)
-%{_libdir}/*.a
+%{_libdir}/lib*.a
 
 %files demos
 %defattr(644,root,root,755)
-%{_examplesdir}/parigp
-
-%files galdata
-%defattr(644,root,root,755)
-%{_datadir}/parigp/data/*
-
-%files -n xemacs-parigp-mode-pkg
-%defattr(644,root,root,755)
-%{_datadir}/xemacs-packages/lisp/*
+%{_examplesdir}/pari
