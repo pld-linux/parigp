@@ -1,12 +1,12 @@
 %include	/usr/lib/rpm/macros.perl
 %define		pari_version		2.1.4
-%define		gp2c_version		0.0.0pl12
+%define		gp2c_version		0.0.2pl3
 %define		math_pari_version	2.010305
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	4
+Release:	5
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
@@ -33,6 +33,7 @@ BuildRequires:	tetex-ams
 BuildRequires:	tetex-dvips
 BuildRequires:	tetex-fonts
 BuildRequires:	tetex-pdftex
+BuildRequires:	perl-devel
 Requires:	pari = %{pari_version}
 Requires:	xdvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -125,17 +126,22 @@ Reprezentacje danych Galois do PARI/GP.
 %package gp2c
 Summary:	PARI/GP to C translator
 Summary(pl):	Konwerter skryptów PARI/GP do jêzyka C
+Epoch:		1
+Version:	%{gp2c_version}
+Release:	1
 Group:		Development/Tools
 Requires:	pari-devel
+Requires:	parigp
 
 %description gp2c
 PARI/GP to C translator. Use it to compile your own C programs which
-use pari library, without necessarily being a C programmer.
+use pari library, without necessarily being a C programmer. Note: use gp2c-run
+to run your programs inside the PARI/GP environment.
 
 %description gp2c -l pl
 Konwerter skryptów PARI/GP do jêzyka C. Mo¿na nim tworzyæ w³asne
 programy w C korzystaj±ce z biblioteki pari. Znajomo¶æ jêzyka C nie
-jest wymagana.
+jest wymagana. Uwaga: u¿ywaj gp2c-run, by uruchamiaæ swoje programy wewn±trz ¶rodowiska PARI/GP.
 
 %package -n xemacs-parigp-mode-pkg
 Summary:	PARI/GP mode for Octave
@@ -300,8 +306,9 @@ rm -rf $RPM_BUILD_ROOT
 %files gp2c
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gp2c*
-%doc gp2c-%{gp2c_version}/{AUTHORS,ChangeLog,NEWS,README}
+%doc gp2c-%{gp2c_version}/{AUTHORS,ChangeLog,NEWS,README,BUGS,doc/gp2c.dvi,doc/html/*}
 %{_datadir}/parigp/gp2c
+%{_mandir}/man1/*
 
 %files -n perl-Math-Pari
 %defattr(644,root,root,755)
