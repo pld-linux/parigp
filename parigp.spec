@@ -14,6 +14,7 @@ Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
 Patch2:		%{name}-emacsfix.patch
+Patch3:		%{name}-CLK_TCK.patch
 Icon:		parigp.xpm
 URL:		http://www.parigp-home.de/
 BuildRequires:	XFree86-devel
@@ -163,6 +164,7 @@ Tryb edycji plików PARI/GP do Xemacsa.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 
