@@ -1,11 +1,11 @@
 diff -urN pari-2.1.1/src/language/init.c pari-2.1.1.patch/src/language/init.c
 --- pari-2.1.1/src/language/init.c	Mon Mar 26 16:11:43 2001
-+++ pari-2.1.1.patch/src/language/init.c	Mon May 21 12:16:38 2001
++++ pari-2.1.1.patch/src/language/init.c	Mon May 21 13:39:09 2001
 @@ -1460,6 +1460,7 @@
  
  # include <sys/times.h>
  # include <sys/time.h>
-+# include <bits/time.h>
++# include <time.h>
    static long
    timer_proto(int i)
    {
