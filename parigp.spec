@@ -8,8 +8,6 @@ Version:	2.1.2
 Release:	3
 License:	GPL
 Group:		Applications/Math
-Group(de):	Applikationen/Mathematik
-Group(pl):	Aplikacje/Matematyczne
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
@@ -60,13 +58,6 @@ przydatnych zw≥aszcza w teorii liczb.
 Summary:	Shared PARI library (required by the parigp package)
 Summary(pl):	Biblioteka wspÛ≥dzielona PARI (wymagana przez pakiet parigp)
 Group:		Libraries
-Group(de):	Libraries
-Group(es):	Bibliotecas
-Group(fr):	Librairies
-Group(pl):	Biblioteki
-Group(pt_BR):	Bibliotecas
-Group(ru):	‚…¬Ã…œ‘≈À…
-Group(uk):	‚¶¬Ã¶œ‘≈À…
 
 %description -n pari
 Shared PARI library. You need it to run PARI/GP.
@@ -79,13 +70,6 @@ PARI/GP.
 Summary:	Include files for PARI shared library
 Summary(pl):	Pliki nag≥Ûwkowe do biblioteki wspÛ≥dzielonej PARI
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Ú¡⁄“¡¬œ‘À¡/‚…¬Ã…œ‘≈À…
-Group(uk):	Úœ⁄“œ¬À¡/‚¶¬Ã¶œ‘≈À…
 Requires:	pari = %{version}
 
 %description -n pari-devel
@@ -101,13 +85,6 @@ swoich programach.
 Summary:	Static PARI library
 Summary(pl):	Statyczna biblioteka PARI
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(ru):	Ú¡⁄“¡¬œ‘À¡/‚…¬Ã…œ‘≈À…
-Group(uk):	Úœ⁄“œ¬À¡/‚¶¬Ã¶œ‘≈À…
 Requires:	pari-devel = %{version}
 
 %description -n pari-static
@@ -122,8 +99,6 @@ statycznego swoich programÛw korzystaj±cych z biblioteki PARI.
 Summary:	Example PARI/GP scripts
 Summary(pl):	Przyk≥adowe skrypty pisane w jÍzyku PARI/GP
 Group:		Applications/Math
-Group(de):	Applikationen/Mathematik
-Group(pl):	Aplikacje/Matematyczne
 Requires:	%{name} = %{version}
 
 %description demos
@@ -136,8 +111,6 @@ Przyk≥adowe skrypty pisane w jÍzyku PARI/GP. Sam moøesz takie napisaÊ.
 Summary:	Galois data resolvents for PARI/GP
 Summary(pl):	Reprezentacje danych Galois fla PARI/GP
 Group:		Applications/Math
-Group(de):	Applikationen/Mathematik
-Group(pl):	Aplikacje/Matematyczne
 Requires:	%{name} = %{version}
 
 %description galdata
@@ -150,9 +123,6 @@ Reprezentacje danych Galois do PARI/GP.
 Summary:	PARI/GP to C translator
 Summary(pl):	Konwerter skryptÛw PARI/GP do jÍzyka C
 Group:		Development/Tools
-Group(de):	Entwicklung/Werkzeuge
-Group(fr):	Development/Outils
-Group(pl):	Programowanie/NarzÍdzia
 Requires:	pari-devel
 
 %description gp2c
@@ -168,8 +138,6 @@ jest wymagana.
 Summary:	PARI/GP mode for Octave
 Summary(pl):	Tryb edycji plikÛw PARI/GP do XEmacsa
 Group:		Applications/Editors/Emacs
-Group(de):	Applikationen/Editors/Emacs
-Group(pl):	Aplikacje/Edytory/Emacs
 Requires:	xemacs
 
 %description -n xemacs-parigp-mode-pkg
@@ -182,8 +150,6 @@ Tryb edycji plikÛw PARI/GP do Xemacsa.
 Summary:	Math-Pari perl module
 Summary(pl):	Modu≥ perla Math-Pari
 Group:		Development/Languages/Perl
-Group(de):	Entwicklung/Sprachen/Perl
-Group(pl):	Programowanie/JÍzyki/Perl
 
 %description -n perl-Math-Pari
 The PERL interface to the PARI part of GP/PARI
