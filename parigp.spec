@@ -177,7 +177,7 @@ src/make_vi_tags src
 # gp2c
 cd gp2c-%{gp2c_version}
 ln -sf ../ pari
-autoconf
+%{__autoconf}
 %configure \
 	--datadir=%{_datadir}/parigp
 %{__make}
