@@ -5,7 +5,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	2.1.2
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
@@ -265,6 +265,9 @@ cd Math-Pari-%{math_pari_version}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 cd ..
+
+rm -f $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
+echo ".so gp.1" > $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
 
 gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
 	MACHINES NEW README README.DOS TODO emacs/pariemacs.txt \
