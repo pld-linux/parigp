@@ -195,6 +195,7 @@ Interfejs perl-a do biblioteki PARI
 ./Configure \
 	--target=%{_target_cpu} \
 	--prefix=%{_prefix} \
+	--libdir=%{_libdir} \
 	--share-prefix=%{_datadir}
 
 %{__make} all \
