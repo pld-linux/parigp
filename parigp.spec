@@ -190,26 +190,26 @@ ln -s ../ pari
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%{__install} -d $RPM_BUILD_ROOT{%{_applnkdir}/Scientific,%{_examplesdir}/parigp} \
+install -d $RPM_BUILD_ROOT{%{_applnkdir}/Scientific,%{_examplesdir}/parigp} \
 	$RPM_BUILD_ROOT{%{_datadir}/parigp/galdata,%{_pixmapsdir}}
 
 # parigp, pari & pari-devel
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
-%{__install} src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc
-%{__install} %{SOURCE3} $RPM_BUILD_ROOT%{_applnkdir}/Scientific
-%{__install} %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
+install src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc
+install %{SOURCE3} $RPM_BUILD_ROOT%{_applnkdir}/Scientific
+install %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 # pari-static
-%{__install} Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
+install Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
 
 # parigp-demos
-%{__install} examples/* $RPM_BUILD_ROOT%{_examplesdir}/parigp
+install examples/* $RPM_BUILD_ROOT%{_examplesdir}/parigp
 
 # galdata
 tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/galdata/
 
 # xemacs-parigp-mode-pkg
-%{__install} -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
+install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
 cp -a emacs/*.el $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
 cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode/auto-autoloads.el
 (autoload 'gp-mode "pari" nil t)
