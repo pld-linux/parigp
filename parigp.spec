@@ -1,7 +1,7 @@
-
+#
 # Conditional build:
 %bcond_without	tex	# don't build tex documentation
-
+#
 %include	/usr/lib/rpm/macros.perl
 %define		pari_version		2.1.5
 %define		gp2c_version		0.0.3pl0
@@ -11,7 +11,6 @@ Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody t
 Name:		parigp
 Version:	%{pari_version}
 Release:	1.1
-%define gp2c_release	%{release}
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
@@ -30,11 +29,11 @@ Patch2:		%{name}-termcap.patch
 Patch3:		%{name}-arch.patch
 Patch4:		%{name}-sparc.patch
 Patch5:		%{name}-athlon.patch
-Patch30:	Math-Pari-alpha.patch
 Icon:		parigp.xpm
 URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
+BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	rpm-perlprov >= 3.0.3-16
 %if %{with tex}
@@ -48,8 +47,7 @@ BuildRequires:	tetex-pdftex
 BuildRequires:	tetex-tex-babel
 BuildRequires:	tetex-tex-ruhyphen
 %endif
-BuildRequires:	perl-devel
-Requires:	pari = %{pari_version}
+Requires:	pari = %{pari_version}-%{release}
 Requires:	xdvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -89,7 +87,7 @@ PARI/GP.
 Summary:	Include files for PARI shared library
 Summary(pl):	Pliki nag³ówkowe do biblioteki wspó³dzielonej PARI
 Group:		Development/Libraries
-Requires:	pari = %{pari_version}
+Requires:	pari = %{pari_version}-%{release}
 
 %description -n pari-devel
 Include files for shared PARI library. You need them to use PARI
@@ -104,7 +102,7 @@ swoich programach.
 Summary:	Static PARI library
 Summary(pl):	Statyczna biblioteka PARI
 Group:		Development/Libraries
-Requires:	pari-devel = %{pari_version}
+Requires:	pari-devel = %{pari_version}-%{release}
 
 %description -n pari-static
 Static PARI library. You need it to statically link your programs with
@@ -118,7 +116,7 @@ statycznego swoich programów korzystaj±cych z biblioteki PARI.
 Summary:	Example PARI/GP scripts
 Summary(pl):	Przyk³adowe skrypty pisane w jêzyku PARI/GP
 Group:		Applications/Math
-Requires:	%{name} = %{pari_version}
+Requires:	%{name} = %{pari_version}-%{release}
 
 %description demos
 Example PARI/GP scripts. You can write such programs on your own.
@@ -130,7 +128,7 @@ Przyk³adowe skrypty pisane w jêzyku PARI/GP. Sam mo¿esz takie napisaæ.
 Summary:	Galois data resolvents for PARI/GP
 Summary(pl):	Reprezentacje danych Galois fla PARI/GP
 Group:		Applications/Math
-Requires:	%{name} = %{pari_version}
+Requires:	%{name} = %{pari_version}-%{release}
 
 %description galdata
 Galois data resolvents for PARI/GP.
@@ -142,11 +140,10 @@ Reprezentacje danych Galois do PARI/GP.
 Summary:	PARI/GP to C translator
 Summary(pl):	Konwerter skryptów PARI/GP do jêzyka C
 Epoch:		1
-Version:	%{gp2c_version}
-Release:	%{gp2c_release}
+Version:	%{gp2c_version}-%{release}
 Group:		Development/Tools
-Requires:	pari-devel
-Requires:	parigp
+Requires:	pari-devel = %{pari_version}-%{release}
+Requires:	%{name} = %{pari_version}-%{release}
 
 %description gp2c
 PARI/GP to C translator. Use it to compile your own C programs which
@@ -190,8 +187,6 @@ Interfejs perl-a do biblioteki PARI
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-cd Math-Pari-%{math_pari_version}
-#%patch30 -p1
 
 %build
 # pari & parigp
@@ -226,19 +221,21 @@ cd ..
 cd Math-Pari-%{math_pari_version}
 %{__perl} Makefile.PL \
 	INSTALLDIRS=vendor
-%{__make} OPTIMIZE="%{rpmcflags}"
+%{__make} \
+	OPTIMIZE="%{rpmcflags}"
 # %{__make} test
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_applnkdir}/Scientific/Mathematics,%{_examplesdir}/parigp} \
-	$RPM_BUILD_ROOT{%{_datadir}/parigp/galdata,%{_pixmapsdir}}
+install -d $RPM_BUILD_ROOT{%{_datadir}/parigp/galdata,%{_examplesdir}/parigp} \
+	$RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 
 # parigp, pari & pari-devel
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
 install src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc
-install %{SOURCE4} $RPM_BUILD_ROOT%{_applnkdir}/Scientific/Mathematics
+install %{SOURCE4} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE5} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 # pari-static
@@ -248,7 +245,7 @@ install Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
 install examples/* $RPM_BUILD_ROOT%{_examplesdir}/parigp
 
 # galdata
-tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/galdata/
+tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/galdata
 
 # xemacs-parigp-mode-pkg
 install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
@@ -279,19 +276,19 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc AUTHORS Announce* CHANGES COMPAT MACHINES NEW README TODO
+%doc examples/Inputrc doc/refcard.ps
 %attr(755,root,root) %{_bindir}/gp-2.1
 %attr(755,root,root) %{_bindir}/gp
 %attr(755,root,root) %{_bindir}/gphelp
 %attr(755,root,root) %{_bindir}/tex2mail
-%doc AUTHORS Announce* CHANGES COMPAT MACHINES NEW README TODO
-%doc examples/Inputrc doc/refcard.ps
 %dir %{_datadir}/parigp
 %{?with_tex:%{_datadir}/parigp/doc}
 %{_datadir}/parigp/misc
 %{_mandir}/man1/[!g]*.1*
 %{_mandir}/man1/gp.1*
 %{_mandir}/man1/gphelp.1*
-%{_applnkdir}/Scientific/Mathematics/*
+%{_desktopdir}/*.desktop
 %{_pixmapsdir}/*
 
 %files -n pari
