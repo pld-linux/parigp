@@ -20,6 +20,7 @@ Patch1:		%{name}-target_arch.patch
 Patch2:		%{name}-termcap.patch
 Patch3:		%{name}-arch.patch
 Patch4:		%{name}-sparc.patch
+Patch5:		%{name}-athlon.patch
 Patch30:	Math-Pari-alpha.patch
 Icon:		parigp.xpm
 URL:		http://www.parigp-home.de/
@@ -167,6 +168,7 @@ Interfejs perl-a do biblioteki PARI
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 %patch30 -p0
 
 %build
