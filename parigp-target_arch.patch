@@ -1,0 +1,21 @@
+diff -urN pari-2.1.0/Configure pari-2.1.0-target_arch/Configure
+--- pari-2.1.0/Configure	Mon Nov 13 15:35:43 2000
++++ pari-2.1.0-target_arch/Configure	Sat Dec  2 20:50:27 2000
+@@ -69,6 +69,8 @@
+   -p|-prefix)   shift; prefix=$1;;
+   --prefix=*|--prefi=*|--pref=*|--pre=*|--pr=*|--p=*)
+                prefix=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
++  --target=*)
++  	       target=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
+   --disable-kernel) kernel=no;;
+   -a|-ask)     fastread=no;;
+   -g)          optimization=debugging;;
+@@ -273,6 +275,8 @@
+ 	    esac;;
+   esac
+ fi
++
++arch=$target
+ 
+ if test "$fastread" != yes; then
+   cat << EOM
