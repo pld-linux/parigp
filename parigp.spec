@@ -244,7 +244,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/parigp/*.dvi
 %{_datadir}/parigp/refcard.ps
 %{_datadir}/parigp/translations
-%{_mandir}/man1/*
+%{_mandir}/man1/*.gz
 %dir %{_datadir}/parigp/data
 %dir %{_datadir}/parigp/misc
 %{_datadir}/parigp/misc/*
