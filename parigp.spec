@@ -18,6 +18,7 @@ Source5:	%{name}.png
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
 Patch2:		%{name}-termcap.patch
+Patch3:		%{name}-arch.patch
 Icon:		parigp.xpm
 URL:		http://www.parigp-home.de/
 BuildRequires:	XFree86-devel
@@ -162,6 +163,7 @@ Interfejs perl-a do biblioteki PARI
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 # pari & parigp
@@ -173,6 +175,9 @@ Interfejs perl-a do biblioteki PARI
 %{__make} all CFLAGS="%{rpmcflags} -DGCC_INLINE"
 %{__make} doc
 src/make_vi_tags src
+%ifarch %{ix86}
+ln -s Olinux-%{_target_cpu} Olinux-ix86
+%endif
 
 # gp2c
 cd gp2c-%{gp2c_version}
