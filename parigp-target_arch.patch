@@ -1,19 +1,19 @@
-diff -urN pari-2.1.0/Configure pari-2.1.0-target_arch/Configure
---- pari-2.1.0/Configure	Mon Nov 13 15:35:43 2000
-+++ pari-2.1.0-target_arch/Configure	Sat Dec  2 20:50:27 2000
-@@ -69,6 +69,8 @@
+diff -urN pari-2.1.1/Configure pari-2.1.1.patch/Configure
+--- pari-2.1.1/Configure	Fri Apr 27 15:51:44 2001
++++ pari-2.1.1.patch/Configure	Thu May 10 11:35:32 2001
+@@ -82,6 +82,8 @@
    -p|-prefix)   shift; prefix=$1;;
    --prefix=*|--prefi=*|--pref=*|--pre=*|--pr=*|--p=*)
                 prefix=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
 +  --target=*)
 +  	       target=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
-   --disable-kernel) kernel=no;;
-   -a|-ask)     fastread=no;;
-   -g)          optimization=debugging;;
-@@ -273,6 +275,8 @@
- 	    esac;;
-   esac
+   --share-prefix=*)
+                share_prefix=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
+   --host=*)
+@@ -251,6 +253,8 @@
  fi
+ arch=`echo "$target_host" | sed -e 's/\(.*\)-.*/\1/'`
+ osname=`echo "$target_host" | sed -e 's/.*-\(.*\)/\1/'`
 +
 +arch=$target
  
