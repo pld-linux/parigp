@@ -32,7 +32,7 @@ Patch4:		%{name}-sparc.patch
 Patch5:		%{name}-athlon.patch
 Patch30:	Math-Pari-alpha.patch
 Icon:		parigp.xpm
-URL:		http://www.parigp-home.de/
+URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	readline-devel >= 4.2
