@@ -23,7 +23,6 @@ BuildRequires:	tetex
 BuildRequires:	tetex-dvips
 BuildRequires:	tetex-ams
 BuildRequires:	tetex-pdftex
-BuildRequires:	xemacs
 Requires:	pari = %{version}
 Requires:	xdvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
