@@ -3,24 +3,24 @@
 %bcond_without	tex	# don't build tex documentation
 #
 %include	/usr/lib/rpm/macros.perl
-%define		pari_version		2.1.5
-%define		gp2c_version		0.0.3pl2
-%define		math_pari_version	2.010501
+%define		pari_version		2.1.6
+%define		gp2c_version		0.0.3pl4
+%define		math_pari_version	2.010603
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	4
+Release:	1
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
-# Source0-md5:	194e9d1cc11926e457028c6a7cba15f0
+# Source0-md5:	506a061c8dcdec33d18876f3c551e951
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 # Source1-md5:	25eab5f9dfdb8715b9ace8cd68210425
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
-# Source2-md5:	629027de0c20745876b0334be1a3a3f8
+# Source2-md5:	0bf4b25b1eb249e0da61880a9db5add9
 Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_version}.tar.gz
-# Source3-md5:	6660eaf9ea601954aab212bc18efca03
+# Source3-md5:	03a8f41699ae9a66891e0b50769afa6f
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-FHS.patch
@@ -141,8 +141,8 @@ Reprezentacje danych Galois do PARI/GP.
 %package gp2c
 Summary:	PARI/GP to C translator
 Summary(pl):	Konwerter skryptów PARI/GP do jêzyka C
-Epoch:		1
 Version:	%{gp2c_version}
+Epoch:		1
 Group:		Development/Tools
 Requires:	pari-devel = %{pari_version}-%{release}
 Requires:	%{name} = %{pari_version}-%{release}
