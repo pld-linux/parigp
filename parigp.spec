@@ -14,7 +14,7 @@ Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
 Patch2:		%{name}-emacsfix.patch
-Icon:		%{name}.xpm
+Icon:		parigp.xpm
 URL:		http://www.parigp-home.de/
 Requires:	pari = %{version}
 Requires:	xdvi
