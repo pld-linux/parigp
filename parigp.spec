@@ -171,6 +171,7 @@ Tryb edycji plików PARI/GP do Xemacsa.
 
 %{__make} all CFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS -DGCC_INLINE}"
 %{__make} doc
+src/make_vi_tags src
 
 # gp2c
 cd gp2c-%{gp2c_version}
@@ -191,6 +192,7 @@ rm -rf $RPM_BUILD_ROOT
 	INCLUDEDIR=$RPM_BUILD_ROOT%{_includedir}/pari
 %{__install} -d $RPM_BUILD_ROOT%{_datadir}/parigp/misc
 %{__install} misc/gprc.dft $RPM_BUILD_ROOT%{_datadir}/parigp/misc/gprc
+%{__install} src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc/vi_tags
 
 # pari-static
 %{__install} Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
@@ -245,7 +247,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/*
 %dir %{_datadir}/parigp/data
 %dir %{_datadir}/parigp/misc
-%dir %{_datadir}/parigp/misc/*
+%{_datadir}/parigp/misc/*
 
 %files -n pari
 %defattr(644,root,root,755)
