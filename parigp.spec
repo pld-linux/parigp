@@ -135,8 +135,8 @@ Group(pl):	Aplikacje/Edytory/Emacs
 Requires:	xemacs
 
 %package gp2c
-Summary:	PARI/GP to C translator.
-Summary(pl):	Konwerter skryptów PARI/GP do jêzyka C.
+Summary:	PARI/GP to C translator
+Summary(pl):	Konwerter skryptów PARI/GP do jêzyka C
 Group:		Development/Tools
 Group(de):	Entwicklung/Werkzeuge
 Group(fr):	Development/Outils
@@ -169,7 +169,7 @@ Tryb edycji plików PARI/GP do Xemacsa.
 # pari & parigp
 ./Configure --target=%{_target_cpu} --prefix=%{_prefix}
 
-%{__make} all CFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS -DGCC_INLINE}"
+%{__make} all CFLAGS="%{rpmcflags} -DGCC_INLINE"
 %{__make} doc
 src/make_vi_tags src
 
