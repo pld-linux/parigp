@@ -1,0 +1,33 @@
+--- pari-2.1.5/config/arch-osname.orig	2004-03-05 19:41:45.000000000 +0100
++++ pari-2.1.5/config/arch-osname	2004-03-05 20:09:37.036819216 +0100
+@@ -16,7 +16,7 @@
+   osf1)     case "$5" in alpha) arch=alpha;; esac;;
+   cygwin*)  arch=$HOSTTYPE; osname=cygwin;;
+   linux)    arch=`uname -m | sed s/i.86/ix86/`
+-	    case "`cat /proc/cpuinfo`" in
++	    case "generic" in
+ 	    *SuperSparc*)   arch=sparcv8_super;;
+ 	    *TMS390Z5[05]*) arch=sparcv8_super;; # SuperSparc I or II
+ 	    *TMS390S1[05]*) arch=sparcv8_micro;; # MicroSparc I
+--- pari-2.1.5/gp2c-0.0.3pl0/config/arch-osname.orig	2001-03-18 21:55:19.000000000 +0100
++++ pari-2.1.5/gp2c-0.0.3pl0/config/arch-osname	2004-03-05 20:09:50.367792600 +0100
+@@ -16,7 +16,7 @@
+   osf1)     case "$5" in alpha) arch=alpha;; esac;;
+   cygwin*)  arch=$HOSTTYPE;;
+   linux)    arch=`uname -m`
+-	    case "`cat /proc/cpuinfo`" in
++	    case "generic" in
+ 	    *SuperSparc*)   arch=sparcv8_super;;
+ 	    *TMS390Z5[05]*) arch=sparcv8_super;; # SuperSparc I or II
+ 	    *TMS390S1[05]*) arch=sparcv8_micro;; # MicroSparc I
+--- pari-2.1.5/Math-Pari-2.010501/utils/Math/PariBuild.pm.orig	2004-02-01 10:30:06.000000000 +0100
++++ pari-2.1.5/Math-Pari-2.010501/utils/Math/PariBuild.pm	2004-03-05 20:11:22.990711776 +0100
+@@ -689,7 +689,7 @@
+     $machine = $ENV{HOSTTYPE};
+   } elsif ($os eq 'linux') {
+     chomp($machine = `uname -m`);
+-    if (-e '/proc/cpuinfo') {
++    if (0 && -e '/proc/cpuinfo') {
+       open IN, '/proc/cpuinfo' or die "open /proc/cpuinfo: $!";
+       local $/ = undef;		# Needed?
+       my $info = <IN>;
