@@ -1,9 +1,9 @@
-%define 	gp2c_version 0.0.0pl3
+%define 	gp2c_version 0.0.0pl5
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	2.1.0
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
