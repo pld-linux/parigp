@@ -18,9 +18,7 @@ Source4:	%{name}.desktop
 Source5:	%{name}.xpm
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
-#Patch2:		%{name}-emacsfix.patch
-#Patch3:		%{name}-CLK_TCK.patch
-Patch4:		%{name}-termcap.patch
+Patch2:		%{name}-termcap.patch
 Icon:		parigp.xpm
 URL:		http://www.parigp-home.de/
 BuildRequires:	autoconf
@@ -197,9 +195,7 @@ Interfejs perl-a do biblioteki PARI
 %setup -q -n pari-%{version} -a 2 -a 3
 %patch0 -p1
 %patch1 -p1
-#%patch2 -p1
-#%patch3 -p1
-%patch4 -p1
+%patch2 -p1
 
 %build
 # pari & parigp
