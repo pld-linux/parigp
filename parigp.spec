@@ -1,14 +1,16 @@
+%define 	gp2c_version 0.0.0pl2
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	2.1.0
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
+Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
 Patch2:		%{name}-emacsfix.patch
@@ -57,8 +59,7 @@ Group(pl):	Biblioteki
 Shared PARI library. You need it to run PARI/GP.
 
 %description -l pl -n pari
-Biblioteka wspó³dzielona PARI. Potrzebujesz jej do uruchomienia PARI /
-GP.
+Biblioteka wspó³dzielona PARI. Potrzebujesz jej do uruchomienia PARI/GP.
 
 %package -n pari-devel
 Summary:	Include files for PARI shared library
@@ -132,6 +133,21 @@ Requires:	xemacs
 BuildRequires:	xemacs
 BuildArch:	noarch
 
+%package gp2c
+Summary:	PARI/GP to C translator.
+Summary(pl):	Konwerter skryptów PARI/GP do jêzyka C.
+Group:		Development/Tools
+Group(de):	Entwicklung/Werkzeuge
+Group(fr):	Development/Outils
+Group(pl):	Programowanie/Narzêdzia
+Requires:	pari-devel
+
+%description gp2c
+PARI/GP to C translator. Use it to compile your own C programs which use pari library, without necessarily being a C programmer.
+
+%description gp2c -l pl
+Konwerter skryptów PARI/GP do jêzyka C. Mo¿na nim tworzyæ w³asne programy w C korzystaj±ce z biblioteki pari. Znajomo¶æ jêzyka C nie jest wymagana.
+
 %description -n xemacs-parigp-mode-pkg
 PARI/GP editing mode for Xemacs.
 
@@ -139,17 +155,25 @@ PARI/GP editing mode for Xemacs.
 Tryb edycji plików PARI/GP do Xemacsa.
 
 %prep
-%setup0 -q -n pari-%{version}
+%setup0 -q -n pari-%{version} -a 2 gp2c-%{gp2c_version}
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 
 %build
 
+# pari & parigp
 ./Configure --target=%{_target_cpu} --prefix=%{_prefix}
 
 %{__make} all
 %{__make} doc
+
+# gp2c
+cd gp2c-%{gp2c_version}
+ln -s ../ pari
+%configure \
+	--datadir=%{_datadir}/parigp
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -175,7 +199,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__install} -d $RPM_BUILD_ROOT%{_datadir}/parigp/data
 tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/data/
 
-# # xemacs-parigp-mode-pkg
+# xemacs-parigp-mode-pkg
 %{__install} -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
 cp -a emacs/*.el $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
 cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode/auto-autoloads.el
@@ -185,8 +209,16 @@ cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode/auto-auto
 (autoload 'gpman "pari" nil t)
 EOF
 
+# gp2c
+cd gp2c-%{gp2c_version}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+cd ..
+
 gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
-	MACHINES NEW README README.DOS TODO emacs/pariemacs.txt
+	MACHINES NEW README README.DOS TODO emacs/pariemacs.txt \
+	gp2c-%{gp2c_version}/NEWS gp2c-%{gp2c_version}/README \
+	gp2c-%{gp2c_version}/ChangeLog gp2c-%{gp2c_version}/AUTHORS
 
 %post   -n pari -p /sbin/ldconfig
 %postun -n pari -p /sbin/ldconfig
@@ -235,3 +267,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/xemacs-packages/lisp/*
 %doc emacs/*.gz
+
+%files gp2c
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/gp2c
+%dir %{_datadir}/parigp/gp2c
+%{_datadir}/parigp/gp2c/*
+%doc gp2c-%{gp2c_version}/*.gz
