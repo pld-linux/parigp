@@ -18,7 +18,7 @@ Icon:		parigp.xpm
 URL:		http://www.parigp-home.de/
 BuildRequires:	XFree86-devel
 BuildRequires:	perl
-BuildRequires:	readline-devel
+BuildRequires:	readline-devel >= 4.2
 BuildRequires:	tetex
 BuildRequires:	tetex-ams
 BuildRequires:	tetex-dvips
@@ -167,7 +167,9 @@ Tryb edycji plików PARI/GP do Xemacsa.
 %build
 
 # pari & parigp
-./Configure --target=%{_target_cpu} --prefix=%{_prefix} \
+./Configure \
+	--target=%{_target_cpu} \
+	--prefix=%{_prefix} \
 	--share-prefix=%{_datadir}
 
 %{__make} all CFLAGS="%{rpmcflags} -DGCC_INLINE"
