@@ -176,10 +176,10 @@ Version:	%{math_pari_version}
 Group:		Development/Languages/Perl
 
 %description -n perl-Math-Pari
-The PERL interface to the PARI part of GP/PARI
+The Perl interface to the PARI part of GP/PARI
 
 %description -n perl-Math-Pari -l pl
-Interfejs perl-a do biblioteki PARI
+Interfejs Perla do biblioteki PARI
 
 %prep
 %setup -q -n pari-%{pari_version} -a 2 -a 3
