@@ -7,13 +7,12 @@ Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
 Group(pl):	Aplikacje/Matematyczne
 License:	GPL
-Vendor:		PLD
-URL:		http://www.parigp-home.de
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{version}.tgz
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tar.gz
 Patch0:		%{name}-FHS.patch
 Patch1:		%{name}-target_arch.patch
 Icon:		%{name}.xpm
+URL:		http://www.parigp-home.de/
 Requires:	pari = %{version}
 Requires:	xdvi
 BuildRequires:	xemacs
@@ -23,8 +22,6 @@ BuildRequires:	readline-devel
 BuildRequires:	XFree86-devel
 BuildRequires:	perl
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define _prefix /usr/
 
 %description
 PARI / GP is a package which is aimed at efficient computations in
@@ -138,10 +135,12 @@ Galois data resolvents for PARI / GP.
 %description galdata -l pl
 Reprezentacje danych Galois do PARI / GP.
 
-# %package -n xemacs-parigp-mode-pkg # Summary: PARI / GP mode for
-Octave # Summary(pl): Tryb edycji plików PARI / GP do XEmacsa # Group:
-Applications/Editors/Emacs # Group(pl): Aplikacje/Edytory/Emacs #
-Requires: xemacs
+%package -n xemacs-parigp-mode-pkg # Summary: PARI / GP mode for Octave
+Summary(pl):	Tryb edycji plików PARI / GP do XEmacsa
+Group:		Applications/Editors/Emacs
+Group(de):	Applikationen/Editors/Emacs
+Group(pl):	Aplikacje/Edytory/Emacs
+Requires:	xemacs
 
 # %description -n xemacs-parigp-mode-pkg # PARI / GP editing mode for
 Xemacs
@@ -195,9 +194,10 @@ tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/data/
 # (autoload 'gpman "pari" nil t)
 # EOF
 
-gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt MACHINES NEW README README.DOS TODO emacs/*
+gzip -9nf Announce* AUTHORS CHANGES COMPAT CVS.txt INSTALL.tex INSTALL.txt \
+	MACHINES NEW README README.DOS TODO emacs/*
 
-%post -n pari -p /sbin/ldconfig
+%post   -n pari -p /sbin/ldconfig
 %postun -n pari -p /sbin/ldconfig
 
 %clean
