@@ -1,14 +1,5 @@
 --- pari-2.1.4/src/kernel/sparcv8/Makefile.SH.orig	Wed Feb 23 19:44:24 2000
 +++ pari-2.1.4/src/kernel/sparcv8/Makefile.SH	Thu Sep  5 14:15:04 2002
-@@ -8,7 +8,7 @@
- # For NextStep or Linux
- #   We don't accept "asm inline" since it does not work (Ptitboul)
- 
--if test -z "$__gnuc__" -o "$osname" = "nextstep" -o "$osname" = "linux"; then
-+if test -z "$__gnuc__" -o "$osname" = "nextstep" ; then
-   kernel="$kernel kernel2"
- fi
- if test "$gnuas" = "yes"; then do_cpp=yes; fi
 @@ -17,7 +17,7 @@
  kernel1=$ker/level0_$asmarch.S
  kernel2=$ker/level0.S

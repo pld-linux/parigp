@@ -3,25 +3,25 @@
 # _without_tex - don't build tex documentation
 #
 %include	/usr/lib/rpm/macros.perl
-%define		pari_version		2.1.4
-%define		gp2c_version		0.0.2pl3
-%define		math_pari_version	2.010305
+%define		pari_version		2.1.5
+%define		gp2c_version		0.0.2pl5
+%define		math_pari_version	2.010500
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	7
+Release:	1
 %define gp2c_release	%{release}
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
-# Source0-md5:	f790435b3008b3a5054989fa467c5a51
+# Source0-md5:	194e9d1cc11926e457028c6a7cba15f0
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 # Source1-md5:	25eab5f9dfdb8715b9ace8cd68210425
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
-# Source2-md5:	dbd7534590fee5ba4d7468a83824eb84
+# Source2-md5:	c4631de7774bdc1a58f030a7fe3ff223
 Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_version}.tar.gz
-# Source3-md5:	1985a1204254db7f3cfc90bfef79c7c3
+# Source3-md5:	6ae5d0b044984a4fdc7817e79922419e
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-FHS.patch
@@ -188,7 +188,8 @@ Interfejs perl-a do biblioteki PARI
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch30 -p0
+cd Math-Pari-%{math_pari_version}
+%patch30 -p1
 
 %build
 # pari & parigp
@@ -197,7 +198,9 @@ Interfejs perl-a do biblioteki PARI
 	--prefix=%{_prefix} \
 	--share-prefix=%{_datadir}
 
-%{__make} all CFLAGS="%{rpmcflags} -DGCC_INLINE"
+%{__make} all \
+	CFLAGS="%{rpmcflags} -DGCC_INLINE"
+
 %{!?_without_tex:%{__make} doc}
 src/make_vi_tags src
 %ifarch %{ix86}
@@ -256,16 +259,12 @@ cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode/auto-auto
 EOF
 
 # gp2c
-cd gp2c-%{gp2c_version}
-%{__make} install \
+%{__make} install -C gp2c-%{gp2c_version} \
 	DESTDIR=$RPM_BUILD_ROOT
-cd ..
 
 # math-pari
-cd Math-Pari-%{math_pari_version}
-%{__make} install \
+%{__make} install -C Math-Pari-%{math_pari_version} \
 	DESTDIR=$RPM_BUILD_ROOT
-cd ..
 
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
 echo ".so gp.1" > $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
@@ -287,7 +286,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/parigp
 %{?!_without_tex:%{_datadir}/parigp/doc}
 %{_datadir}/parigp/misc
-%{_mandir}/man1/[^g]*.1*
+%{_mandir}/man1/[!g]*.1*
 %{_mandir}/man1/gp.1*
 %{_mandir}/man1/gphelp.1*
 %{_applnkdir}/Scientific/Mathematics/*
@@ -299,8 +298,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n pari-devel
 %defattr(644,root,root,755)
-%{_includedir}/pari
 %attr(755,root,root) %{_libdir}/*.so
+%{_includedir}/pari
 
 %files -n pari-static
 %defattr(644,root,root,755)
