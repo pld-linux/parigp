@@ -3,7 +3,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	2.1.1
-Release:	3
+Release:	4
 License:	GPL
 Group:		Applications/Math
 Group(de):	Applikationen/Mathematik
