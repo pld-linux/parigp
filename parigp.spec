@@ -195,8 +195,8 @@ rm -rf $RPM_BUILD_ROOT
 # parigp, pari & pari-devel
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 %{__install} src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc
-%{__install} ${SOURCE3} $RPM_BUILD_ROOT%{_applnkdir}/Scientific
-%{__install} ${SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
+%{__install} %{SOURCE3} $RPM_BUILD_ROOT%{_applnkdir}/Scientific
+%{__install} %{SOURCE4} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 # pari-static
 %{__install} Olinux-%{_target_cpu}/libpari.a $RPM_BUILD_ROOT%{_libdir}/libpari.a
