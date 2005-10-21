@@ -3,24 +3,24 @@
 %bcond_without	tex	# don't build tex documentation
 #
 %include	/usr/lib/rpm/macros.perl
-%define		pari_version		2.1.6
-%define		gp2c_version		0.0.3pl4
-%define		math_pari_version	2.010603
+%define		pari_version		2.1.7
+%define		gp2c_version		0.0.4pl2
+%define		math_pari_version	2.010604
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	2
+Release:	1
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
-# Source0-md5:	506a061c8dcdec33d18876f3c551e951
+# Source0-md5:	357b7a42e89e2761a5367bbcbfcca5f2
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 # Source1-md5:	25eab5f9dfdb8715b9ace8cd68210425
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
-# Source2-md5:	0bf4b25b1eb249e0da61880a9db5add9
+# Source2-md5:	a2b8f8b57064134f32462e628385f6a3
 Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_version}.tar.gz
-# Source3-md5:	03a8f41699ae9a66891e0b50769afa6f
+# Source3-md5:	cdda5e343caaa388cbbdf1b6a7d627dd
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-FHS.patch
