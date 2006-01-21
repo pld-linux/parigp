@@ -31,7 +31,6 @@ Patch4:		%{name}-sparc.patch
 Patch5:		%{name}-athlon.patch
 Patch6:		%{name}-no-proccpuinfo.patch
 Patch7:		perl-Math-Pari-crash-workaround.patch
-Icon:		parigp.xpm
 URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
