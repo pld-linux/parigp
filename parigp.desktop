@@ -7,5 +7,5 @@ Exec=gp
 Terminal=true
 Type=Application
 Encoding=UTF-8
-Categories=Science;Math;
+Categories=Education;Science;Math;
 # vi: encoding=utf-8
