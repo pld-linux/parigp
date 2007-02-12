@@ -7,7 +7,7 @@
 %define		gp2c_version		0.0.4pl2
 %define		math_pari_version	2.010604
 Summary:	Number Theory-oriented Computer Algebra System
-Summary(pl):	Komputerowy system obliczeñ algebraicznych zorientowany na metody teorii liczb
+Summary(pl.UTF-8):   Komputerowy system obliczeÅ„ algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
 Release:	1
@@ -62,31 +62,31 @@ expressions per se. However it is often much faster than other CAS,
 and contains a large number of specific functions not found elsewhere,
 essentially for use in number theory.
 
-%description -l pl
-System PARI/GP jest przeznaczony do wydajnych obliczeñ z zakresu
-teorii liczb, ale zawiera równie¿ inne przydatne funkcje. Jest nieco
+%description -l pl.UTF-8
+System PARI/GP jest przeznaczony do wydajnych obliczeÅ„ z zakresu
+teorii liczb, ale zawiera rÃ³wnieÅ¼ inne przydatne funkcje. Jest nieco
 spokrewniony z Komputerowymi Systemami Algebraicznymi, ale nie
-identyczny, poniewa¿ traktuje wyra¿enia symboliczne jako obiekty
-matematyczne (macierze, wielomiany, szeregi itp.) a nie jako wyra¿enia
-same w sobie. Jest jednak czêsto znacznie szybszy od innych KSA-ów a
+identyczny, poniewaÅ¼ traktuje wyraÅ¼enia symboliczne jako obiekty
+matematyczne (macierze, wielomiany, szeregi itp.) a nie jako wyraÅ¼enia
+same w sobie. Jest jednak czÄ™sto znacznie szybszy od innych KSA-Ã³w a
 ponadto zawiera wiele innych funkcji nie spotykanych gdzie indziej, a
-przydatnych zw³aszcza w teorii liczb.
+przydatnych zwÅ‚aszcza w teorii liczb.
 
 %package -n pari
 Summary:	Shared PARI library (required by the parigp package)
-Summary(pl):	Biblioteka wspó³dzielona PARI (wymagana przez pakiet parigp)
+Summary(pl.UTF-8):   Biblioteka wspÃ³Å‚dzielona PARI (wymagana przez pakiet parigp)
 Group:		Libraries
 
 %description -n pari
 Shared PARI library. You need it to run PARI/GP.
 
-%description -n pari -l pl
-Biblioteka wspó³dzielona PARI. Potrzebujesz jej do uruchomienia
+%description -n pari -l pl.UTF-8
+Biblioteka wspÃ³Å‚dzielona PARI. Potrzebujesz jej do uruchomienia
 PARI/GP.
 
 %package -n pari-devel
 Summary:	Include files for PARI shared library
-Summary(pl):	Pliki nag³ówkowe do biblioteki wspó³dzielonej PARI
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe do biblioteki wspÃ³Å‚dzielonej PARI
 Group:		Development/Libraries
 Requires:	pari = %{pari_version}-%{release}
 
@@ -94,14 +94,14 @@ Requires:	pari = %{pari_version}-%{release}
 Include files for shared PARI library. You need them to use PARI
 routines in you own programs.
 
-%description -n pari-devel -l pl
-Pliki nag³ówkowe biblioteki wspó³dzielonej PARI. Bêdziesz ich
-potrzebowa³, je¿eli bêdziesz chcia³ wykorzystywaæ procedury PARI w
+%description -n pari-devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe biblioteki wspÃ³Å‚dzielonej PARI. BÄ™dziesz ich
+potrzebowaÅ‚, jeÅ¼eli bÄ™dziesz chciaÅ‚ wykorzystywaÄ‡ procedury PARI w
 swoich programach.
 
 %package -n pari-static
 Summary:	Static PARI library
-Summary(pl):	Statyczna biblioteka PARI
+Summary(pl.UTF-8):   Statyczna biblioteka PARI
 Group:		Development/Libraries
 Requires:	pari-devel = %{pari_version}-%{release}
 
@@ -109,37 +109,37 @@ Requires:	pari-devel = %{pari_version}-%{release}
 Static PARI library. You need it to statically link your programs with
 PARI.
 
-%description -n pari-static -l pl
+%description -n pari-static -l pl.UTF-8
 Biblioteka statyczna PARI. Potrzebujesz jej do konsolidowania
-statycznego swoich programów korzystaj±cych z biblioteki PARI.
+statycznego swoich programÃ³w korzystajÄ…cych z biblioteki PARI.
 
 %package demos
 Summary:	Example PARI/GP scripts
-Summary(pl):	Przyk³adowe skrypty pisane w jêzyku PARI/GP
+Summary(pl.UTF-8):   PrzykÅ‚adowe skrypty pisane w jÄ™zyku PARI/GP
 Group:		Applications/Math
 Requires:	%{name} = %{pari_version}-%{release}
 
 %description demos
 Example PARI/GP scripts. You can write such programs on your own.
 
-%description demos -l pl
-Przyk³adowe skrypty pisane w jêzyku PARI/GP. Sam mo¿esz takie napisaæ.
+%description demos -l pl.UTF-8
+PrzykÅ‚adowe skrypty pisane w jÄ™zyku PARI/GP. Sam moÅ¼esz takie napisaÄ‡.
 
 %package galdata
 Summary:	Galois data resolvents for PARI/GP
-Summary(pl):	Reprezentacje danych Galois fla PARI/GP
+Summary(pl.UTF-8):   Reprezentacje danych Galois fla PARI/GP
 Group:		Applications/Math
 Requires:	%{name} = %{pari_version}-%{release}
 
 %description galdata
 Galois data resolvents for PARI/GP.
 
-%description galdata -l pl
+%description galdata -l pl.UTF-8
 Reprezentacje danych Galois do PARI/GP.
 
 %package gp2c
 Summary:	PARI/GP to C translator
-Summary(pl):	Konwerter skryptów PARI/GP do jêzyka C
+Summary(pl.UTF-8):   Konwerter skryptÃ³w PARI/GP do jÄ™zyka C
 Version:	%{gp2c_version}
 Epoch:		1
 Group:		Development/Tools
@@ -151,34 +151,34 @@ PARI/GP to C translator. Use it to compile your own C programs which
 use pari library, without necessarily being a C programmer. Note: use
 gp2c-run to run your programs inside the PARI/GP environment.
 
-%description gp2c -l pl
-Konwerter skryptów PARI/GP do jêzyka C. Mo¿na nim tworzyæ w³asne
-programy w C korzystaj±ce z biblioteki pari. Znajomo¶æ jêzyka C nie
-jest wymagana. Uwaga: do uruchamiania programów w ¶rodowisku PARI/GP
-nale¿y u¿ywaæ gp2c-run.
+%description gp2c -l pl.UTF-8
+Konwerter skryptÃ³w PARI/GP do jÄ™zyka C. MoÅ¼na nim tworzyÄ‡ wÅ‚asne
+programy w C korzystajÄ…ce z biblioteki pari. ZnajomoÅ›Ä‡ jÄ™zyka C nie
+jest wymagana. Uwaga: do uruchamiania programÃ³w w Å›rodowisku PARI/GP
+naleÅ¼y uÅ¼ywaÄ‡ gp2c-run.
 
 %package -n xemacs-parigp-mode-pkg
 Summary:	PARI/GP mode for Octave
-Summary(pl):	Tryb edycji plików PARI/GP do XEmacsa
+Summary(pl.UTF-8):   Tryb edycji plikÃ³w PARI/GP do XEmacsa
 Group:		Applications/Editors/Emacs
 Requires:	xemacs
 
 %description -n xemacs-parigp-mode-pkg
 PARI/GP editing mode for Xemacs.
 
-%description -n xemacs-parigp-mode-pkg -l pl
-Tryb edycji plików PARI/GP do Xemacsa.
+%description -n xemacs-parigp-mode-pkg -l pl.UTF-8
+Tryb edycji plikÃ³w PARI/GP do Xemacsa.
 
 %package -n perl-Math-Pari
 Summary:	Math-Pari perl module
-Summary(pl):	Modu³ perla Math-Pari
+Summary(pl.UTF-8):   ModuÅ‚ perla Math-Pari
 Version:	%{math_pari_version}
 Group:		Development/Languages/Perl
 
 %description -n perl-Math-Pari
 The Perl interface to the PARI part of GP/PARI.
 
-%description -n perl-Math-Pari -l pl
+%description -n perl-Math-Pari -l pl.UTF-8
 Interfejs Perla do biblioteki PARI.
 
 %prep
