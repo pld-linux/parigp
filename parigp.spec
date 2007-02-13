@@ -7,7 +7,7 @@
 %define		gp2c_version		0.0.4pl2
 %define		math_pari_version	2.010604
 Summary:	Number Theory-oriented Computer Algebra System
-Summary(pl.UTF-8):   Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
+Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
 Release:	1
@@ -74,7 +74,7 @@ przydatnych zwłaszcza w teorii liczb.
 
 %package -n pari
 Summary:	Shared PARI library (required by the parigp package)
-Summary(pl.UTF-8):   Biblioteka współdzielona PARI (wymagana przez pakiet parigp)
+Summary(pl.UTF-8):	Biblioteka współdzielona PARI (wymagana przez pakiet parigp)
 Group:		Libraries
 
 %description -n pari
@@ -86,7 +86,7 @@ PARI/GP.
 
 %package -n pari-devel
 Summary:	Include files for PARI shared library
-Summary(pl.UTF-8):   Pliki nagłówkowe do biblioteki współdzielonej PARI
+Summary(pl.UTF-8):	Pliki nagłówkowe do biblioteki współdzielonej PARI
 Group:		Development/Libraries
 Requires:	pari = %{pari_version}-%{release}
 
@@ -101,7 +101,7 @@ swoich programach.
 
 %package -n pari-static
 Summary:	Static PARI library
-Summary(pl.UTF-8):   Statyczna biblioteka PARI
+Summary(pl.UTF-8):	Statyczna biblioteka PARI
 Group:		Development/Libraries
 Requires:	pari-devel = %{pari_version}-%{release}
 
@@ -115,7 +115,7 @@ statycznego swoich programów korzystających z biblioteki PARI.
 
 %package demos
 Summary:	Example PARI/GP scripts
-Summary(pl.UTF-8):   Przykładowe skrypty pisane w języku PARI/GP
+Summary(pl.UTF-8):	Przykładowe skrypty pisane w języku PARI/GP
 Group:		Applications/Math
 Requires:	%{name} = %{pari_version}-%{release}
 
@@ -127,7 +127,7 @@ Przykładowe skrypty pisane w języku PARI/GP. Sam możesz takie napisać.
 
 %package galdata
 Summary:	Galois data resolvents for PARI/GP
-Summary(pl.UTF-8):   Reprezentacje danych Galois fla PARI/GP
+Summary(pl.UTF-8):	Reprezentacje danych Galois fla PARI/GP
 Group:		Applications/Math
 Requires:	%{name} = %{pari_version}-%{release}
 
@@ -139,7 +139,7 @@ Reprezentacje danych Galois do PARI/GP.
 
 %package gp2c
 Summary:	PARI/GP to C translator
-Summary(pl.UTF-8):   Konwerter skryptów PARI/GP do języka C
+Summary(pl.UTF-8):	Konwerter skryptów PARI/GP do języka C
 Version:	%{gp2c_version}
 Epoch:		1
 Group:		Development/Tools
@@ -159,7 +159,7 @@ należy używać gp2c-run.
 
 %package -n xemacs-parigp-mode-pkg
 Summary:	PARI/GP mode for Octave
-Summary(pl.UTF-8):   Tryb edycji plików PARI/GP do XEmacsa
+Summary(pl.UTF-8):	Tryb edycji plików PARI/GP do XEmacsa
 Group:		Applications/Editors/Emacs
 Requires:	xemacs
 
@@ -171,7 +171,7 @@ Tryb edycji plików PARI/GP do Xemacsa.
 
 %package -n perl-Math-Pari
 Summary:	Math-Pari perl module
-Summary(pl.UTF-8):   Moduł perla Math-Pari
+Summary(pl.UTF-8):	Moduł perla Math-Pari
 Version:	%{math_pari_version}
 Group:		Development/Languages/Perl
 
