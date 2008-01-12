@@ -32,7 +32,6 @@ Patch5:		%{name}-athlon.patch
 Patch6:		%{name}-no-proccpuinfo.patch
 Patch7:		perl-Math-Pari-crash-workaround.patch
 URL:		http://pari.math.u-bordeaux.fr/
-BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	autoconf
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	readline-devel >= 4.2
@@ -48,6 +47,7 @@ BuildRequires:	tetex-pdftex
 BuildRequires:	tetex-tex-babel
 BuildRequires:	tetex-tex-ruhyphen
 %endif
+BuildRequires:	xorg-lib-libX11-devel
 Requires:	pari = %{pari_version}-%{release}
 Requires:	xdvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
