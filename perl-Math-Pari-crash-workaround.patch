@@ -8,9 +8,9 @@ bless( do{\(my $o = POINTER_VAL)}, 'Math::Pari' );
 where POINTER_VAL is just value of pointer to already existing Pari
 object (which may be destroyed later!).
 
---- pari-2.1.7/Math-Pari-2.010604/Pari.xs.orig	2004-01-31 10:06:08.000000000 +0100
-+++ pari-2.1.7/Math-Pari-2.010604/Pari.xs	2004-05-15 21:11:38.894463600 +0200
-@@ -986,6 +986,13 @@
+--- pari-2.1.7/Math-Pari-2.010801/Pari.xs.orig	2004-01-31 10:06:08.000000000 +0100
++++ pari-2.1.7/Math-Pari-2.010801/Pari.xs	2004-05-15 21:11:38.894463600 +0200
+@@ -1285,6 +1285,13 @@
    SV* nextsv;
    long ret=0;
    
@@ -23,17 +23,17 @@ object (which may be destroyed later!).
 +  
    for (sv1 = PariStack; sv1 != sv; sv1 = nextsv) {
      ret++;
-     nextsv = (SV *) SvPVX(sv1);
-@@ -3336,7 +3343,7 @@
- 	 long oldavma = SvCUR(sv) + bot; /* The value of avma on the entry
+     SV_OAVMA_switch(nextsv, sv1, GENmovedOffStack); /* Mark as moved off stack. */
+@@ -3848,7 +3855,7 @@
+ 	 long oldavma;			 /* The value of avma on the entry
  					  * to function having the SV as
  					  * argument. */
 -	 long howmany;
 +	 long howmany = 0;
+ 	 SV_OAVMA_PARISTACK_get(sv, oldavma, ostack);
+ 	 oldavma += bot;
  #if 1
- 	 if (SvMAGICAL(sv) && SvTYPE(sv) == SVt_PVAV) {
- 	     MAGIC *mg = mg_find(sv, 'P');
-@@ -3364,6 +3371,7 @@
+@@ -3881,6 +3888,7 @@
  	     /* Now fall through: */
  /* case (IV)GENfirstOnStack: */
  	     /* Now sv is the newest one on stack. */
@@ -41,10 +41,10 @@ object (which may be destroyed later!).
  	     onStack_dec;
  	     perlavma = oldavma;
  	     if (oldavma > sentinel) {
-@@ -3372,7 +3380,9 @@
+@@ -3889,7 +3897,9 @@
  		 avma = oldavma;	/* Mark the space on stack as free. */
  	     }
- 	     PariStack = (SV*)type; /* The same on the Perl/PARI side. */
+ 	     PariStack = (SV*)ostack; /* The same on the Perl/PARI side. */
 +	     }
  	 }
 +	 if (howmany >= 0)
