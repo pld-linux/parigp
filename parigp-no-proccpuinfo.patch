@@ -20,8 +20,8 @@
  	    *SuperSparc*)   arch=sparcv8_super;;
  	    *TMS390Z5[05]*) arch=sparcv8_super;; # SuperSparc I or II
  	    *TMS390S1[05]*) arch=sparcv8_micro;; # MicroSparc I
---- pari-2.1.7/Math-Pari-2.010801/utils/Math/PariBuild.pm.orig	2005-01-20 03:04:46.000000000 +0100
-+++ pari-2.1.7/Math-Pari-2.010801/utils/Math/PariBuild.pm	2005-01-22 00:01:08.135658528 +0100
+--- pari-2.1.7/Math-Pari-2.010804/utils/Math/PariBuild.pm.orig	2005-01-20 03:04:46.000000000 +0100
++++ pari-2.1.7/Math-Pari-2.010804/utils/Math/PariBuild.pm	2005-01-22 00:01:08.135658528 +0100
 @@ -801,7 +801,7 @@
      chomp($machine = `uname -m`);
      $machine = 'sparcv9' if $machine eq 'sparc64';
