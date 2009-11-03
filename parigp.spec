@@ -1,4 +1,6 @@
 #
+# WARNING:	perl-Math-Pari does NOT support parigp > 2.1.7 (as of 2.010804)
+#
 # Conditional build:
 %bcond_without	tex	# don't build tex documentation
 #
