@@ -23,10 +23,11 @@ Source3:	http://search.cpan.org/CPAN/authors/id/I/IL/ILYAZ/modules/Math-Pari-%{m
 # Source3-md5:	27f5999671fe2a29cfd2e8c8a1f9308e
 Source4:	%{name}.desktop
 Source5:	%{name}.png
-Patch2:		%{name}-termcap.patch
-Patch3:		%{name}-arch.patch
-Patch6:		%{name}-no-proccpuinfo.patch
-Patch7:		perl-Math-Pari-crash-workaround.patch
+Patch0:		%{name}-target_arch.patch
+Patch1:		%{name}-termcap.patch
+Patch2:		%{name}-arch.patch
+Patch3:		%{name}-no-proccpuinfo.patch
+Patch4:		perl-Math-Pari-crash-workaround.patch
 URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	autoconf
 BuildRequires:	perl-devel >= 1:5.8.0
@@ -44,6 +45,7 @@ BuildRequires:	texlive-tex-babel
 BuildRequires:	texlive-tex-ruhyphen
 %endif
 BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-util-imake
 Requires:	pari = %{pari_version}-%{release}
 Requires:	xdvi
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -179,23 +181,26 @@ Interfejs Perla do biblioteki PARI.
 
 %prep
 %setup -q -n pari-%{pari_version} -a 2 -a 3
+%patch0 -p1
+%patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch6 -p1
-%patch7 -p1
+%patch4 -p1
 
 %build
 # pari & parigp
 ./Configure \
-	--host=%{_target_cpu} \
+	--target=%{_target_cpu} \
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
+	--sysdatadir=%{_libdir}/parigp \
+	--datadir=%{_datadir}/parigp \
 	--share-prefix=%{_datadir}
 
-%{__make} all \
-	CFLAGS="%{rpmcflags} -fPIC -DGCC_INLINE"
+%{__make} -C Olinux-%{_target_cpu} all \
+	CFLAGS="%{rpmcflags} -fno-strict-aliasing -fomit-frame-pointer -fPIC"
 
-%{?with_tex:%{__make} doc}
+%{?with_tex:%{__make} -C doc docpdf}
 src/make_vi_tags src
 %ifarch %{ix86}
 ln -s Olinux-%{_target_cpu} Olinux-ix86
@@ -207,19 +212,26 @@ ln -s Olinux-sparc Olinux-sparc64
 
 # gp2c
 cd gp2c-%{gp2c_version}
+
 ln -sf .. pari
 %{__autoconf}
 %configure \
 	--datadir=%{_datadir}/parigp
+
 %{__make}
+%{?with_tex:%{__make} -C doc docall}
+
 cd ..
 
 # math-pari
 cd Math-Pari-%{math_pari_version}
+
 %{__perl} Makefile.PL \
 	INSTALLDIRS=vendor
+
 %{__make} \
 	OPTIMIZE="%{rpmcflags}"
+
 # %{__make} test
 
 %install
@@ -265,6 +277,8 @@ EOF
 rm -f $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
 echo ".so gp.1" > $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
 
+rm -rf $RPM_BUILD_ROOT%{_datadir}/parigp/{examples,doc}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -273,33 +287,36 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS Announce* CHANGES COMPAT MACHINES NEW README TODO
-%doc examples/Inputrc doc/refcard.ps
-%attr(755,root,root) %{_bindir}/gp-2.1
+%doc AUTHORS Announce* CHANGES COMPAT MACHINES NEW README
+%doc examples/Inputrc
+%{?with_tex:%doc doc/*.pdf}
+%attr(755,root,root) %{_bindir}/gp-2.3
 %attr(755,root,root) %{_bindir}/gp
 %attr(755,root,root) %{_bindir}/gphelp
 %attr(755,root,root) %{_bindir}/tex2mail
 %dir %{_datadir}/parigp
-%{?with_tex:%{_datadir}/parigp/doc}
 %{_datadir}/parigp/misc
+%{_datadir}/parigp/pari.desc
 %{_mandir}/man1/[!g]*.1*
 %{_mandir}/man1/gp.1*
+%{_mandir}/man1/gp-*.1*
 %{_mandir}/man1/gphelp.1*
 %{_desktopdir}/*.desktop
 %{_pixmapsdir}/*
 
 %files -n pari
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*.so.*.*
+%attr(755,root,root) %{_libdir}/libpari.so.*.*
+%ghost %attr(755,root,root) %{_libdir}/libpari.so.2
 
 %files -n pari-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*.so
+%attr(755,root,root) %{_libdir}/libpari.so
 %{_includedir}/pari
 
 %files -n pari-static
 %defattr(644,root,root,755)
-%{_libdir}/*.a
+%{_libdir}/libpari.a
 
 %files demos
 %defattr(644,root,root,755)
@@ -318,7 +335,8 @@ rm -rf $RPM_BUILD_ROOT
 %files gp2c
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gp2c*
-%doc gp2c-%{gp2c_version}/{AUTHORS,ChangeLog,NEWS,README,BUGS%{?with_tex:,doc/gp2c.dvi},doc/html/*}
+%doc gp2c-%{gp2c_version}/{AUTHORS,ChangeLog,NEWS,README,BUGS,doc/*.{html,png}}
+%{?with_tex:%doc gp2c-%{gp2c_version}/doc/gp2c.pdf}
 %{_datadir}/parigp/gp2c
 %{_mandir}/man1/gp2c*.1*
 
