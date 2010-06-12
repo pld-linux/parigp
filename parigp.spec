@@ -19,7 +19,7 @@ Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 # Source1-md5:	25eab5f9dfdb8715b9ace8cd68210425
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
 # Source2-md5:	746811f01af37b463a4bf3e981e5ea55
-Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_version}.tar.gz
+Source3:	http://search.cpan.org/CPAN/authors/id/I/IL/ILYAZ/modules/Math-Pari-%{math_pari_version}.tar.gz
 # Source3-md5:	27f5999671fe2a29cfd2e8c8a1f9308e
 Source4:	%{name}.desktop
 Source5:	%{name}.png
