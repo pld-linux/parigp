@@ -1,36 +1,30 @@
 #
-# WARNING:	perl-Math-Pari does NOT support parigp > 2.1.7 (as of 2.010804)
-#
 # Conditional build:
 %bcond_without	tex	# don't build tex documentation
 #
 %include	/usr/lib/rpm/macros.perl
-%define		pari_version		2.1.7
-%define		gp2c_version		0.0.4pl2
-%define		math_pari_version	2.010804
+%define		pari_version		2.3.5
+%define		gp2c_version		0.0.5pl9
+%define		math_pari_version	2.01080604
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	7
+Release:	0.1
 License:	GPL
 Group:		Applications/Math
-Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tgz
-# Source0-md5:	357b7a42e89e2761a5367bbcbfcca5f2
+Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
+# Source0-md5:	6077c6db56fdd32e39a06a9bf320e1f7
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 # Source1-md5:	25eab5f9dfdb8715b9ace8cd68210425
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
-# Source2-md5:	a2b8f8b57064134f32462e628385f6a3
+# Source2-md5:	746811f01af37b463a4bf3e981e5ea55
 Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_version}.tar.gz
-# Source3-md5:	d128fa9b278df8a6b2666cb7c889b496
+# Source3-md5:	27f5999671fe2a29cfd2e8c8a1f9308e
 Source4:	%{name}.desktop
 Source5:	%{name}.png
-Patch0:		%{name}-FHS.patch
-Patch1:		%{name}-target_arch.patch
 Patch2:		%{name}-termcap.patch
 Patch3:		%{name}-arch.patch
-Patch4:		%{name}-sparc.patch
-Patch5:		%{name}-athlon.patch
 Patch6:		%{name}-no-proccpuinfo.patch
 Patch7:		perl-Math-Pari-crash-workaround.patch
 URL:		http://pari.math.u-bordeaux.fr/
@@ -185,19 +179,15 @@ Interfejs Perla do biblioteki PARI.
 
 %prep
 %setup -q -n pari-%{pari_version} -a 2 -a 3
-%patch0 -p1
-%patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%patch5 -p1
 %patch6 -p1
 %patch7 -p1
 
 %build
 # pari & parigp
 ./Configure \
-	--target=%{_target_cpu} \
+	--host=%{_target_cpu} \
 	--prefix=%{_prefix} \
 	--libdir=%{_libdir} \
 	--share-prefix=%{_datadir}
