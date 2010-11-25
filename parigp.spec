@@ -10,7 +10,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	2
+Release:	3
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
@@ -41,9 +41,12 @@ BuildRequires:	tetex-csplain
 BuildRequires:	tetex-dvips
 BuildRequires:	tetex-fonts-cm
 BuildRequires:	tetex-format-plain
+BuildRequires:	tetex-format-pdflatex
+BuildRequires:	tetex-format-pdftex
 BuildRequires:	tetex-pdftex
 BuildRequires:	tetex-tex-babel
 BuildRequires:	tetex-tex-ruhyphen
+BuildRequires:	texconfig
 %else
 BuildRequires:	texlive
 BuildRequires:	texlive-amstex
