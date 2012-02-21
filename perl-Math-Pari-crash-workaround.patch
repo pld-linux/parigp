@@ -8,8 +8,8 @@ bless( do{\(my $o = POINTER_VAL)}, 'Math::Pari' );
 where POINTER_VAL is just value of pointer to already existing Pari
 object (which may be destroyed later!).
 
---- pari-2.3.5/Math-Pari-2.01080604/Pari.xs.orig	2004-01-31 10:06:08.000000000 +0100
-+++ pari-2.3.5/Math-Pari-2.01080604/Pari.xs	2004-05-15 21:11:38.894463600 +0200
+--- pari-2.3.5/Math-Pari-2.01080605/Pari.xs.orig	2004-01-31 10:06:08.000000000 +0100
++++ pari-2.3.5/Math-Pari-2.01080605/Pari.xs	2004-05-15 21:11:38.894463600 +0200
 @@ -1285,6 +1285,13 @@
    SV* nextsv;
    long ret=0;

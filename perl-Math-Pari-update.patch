@@ -1,0 +1,84 @@
+--- pari-2.5.1/Math-Pari-2.01080605/Pari.xs.orig	2012-02-19 14:58:30.321452391 +0100
++++ pari-2.5.1/Math-Pari-2.01080605/Pari.xs	2012-02-19 16:17:25.268277599 +0100
+@@ -547,7 +547,7 @@
+ 		      && lgef(x)==4		/* 2 terms */
+ 		      && (gcmp0((GEN)x[2]))	/* Free */
+ 		      && (gcmp1((GEN)x[3]))) { /* Leading */
+-		      s = varentries[ordvar[varn(x)]]->name;
++		      s = varentries[varn(x)]->name;
+ 		      goto repeat;
+ 		  }
+ 		  goto ignore;
+@@ -765,8 +765,8 @@
+ }
+ 
+ 
+-PariOUT perlOut={svputc, svputs, svOutflush, NULL};
+-PariOUT perlErr={svErrputc, svErrputs, svErrflush, svErrdie};
++PariOUT perlOut={svputc, svputs, svOutflush};
++PariOUT perlErr={svErrputc, svErrputs, svErrflush};
+ 
+ static GEN
+ my_ulongtoi(ulong uv)
+@@ -934,7 +934,7 @@
+ 	     || ((2 * sizeof(long) == sizeof(IV)) && !HAVE_UVs && in[2] < 0) )
+ 	    goto do_nv;
+ 	uv = in[2];
+-	uv = (uv << TWOPOTBYTES_IN_LONG) + in[3];
++	uv = (uv << (TWOPOTBITS_IN_LONG-3)) + in[3];
+ 	break;
+     default:
+ 	goto do_nv;
+@@ -1025,7 +1025,7 @@
+ #endif
+ 
+ #ifndef pariK1
+-#  define pariK1 (0.103810253/(BYTES_IN_LONG/4))  /* log(10)/(SL*log(2))   */
++#  define pariK1 (0.103810253/(sizeof(long)/4))  /* log(10)/(SL*log(2))   */
+ #endif
+ 
+ long
+@@ -1324,7 +1324,7 @@
+     moveoffstack_newer_than((SV *) GENfirstOnStack);
+ }
+ 
+-UV
++void
+ allocatemem(UV newsize)
+ {
+     if (newsize) {
+@@ -1332,7 +1332,6 @@
+ 	parisize = allocatemoremem(newsize);
+ 	perlavma = sentinel = avma;
+     }
+-    return parisize;
+ }
+ 
+ 
+@@ -3466,8 +3465,8 @@
+ 	     else
+ 		 warn("`%s' is an obsolete Pari function name", name);
+ 	 }
+-	 if (ep && (EpVALENCE(ep) < EpUSER 
+-		    /* && ep>=fonctions && ep < fonctions+NUMFUNC) */)) {
++	 if (ep /* && (EpVALENCE(ep) < EpUSER 
++		    && ep>=fonctions && ep < fonctions+NUMFUNC)) */) {
+ 	     /* Builtin */
+ 	   IV table_valence = 99;
+ 
+@@ -4016,7 +4015,7 @@
+ 
+ #else	/* !( HAVE_UVs ) */
+ 
+-unsigned long
++void
+ allocatemem(newsize = 0)
+     unsigned long newsize
+ 
+--- pari-2.5.1/Math-Pari-2.01080605/func_codes.h.orig	2004-02-01 10:27:30.000000000 +0100
++++ pari-2.5.1/Math-Pari-2.01080605/func_codes.h	2012-02-19 21:26:18.835564839 +0100
+@@ -587,3 +587,4 @@
+   return PERL_constant_NOTFOUND;
+ }
+ 
++extern entree functions_basic[];

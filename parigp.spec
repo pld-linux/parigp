@@ -3,24 +3,24 @@
 %bcond_without	tex	# don't build tex documentation
 #
 %include	/usr/lib/rpm/macros.perl
-%define		pari_version		2.3.5
-%define		gp2c_version		0.0.5pl9
-%define		math_pari_version	2.01080604
+%define		pari_version		2.5.1
+%define		gp2c_version		0.0.7pl1
+%define		math_pari_version	2.01080605
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	4
+Release:	1
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
-# Source0-md5:	6077c6db56fdd32e39a06a9bf320e1f7
+# Source0-md5:	d267dd1be4839f209217c8fff615478e
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/galdata.tgz
 # Source1-md5:	25eab5f9dfdb8715b9ace8cd68210425
 Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
-# Source2-md5:	746811f01af37b463a4bf3e981e5ea55
-Source3:	http://search.cpan.org/CPAN/authors/id/I/IL/ILYAZ/modules/Math-Pari-%{math_pari_version}.tar.gz
-# Source3-md5:	27f5999671fe2a29cfd2e8c8a1f9308e
+# Source2-md5:	3365354cd4954360cdbe9bfe7defa992
+Source3:	http://search.cpan.org/CPAN/modules/by-module/Math/Math-Pari-%{math_pari_version}.tar.gz
+# Source3-md5:	ccb3da2bdce184a5df3f52cfa8b43a85
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-target_arch.patch
@@ -28,8 +28,10 @@ Patch1:		%{name}-termcap.patch
 Patch2:		%{name}-arch.patch
 Patch3:		%{name}-no-proccpuinfo.patch
 Patch4:		perl-Math-Pari-crash-workaround.patch
+Patch5:		perl-Math-Pari-update.patch
 URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	autoconf
+BuildRequires:	ctags
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	rpm-perlprov >= 3.0.3-16
@@ -171,18 +173,6 @@ programy w C korzystające z biblioteki pari. Znajomość języka C nie
 jest wymagana. Uwaga: do uruchamiania programów w środowisku PARI/GP
 należy używać gp2c-run.
 
-%package -n xemacs-parigp-mode-pkg
-Summary:	PARI/GP mode for Octave
-Summary(pl.UTF-8):	Tryb edycji plików PARI/GP do XEmacsa
-Group:		Applications/Editors/Emacs
-Requires:	xemacs
-
-%description -n xemacs-parigp-mode-pkg
-PARI/GP editing mode for Xemacs.
-
-%description -n xemacs-parigp-mode-pkg -l pl.UTF-8
-Tryb edycji plików PARI/GP do Xemacsa.
-
 %package -n perl-Math-Pari
 Summary:	Math-Pari perl module
 Summary(pl.UTF-8):	Moduł perla Math-Pari
@@ -202,6 +192,7 @@ Interfejs Perla do biblioteki PARI.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 # pari & parigp
@@ -214,10 +205,12 @@ Interfejs Perla do biblioteki PARI.
 	--share-prefix=%{_datadir}
 
 %{__make} -C Olinux-%{_target_cpu} all \
+	CC="%{__cc}" \
 	CFLAGS="%{rpmcflags} -fno-strict-aliasing -fomit-frame-pointer -fPIC"
 
+%{__make} ctags
+
 %{?with_tex:%{__make} -C doc docpdf}
-src/make_vi_tags src
 %ifarch %{ix86}
 ln -s Olinux-%{_target_cpu} Olinux-ix86
 %endif
@@ -241,12 +234,14 @@ cd ..
 
 # math-pari
 cd Math-Pari-%{math_pari_version}
+cp -f ../Olinux-%{_target_cpu}/paricfg.h libPARI/paricfg.h
+echo '#define DL_DFLT_NAME NULL' >>libPARI/paricfg.h
 
 %{__perl} Makefile.PL \
 	INSTALLDIRS=vendor
 
 %{__make} \
-	OPTIMIZE="%{rpmcflags}"
+	OPTIMIZE="%{rpmcflags} -I$(pwd)/../Olinux-%{_target_cpu}"
 
 # %{__make} test
 
@@ -272,16 +267,6 @@ install examples/* $RPM_BUILD_ROOT%{_examplesdir}/parigp
 # galdata
 tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/galdata
 
-# xemacs-parigp-mode-pkg
-install -d $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
-cp -a emacs/*.el $RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode
-cat <<EOF >$RPM_BUILD_ROOT%{_datadir}/xemacs-packages/lisp/parigp-mode/auto-autoloads.el
-(autoload 'gp-mode "pari" nil t)
-(autoload 'gp-script-mode "pari" nil t)
-(autoload 'gp "pari" nil t)
-(autoload 'gpman "pari" nil t)
-EOF
-
 # gp2c
 %{__make} install -C gp2c-%{gp2c_version} \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -290,10 +275,11 @@ EOF
 %{__make} install -C Math-Pari-%{math_pari_version} \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
+%{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
 echo ".so gp.1" > $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
 
-rm -rf $RPM_BUILD_ROOT%{_datadir}/parigp/{examples,doc}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/parigp/{examples,doc}
+%{__rm} $RPM_BUILD_ROOT%{perl_vendorarch}/Math/libPARI*.pod
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -303,27 +289,27 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS Announce* CHANGES COMPAT MACHINES NEW README
-%doc examples/Inputrc
-%{?with_tex:%doc doc/*.pdf}
-%attr(755,root,root) %{_bindir}/gp-2.3
+%doc AUTHORS CHANGES* COMPAT MACHINES NEW README examples/Inputrc %{?with_tex:doc/*.pdf}
+%attr(755,root,root) %{_bindir}/gp-2.5
 %attr(755,root,root) %{_bindir}/gp
 %attr(755,root,root) %{_bindir}/gphelp
 %attr(755,root,root) %{_bindir}/tex2mail
 %dir %{_datadir}/parigp
+%{_datadir}/parigp/PARI
 %{_datadir}/parigp/misc
 %{_datadir}/parigp/pari.desc
 %{_mandir}/man1/[!g]*.1*
 %{_mandir}/man1/gp.1*
 %{_mandir}/man1/gp-*.1*
 %{_mandir}/man1/gphelp.1*
-%{_desktopdir}/*.desktop
-%{_pixmapsdir}/*
+%{_desktopdir}/parigp.desktop
+%{_pixmapsdir}/parigp.png
 
 %files -n pari
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpari.so.*.*
-%ghost %attr(755,root,root) %{_libdir}/libpari.so.2
+%attr(755,root,root) %{_libdir}/libpari-gmp.so.*.*.*
+%ghost %attr(755,root,root) %{_libdir}/libpari-gmp.so.3
+%{_libdir}/parigp
 
 %files -n pari-devel
 %defattr(644,root,root,755)
@@ -343,11 +329,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_datadir}/parigp/galdata
 
-%files -n xemacs-parigp-mode-pkg
-%defattr(644,root,root,755)
-%doc emacs/pariemacs.txt
-%{_datadir}/xemacs-packages/lisp/*
-
 %files gp2c
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/gp2c*
@@ -359,8 +340,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -n perl-Math-Pari
 %defattr(644,root,root,755)
 %doc Math-Pari-%{math_pari_version}/{Changes,README,TODO}
-%{perl_vendorarch}/Math/*.pm
+%{perl_vendorarch}/Math/Pari.pm
+%{perl_vendorarch}/Math/PariInit.pm
 %dir %{perl_vendorarch}/auto/Math/Pari
 %{perl_vendorarch}/auto/Math/Pari/Pari.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Math/Pari/Pari.so
-%{_mandir}/man3/*
+%{_mandir}/man3/Math::Pari.3pm*
+%{_mandir}/man3/Math::PariInit.3pm*
+%{_mandir}/man3/Math::libPARI.3pm*
+%{_mandir}/man3/Math::libPARI.dumb.3pm*

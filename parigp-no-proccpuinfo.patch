@@ -9,8 +9,8 @@
  	    *SuperSparc*)   arch=sparcv8_super;;
  	    *TMS390Z5[05]*) arch=sparcv8_super;; # SuperSparc I or II
  	    *TMS390S1[05]*) arch=sparcv8_micro;; # MicroSparc I
---- pari-2.1.7/gp2c-0.0.5pl9/config/arch-osname.orig	2001-03-18 21:55:19.000000000 +0100
-+++ pari-2.1.7/gp2c-0.0.5pl9/config/arch-osname	2004-03-05 20:09:50.367792600 +0100
+--- pari-2.1.7/gp2c-0.0.7pl1/config/arch-osname.orig	2001-03-18 21:55:19.000000000 +0100
++++ pari-2.1.7/gp2c-0.0.7pl1/config/arch-osname	2004-03-05 20:09:50.367792600 +0100
 @@ -16,7 +16,7 @@
    osf1)     case "$5" in alpha) arch=alpha;; esac;;
    cygwin*)  arch=$HOSTTYPE;;
@@ -20,8 +20,8 @@
  	    *SuperSparc*)   arch=sparcv8_super;;
  	    *TMS390Z5[05]*) arch=sparcv8_super;; # SuperSparc I or II
  	    *TMS390S1[05]*) arch=sparcv8_micro;; # MicroSparc I
---- pari-2.1.7/Math-Pari-2.01080604/utils/Math/PariBuild.pm.orig	2005-01-20 03:04:46.000000000 +0100
-+++ pari-2.1.7/Math-Pari-2.01080604/utils/Math/PariBuild.pm	2005-01-22 00:01:08.135658528 +0100
+--- pari-2.1.7/Math-Pari-2.01080605/utils/Math/PariBuild.pm.orig	2005-01-20 03:04:46.000000000 +0100
++++ pari-2.1.7/Math-Pari-2.01080605/utils/Math/PariBuild.pm	2005-01-22 00:01:08.135658528 +0100
 @@ -801,7 +801,7 @@
      chomp($machine = `uname -m`);
      $machine = 'sparcv9' if $machine eq 'sparc64';
