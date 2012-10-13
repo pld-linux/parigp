@@ -1,5 +1,5 @@
---- pari-2.5.1/Math-Pari-2.01080605/Pari.xs.orig	2012-02-19 14:58:30.321452391 +0100
-+++ pari-2.5.1/Math-Pari-2.01080605/Pari.xs	2012-02-19 16:17:25.268277599 +0100
+--- pari-2.5.3/Math-Pari-2.01080605/Pari.xs.orig	2010-09-11 23:33:30.000000000 +0200
++++ pari-2.5.3/Math-Pari-2.01080605/Pari.xs	2012-10-13 09:59:33.443018028 +0200
 @@ -547,7 +547,7 @@
  		      && lgef(x)==4		/* 2 terms */
  		      && (gcmp0((GEN)x[2]))	/* Free */
@@ -38,24 +38,25 @@
  #endif
  
  long
-@@ -1324,7 +1324,7 @@
+@@ -1317,17 +1324,6 @@
      moveoffstack_newer_than((SV *) GENfirstOnStack);
  }
  
 -UV
-+void
- allocatemem(UV newsize)
- {
-     if (newsize) {
-@@ -1332,7 +1332,6 @@
- 	parisize = allocatemoremem(newsize);
- 	perlavma = sentinel = avma;
-     }
+-allocatemem(UV newsize)
+-{
+-    if (newsize) {
+-	detach_stack();
+-	parisize = allocatemoremem(newsize);
+-	perlavma = sentinel = avma;
+-    }
 -    return parisize;
- }
+-}
+-
  
- 
-@@ -3466,8 +3465,8 @@
+ GEN
+ callPerlFunction(entree *ep, ...)
+@@ -3459,8 +3455,8 @@
  	     else
  		 warn("`%s' is an obsolete Pari function name", name);
  	 }
@@ -66,15 +67,24 @@
  	     /* Builtin */
  	   IV table_valence = 99;
  
-@@ -4016,7 +4015,7 @@
+@@ -3999,17 +3998,5 @@
+ # and it needs to convert *all* the branches.
+ #/* #if defined(PERL_VERSION) && (PERL_VERSION >= 6)*//* 5.6.0 has UV in the typemap */
  
- #else	/* !( HAVE_UVs ) */
- 
+-#if 0
+-#UV
+-#allocatemem(newsize = 0)
+-#UV newsize
+-
+-#else	/* !( HAVE_UVs ) */
+-
 -unsigned long
-+void
- allocatemem(newsize = 0)
-     unsigned long newsize
+-allocatemem(newsize = 0)
+-    unsigned long newsize
+-
+-#endif	/* !( HAVE_UVs ) */
  
+ long
 --- pari-2.5.1/Math-Pari-2.01080605/func_codes.h.orig	2004-02-01 10:27:30.000000000 +0100
 +++ pari-2.5.1/Math-Pari-2.01080605/func_codes.h	2012-02-19 21:26:18.835564839 +0100
 @@ -587,3 +587,4 @@
