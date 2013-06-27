@@ -1,5 +1,5 @@
---- pari-2.5.3/Math-Pari-2.01080605/Pari.xs.orig	2010-09-11 23:33:30.000000000 +0200
-+++ pari-2.5.3/Math-Pari-2.01080605/Pari.xs	2012-10-13 09:59:33.443018028 +0200
+--- pari-2.5.4/Math-Pari-2.01080605/Pari.xs.orig	2013-06-27 16:39:02.034699886 +0200
++++ pari-2.5.4/Math-Pari-2.01080605/Pari.xs	2013-06-27 16:44:40.888019141 +0200
 @@ -547,7 +547,7 @@
  		      && lgef(x)==4		/* 2 terms */
  		      && (gcmp0((GEN)x[2]))	/* Free */
@@ -29,6 +29,15 @@
  	break;
      default:
  	goto do_nv;
+@@ -1010,7 +1010,7 @@
+ 	PariOUT *oldOut = pariOut;
+ 	pariOut = &perlOut;
+ 	worksv = newSVpv("",0);
+-	mybruteall(in,'g',-1,0);	/* 0: compact pari-readable form */
++	brute(in,'g',-1);	/* 0: compact pari-readable form */
+ 	pariOut = oldOut;
+ 	return worksv;
+     }
 @@ -1025,7 +1025,7 @@
  #endif
  
@@ -38,7 +47,16 @@
  #endif
  
  long
-@@ -1317,17 +1324,6 @@
+@@ -1083,7 +1083,7 @@
+   PariOUT *oldOut = pariOut;
+   pariOut = &perlOut;
+   worksv = newSVpv("",0);
+-  sor(in, 'g'/*fmt.format*/, fmt_nb, 0/*fmt.field*/);
++  matbrute(in, 'g'/*fmt.format*/, fmt_nb);
+   pariOut = oldOut;
+   return worksv;
+ }
+@@ -1324,17 +1324,6 @@
      moveoffstack_newer_than((SV *) GENfirstOnStack);
  }
  
@@ -56,7 +74,7 @@
  
  GEN
  callPerlFunction(entree *ep, ...)
-@@ -3459,8 +3455,8 @@
+@@ -3466,8 +3455,8 @@
  	     else
  		 warn("`%s' is an obsolete Pari function name", name);
  	 }
@@ -67,7 +85,7 @@
  	     /* Builtin */
  	   IV table_valence = 99;
  
-@@ -3999,17 +3998,5 @@
+@@ -4009,18 +3998,6 @@
  # and it needs to convert *all* the branches.
  #/* #if defined(PERL_VERSION) && (PERL_VERSION >= 6)*//* 5.6.0 has UV in the typemap */
  
@@ -85,6 +103,7 @@
 -#endif	/* !( HAVE_UVs ) */
  
  long
+ lgef(x)
 --- pari-2.5.1/Math-Pari-2.01080605/func_codes.h.orig	2004-02-01 10:27:30.000000000 +0100
 +++ pari-2.5.1/Math-Pari-2.01080605/func_codes.h	2012-02-19 21:26:18.835564839 +0100
 @@ -587,3 +587,4 @@
@@ -92,3 +111,14 @@
  }
  
 +extern entree functions_basic[];
+--- pari-2.5.4/Math-Pari-2.01080605/libPARI/Makefile.PL.orig	2009-11-07 04:21:40.000000000 +0100
++++ pari-2.5.4/Math-Pari-2.01080605/libPARI/Makefile.PL	2013-06-27 17:41:52.774541644 +0200
+@@ -249,7 +249,7 @@
+     $mp = 'mp.c';
+     my $kern = "$kernel_dir/none";
+     my @dep			# Copied from src/kernel/none/MakeLVL1.SH 2.2.10
+-      = "$kern/mp.c $kern/cmp.c $kern/gcdll.c $kern/ratlift.c $kern/gcd.c $kern/invmod.c $kern/mp_indep.c $kern/add.c";
++      = "$kern/mp.c $kern/cmp.c $kern/gcdll.c $kern/ratlift.c $kern/gcd.c $kern/gcdext.c $kern/invmod.c $kern/mp_indep.c $kern/add.c";
+     $create_mp = <<EOS;
+ mp.c: @dep
+ 	\$(PERL) -pe1 @dep > \$@
