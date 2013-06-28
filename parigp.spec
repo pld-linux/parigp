@@ -213,7 +213,7 @@ ln -sf .. pari
 	--datadir=%{_datadir}/parigp
 
 %{__make}
-%{?with_tex:%{__make} -C doc docall}
+%{?with_tex:%{__make} -j1 -C doc docall}
 
 cd ..
 
