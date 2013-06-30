@@ -195,7 +195,7 @@ Interfejs Perla do biblioteki PARI.
 
 %{__make} ctags
 
-%{?with_tex:%{__make} -C doc docpdf}
+%{?with_tex:%{__make} -j1 -C doc docpdf}
 %ifarch %{ix86}
 ln -s Olinux-%{_target_cpu} Olinux-ix86
 %endif
