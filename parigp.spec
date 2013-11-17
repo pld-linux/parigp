@@ -28,6 +28,7 @@ Patch1:		%{name}-termcap.patch
 Patch2:		%{name}-arch.patch
 Patch3:		perl-Math-Pari-crash-workaround.patch
 Patch4:		perl-Math-Pari-update.patch
+Patch5:		%{name}-noproccpuinfo.patch
 URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	autoconf
 BuildRequires:	ctags
@@ -176,6 +177,7 @@ Interfejs Perla do biblioteki PARI.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 # pari & parigp
