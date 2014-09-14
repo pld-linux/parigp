@@ -328,7 +328,6 @@ rm -rf $RPM_BUILD_ROOT
 %{perl_vendorarch}/Math/Pari.pm
 %{perl_vendorarch}/Math/PariInit.pm
 %dir %{perl_vendorarch}/auto/Math/Pari
-%{perl_vendorarch}/auto/Math/Pari/Pari.bs
 %attr(755,root,root) %{perl_vendorarch}/auto/Math/Pari/Pari.so
 %{_mandir}/man3/Math::Pari.3pm*
 %{_mandir}/man3/Math::PariInit.3pm*
