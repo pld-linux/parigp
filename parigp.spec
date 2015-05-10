@@ -10,7 +10,7 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	6
+Release:	7
 License:	GPL
 Group:		Applications/Math
 Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
@@ -29,9 +29,11 @@ Patch2:		%{name}-arch.patch
 Patch3:		perl-Math-Pari-crash-workaround.patch
 Patch4:		perl-Math-Pari-update.patch
 Patch5:		%{name}-noproccpuinfo.patch
+Patch6:		gmp-version.patch
 URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	autoconf
 BuildRequires:	ctags
+BuildRequires:	gmp-devel
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	rpm-perlprov >= 3.0.3-16
@@ -178,6 +180,7 @@ Interfejs Perla do biblioteki PARI.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 # pari & parigp
@@ -187,7 +190,11 @@ Interfejs Perla do biblioteki PARI.
 	--libdir=%{_libdir} \
 	--sysdatadir=%{_libdir}/parigp \
 	--datadir=%{_datadir}/parigp \
-	--share-prefix=%{_datadir}
+	--share-prefix=%{_datadir} \
+	--with-readline-lib=%{_libdir} \
+	--with-ncurses-lib=%{_libdir} \
+	--with-gmp-lib=%{_libdir}
+
 
 %{__make} -C Olinux-%{_target_cpu} all \
 	CC="%{__cc}" \
@@ -196,6 +203,9 @@ Interfejs Perla do biblioteki PARI.
 %{__make} ctags
 
 %{?with_tex:%{__make} -j1 -C doc docpdf}
+%ifarch x32
+ln -s Olinux-%{_target_cpu} Olinux-x86_64
+%endif
 %ifarch %{ix86}
 ln -s Olinux-%{_target_cpu} Olinux-ix86
 %endif
