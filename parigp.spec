@@ -30,6 +30,9 @@ Patch3:		perl-Math-Pari-crash-workaround.patch
 Patch4:		perl-Math-Pari-update.patch
 Patch5:		%{name}-noproccpuinfo.patch
 Patch6:		gmp-version.patch
+Patch7:		Math-Pari-escape-left-braces-in-regex.patch
+Patch8:		escape-left-braces-in-regex.patch
+Patch9:		perl-no-dot-in-inc.patch
 URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	autoconf
 BuildRequires:	ctags
@@ -181,6 +184,10 @@ Interfejs Perla do biblioteki PARI.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
+%patch8 -p1
+%patch9 -p1
+cd Math-Pari-%{math_pari_version}
+%patch7 -p0
 
 %build
 # pari & parigp

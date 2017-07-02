@@ -1,0 +1,24 @@
+--- pari-2.5.5/src/desc/doc_make~	2013-05-22 14:55:02.000000000 +0200
++++ pari-2.5.5/src/desc/doc_make	2017-07-02 15:03:10.239915473 +0200
+@@ -1,4 +1,5 @@
+ #!/usr/bin/perl
++use lib '.';
+ use PARI::822;
+ 
+ PARI::822::read(\%funcs, "pari.desc");
+--- pari-2.5.5/src/desc/gen_proto~	2011-09-22 22:02:11.000000000 +0200
++++ pari-2.5.5/src/desc/gen_proto	2017-07-02 15:03:13.726667631 +0200
+@@ -1,4 +1,5 @@
+ #!/usr/bin/perl -w
++use lib '.';
+ use PARI::822;
+ 
+ $class=$ARGV[0];
+--- pari-2.5.5/src/desc/merge_822~	2011-09-22 22:02:11.000000000 +0200
++++ pari-2.5.5/src/desc/merge_822	2017-07-02 15:03:16.813409984 +0200
+@@ -1,4 +1,5 @@
+ #!/usr/bin/perl -w
++use lib '.';
+ use PARI::822;
+ 
+ open(IN, $ARGV[0]) || die "cannot find $ARGV[0]";
