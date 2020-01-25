@@ -2,7 +2,6 @@
 # Conditional build:
 %bcond_without	tex	# don't build tex documentation
 #
-%include	/usr/lib/rpm/macros.perl
 %define		pari_version		2.5.5
 %define		gp2c_version		0.0.8
 %define		math_pari_version	2.01080605
