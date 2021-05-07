@@ -1,16 +1,7 @@
---- pari-2.3.5/config/get_config_options.orig	2008-03-31 13:43:59.000000000 +0200
-+++ pari-2.3.5/config/get_config_options	2010-06-12 20:09:03.371567349 +0200
-@@ -65,6 +65,7 @@
-   --sysdatadir=*) dfltsysdatadir=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
-   --time=*) timing_fun=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
-   --host=*) target_host=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
-+  --target=*) target_arch=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
-   --kernel=*) kernel=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
-   --builddir) dfltobjdir=auto;;
-   --builddir=*) dfltobjdir=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
---- pari-2.3.5/config/get_archos~	2008-03-31 13:43:59.000000000 +0200
-+++ pari-2.3.5/config/get_archos	2010-06-12 20:10:14.279316507 +0200
-@@ -6,6 +6,10 @@
+diff -urNp -x '*.orig' pari-2.5.5.org/config/get_archos pari-2.5.5/config/get_archos
+--- pari-2.5.5.org/config/get_archos	2011-09-22 22:02:11.000000000 +0200
++++ pari-2.5.5/config/get_archos	2021-05-07 23:08:59.794747185 +0200
+@@ -6,6 +6,10 @@ fi
  arch=`echo "$target_host" | sed -e 's/\(.*\)-.*/\1/'`
  osname=`echo "$target_host" | sed -e 's/.*-\(.*\)/\1/'`
  
@@ -21,3 +12,14 @@
  if test "$fastread" != yes; then
    cat << EOM
  ==========================================================================
+diff -urNp -x '*.orig' pari-2.5.5.org/config/get_config_options pari-2.5.5/config/get_config_options
+--- pari-2.5.5.org/config/get_config_options	2013-05-22 14:55:02.000000000 +0200
++++ pari-2.5.5/config/get_config_options	2021-05-07 23:08:59.794747185 +0200
+@@ -48,6 +48,7 @@ while test $# -gt 0; do
+   --sysdatadir=*) dfltsysdatadir=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
+   --time=*) timing_fun=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
+   --host=*) target_host=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
++  --target=*) target_arch=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
+   --kernel=*) kernel=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
+   --tune) tune=yes;;
+   --builddir) dfltobjdir=auto;;
