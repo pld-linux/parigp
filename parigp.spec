@@ -3,7 +3,7 @@
 %bcond_without	tex	# don't build tex documentation
 #
 %define		pari_version		2.5.5
-%define		gp2c_version		0.0.8
+%define		gp2c_version		0.0.12
 %define		math_pari_version	2.01080605
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
@@ -16,8 +16,8 @@ Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.
 # Source0-md5:	fbd6402f8d3d3213b0633ab9ef4a63d0
 Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/packages/galdata.tgz
 # Source1-md5:	f9f61b2930757a785b568e5d307a7d75
-Source2:	ftp://megrez.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
-# Source2-md5:	b29599e06aea3b0a7d370de3d955fdb2
+Source2:	http://pari.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
+# Source2-md5:	ab29c383985d1b7d339189ecff31d40a
 Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_version}.tar.gz
 # Source3-md5:	ccb3da2bdce184a5df3f52cfa8b43a85
 Source4:	%{name}.desktop
