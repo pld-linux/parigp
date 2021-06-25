@@ -12,9 +12,9 @@ Version:	%{pari_version}
 Release:	18
 License:	GPL
 Group:		Applications/Math
-Source0:	ftp://megrez.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
+Source0:	http://pari.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
 # Source0-md5:	fbd6402f8d3d3213b0633ab9ef4a63d0
-Source1:	ftp://megrez.math.u-bordeaux.fr/pub/pari/packages/galdata.tgz
+Source1:	http://pari.math.u-bordeaux.fr/pub/pari/packages/galdata.tgz
 # Source1-md5:	f9f61b2930757a785b568e5d307a7d75
 Source2:	http://pari.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
 # Source2-md5:	ab29c383985d1b7d339189ecff31d40a
@@ -39,6 +39,7 @@ BuildRequires:	gmp-devel
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	readline-devel >= 4.2
 BuildRequires:	rpm-perlprov >= 3.0.3-16
+BuildRequires:	rpmbuild(macros) >= 1.745
 %if %{with tex}
 BuildRequires:	texlive
 BuildRequires:	texlive-amstex
@@ -299,10 +300,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/parigp/PARI
 %{_datadir}/parigp/misc
 %{_datadir}/parigp/pari.desc
-%{_mandir}/man1/[!g]*.1*
 %{_mandir}/man1/gp.1*
 %{_mandir}/man1/gp-*.1*
 %{_mandir}/man1/gphelp.1*
+%{_mandir}/man1/pari.1*
+%{_mandir}/man1/tex2mail.1*
 %{_desktopdir}/parigp.desktop
 %{_pixmapsdir}/parigp.png
 
