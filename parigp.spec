@@ -10,7 +10,7 @@ Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na m
 Name:		parigp
 Version:	%{pari_version}
 Release:	18
-License:	GPL
+License:	GPL v2+
 Group:		Applications/Math
 Source0:	http://pari.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
 # Source0-md5:	fbd6402f8d3d3213b0633ab9ef4a63d0
