@@ -1,0 +1,68 @@
+--- Math-Pari-2.030518/Pari.xs.orig	2021-06-24 18:30:57.496616128 +0200
++++ Math-Pari-2.030518/Pari.xs	2021-06-24 20:04:03.246355523 +0200
+@@ -1283,7 +1283,7 @@
+     /* add to output */
+     switch(d->context) {
+     case G_VOID:
+-    case G_SCALAR: sv_catpvf(d->acc, " %2d: %s\n",
++    case G_SCALAR: sv_catpvf(d->acc, " %2ld: %s\n",
+ 			     d->items - 1, SvPV_nolen(tmp));
+ 		   SvREFCNT_dec(tmp);     break;
+     case G_ARRAY:  av_push((AV*)d->acc,tmp); break;
+@@ -2036,11 +2036,11 @@
+ #  if PARI_VERSION_EXP < 2010000
+ #    define TAG_community	15	/* "The PARI community" */
+ #  else /* !(PARI_VERSION_EXP < 2010000) */
+-#    if PARI_VERSION_EXP < 2012000
++#    if PARI_VERSION_EXP < 2014000
+ #      define TAG_community	17	/* "The PARI community" */
+-#    else /* !(PARI_VERSION_EXP < 2012000) */
++#    else /* !(PARI_VERSION_EXP < 2014000) */
+ #      define TAG_community_unknown
+-#    endif	/* !(PARI_VERSION_EXP < 2012000) */
++#    endif	/* !(PARI_VERSION_EXP < 2014000) */
+ #  endif	/* !(PARI_VERSION_EXP < 2010000) */
+ #endif		/* !(PARI_VERSION_EXP < 2008000) */
+ 
+@@ -2060,7 +2060,7 @@
+ char *
+ added_sections()
+ {
+-#if PARI_VERSION_EXP < 2013000
++#if PARI_VERSION_EXP < 2014000
+    /* Suggestion on format (part of 2.10.0), only use short names: "4: functions related to COMBINATORICS\n13: L-FUNCTIONS" */
+    return "";
+ #else	/* !( PARI_VERSION_EXP < 2011000) */
+@@ -3823,7 +3823,7 @@
+ 	 switch (valence) {
+ 	 case 0:
+ 	     if (!ep->code) {
+-		 croak("Unsupported Pari function %s, interface 0 code NULL");
++		 croak("Unsupported Pari function %s, interface 0 code NULL", name);
+ 	     } else if (ep->code[0] == 'p' && ep->code[1] == 0) {
+ 		 DO_INTERFACE(0);
+ 	     } else if (ep->code[0] == 0) {
+@@ -3886,10 +3886,10 @@
+ 
+ 	 default: 
+ 	     if (!ep)
+-		 croak("Unsupported interface %d for \"direct-link\" Pari function %s",
++		 croak("Unsupported interface %ld for \"direct-link\" Pari function %s",
+ 		       valence, olds);
+ 	     if (!ep->code)
+-		 croak("Unsupported interface %d and no code for a Pari function %s",
++		 croak("Unsupported interface %ld and no code for a Pari function %s",
+ 		       valence, olds);
+ 	   flexible:
+ 	     s1 = s = ep->code;
+--- Math-Pari-2.030518/libPARI/Makefile.PL.orig	2021-06-24 21:41:42.021282480 +0200
++++ Math-Pari-2.030518/libPARI/Makefile.PL	2021-06-24 21:41:46.411258697 +0200
+@@ -317,7 +317,7 @@
+     $mp = 'mp.c';
+     my $kern = "$kernel_dir/none";
+     my @dep			# Copied from src/kernel/none/MakeLVL1.SH 2.2.10
+-      = "$kern/mp.c $kern/cmp.c $kern/gcdll.c $kern/ratlift.c $kern/gcd.c $kern/invmod.c $kern/mp_indep.c $kern/add.c";
++      = "$kern/mp.c $kern/cmp.c $kern/gcdll.c $kern/halfgcd.c $kern/ratlift.c $kern/invmod.c $kern/gcd.c $kern/mp_indep.c $kern/add.c";
+     -f "$main_paridir/src/kernel/$_" and push @dep, "$kernel_dir/$_" for "none/gcdext.c";	# When did it appear?  Was:  if $pari_version > 2004000
+     $create_mp = <<EOS;
+ mp.c: @dep

@@ -1,5 +1,5 @@
---- pari-2.11.4/config/gmp_version.c.orig	2021-06-25 21:33:14.999293627 +0200
-+++ pari-2.11.4/config/gmp_version.c	2021-06-25 21:33:52.912421567 +0200
+--- pari-2.13.1/config/gmp_version.c.orig	2021-06-24 16:59:33.222993655 +0200
++++ pari-2.13.1/config/gmp_version.c	2021-06-24 17:08:35.866720568 +0200
 @@ -3,9 +3,5 @@
  void f(void) { mpn_gcdext(NULL,NULL, NULL, NULL, 0, NULL, 0); }
  int main()

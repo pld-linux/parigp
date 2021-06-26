@@ -2,8 +2,12 @@
 # Conditional build:
 %bcond_without	tex	# TeX documentation
 #
-# latest perl Math::Pari (2.030518) doesn't know of pari >= 2.12
-%define		pari_version		2.11.4
+# note: latest perl Math::Pari (2.030518) doesn't know of pari >= 2.12
+# 2.13.1 with updated Math-Pari diff patch + Math-Pari 2.030518 with update patch:
+# Failed 19/243 test programs. 176/1476 subtests failed.
+# compared to 2.11.4 with Math-Pari 2.11-diff-all patch:
+# Failed 20/229 test programs. 173/1477 subtests failed.
+%define		pari_version		2.13.1
 %define		gp2c_version		0.0.12
 # because of previous 2.x versions with 8 minor digits, keep trailing zeros in package Version
 %define		math_pari_version	2.03051800
@@ -12,12 +16,11 @@ Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	19
+Release:	20
 License:	GPL v2+
 Group:		Applications/Math
-#Source0:	http://pari.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
-Source0:	http://pari.math.u-bordeaux.fr/pub/pari/OLD/2.11/pari-%{pari_version}.tar.gz
-# Source0-md5:	fb2968d7805424518fe44a59a2024afd
+Source0:	http://pari.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
+# Source0-md5:	826064cf75af268be8a482ade6e27501
 Source1:	http://pari.math.u-bordeaux.fr/pub/pari/packages/galdata.tgz
 # Source1-md5:	f9f61b2930757a785b568e5d307a7d75
 Source2:	http://pari.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
@@ -33,6 +36,9 @@ Patch4:		perl-Math-Pari-noproccpuinfo.patch
 Patch5:		%{name}-noproccpuinfo.patch
 Patch6:		gmp-version.patch
 Patch7:		Math-Pari-escape-left-braces-in-regex.patch
+Patch8:		perl-Math-Pari-update.patch
+# based on Math-Pari-%{math_pari_fversion}/patches/diff-2.11.0-all
+Patch10:	pari-Math-Pari-diff.patch
 URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	autoconf
 BuildRequires:	ctags
@@ -178,7 +184,7 @@ Interfejs Perla do biblioteki PARI.
 
 %prep
 %setup -q -n pari-%{pari_version} -a 2 -a 3
-patch -p1 < Math-Pari-%{math_pari_fversion}/patches/diff-2.11.0-all
+%patch10 -p1
 %patch0 -p1
 %patch2 -p1
 %patch5 -p1
@@ -187,6 +193,7 @@ cd Math-Pari-%{math_pari_fversion}
 %patch3 -p1
 %patch4 -p1
 %patch7 -p0
+%patch8 -p1
 
 %build
 # pari & parigp
@@ -291,7 +298,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS CHANGES* COMPAT NEW README examples/Inputrc %{?with_tex:doc/*.pdf}
-%attr(755,root,root) %{_bindir}/gp-2.11
+%attr(755,root,root) %{_bindir}/gp-2.13
 %attr(755,root,root) %{_bindir}/gp
 %attr(755,root,root) %{_bindir}/gphelp
 %attr(755,root,root) %{_bindir}/tex2mail
@@ -310,7 +317,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n pari
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpari-gmp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libpari-gmp.so.6
+%attr(755,root,root) %ghost %{_libdir}/libpari-gmp.so.7
 %{_libdir}/parigp
 
 %files -n pari-devel
