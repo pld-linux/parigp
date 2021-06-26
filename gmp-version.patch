@@ -1,11 +1,12 @@
---- pari-2.5.5/config/gmp_version.c~	2015-05-10 16:26:39.000000000 +0200
-+++ pari-2.5.5/config/gmp_version.c	2015-05-10 16:27:07.950401133 +0200
-@@ -3,8 +3,5 @@
+--- pari-2.11.4/config/gmp_version.c.orig	2021-06-25 21:33:14.999293627 +0200
++++ pari-2.11.4/config/gmp_version.c	2021-06-25 21:33:52.912421567 +0200
+@@ -3,9 +3,5 @@
  void f(void) { mpn_gcdext(NULL,NULL, NULL, NULL, 0, NULL, 0); }
- main()
+ int main()
  {
--  if (sizeof(mp_limb_t) == sizeof(long))
-     printf("%s", gmp_version);
+-  if (sizeof(mp_limb_t) == sizeof(long *))
+     printf("%s\n", gmp_version);
 -  else
--    printf("unsupported");
+-    printf("unsupported\n");
+-  return 0;
  }

@@ -1,37 +1,38 @@
 #
 # Conditional build:
-%bcond_without	tex	# don't build tex documentation
+%bcond_without	tex	# TeX documentation
 #
-%define		pari_version		2.5.5
+# latest perl Math::Pari (2.030518) doesn't know of pari >= 2.12
+%define		pari_version		2.11.4
 %define		gp2c_version		0.0.12
-%define		math_pari_version	2.01080605
+# because of previous 2.x versions with 8 minor digits, keep trailing zeros in package Version
+%define		math_pari_version	2.03051800
+%define		math_pari_fversion	2.030518
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	18
+Release:	19
 License:	GPL v2+
 Group:		Applications/Math
-Source0:	http://pari.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
-# Source0-md5:	fbd6402f8d3d3213b0633ab9ef4a63d0
+#Source0:	http://pari.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
+Source0:	http://pari.math.u-bordeaux.fr/pub/pari/OLD/2.11/pari-%{pari_version}.tar.gz
+# Source0-md5:	fb2968d7805424518fe44a59a2024afd
 Source1:	http://pari.math.u-bordeaux.fr/pub/pari/packages/galdata.tgz
 # Source1-md5:	f9f61b2930757a785b568e5d307a7d75
 Source2:	http://pari.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
 # Source2-md5:	ab29c383985d1b7d339189ecff31d40a
-Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_version}.tar.gz
-# Source3-md5:	ccb3da2bdce184a5df3f52cfa8b43a85
+Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_fversion}.zip
+# Source3-md5:	f0d1d9f803c92abff0d6349869a82699
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-target_arch.patch
-Patch1:		%{name}-termcap.patch
 Patch2:		%{name}-arch.patch
 Patch3:		perl-Math-Pari-crash-workaround.patch
-Patch4:		perl-Math-Pari-update.patch
+Patch4:		perl-Math-Pari-noproccpuinfo.patch
 Patch5:		%{name}-noproccpuinfo.patch
 Patch6:		gmp-version.patch
 Patch7:		Math-Pari-escape-left-braces-in-regex.patch
-Patch8:		escape-left-braces-in-regex.patch
-Patch9:		perl-no-dot-in-inc.patch
 URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	autoconf
 BuildRequires:	ctags
@@ -177,16 +178,14 @@ Interfejs Perla do biblioteki PARI.
 
 %prep
 %setup -q -n pari-%{pari_version} -a 2 -a 3
+patch -p1 < Math-Pari-%{math_pari_fversion}/patches/diff-2.11.0-all
 %patch0 -p1
-%patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch8 -p1
-%patch9 -p1
-cd Math-Pari-%{math_pari_version}
+cd Math-Pari-%{math_pari_fversion}
+%patch3 -p1
+%patch4 -p1
 %patch7 -p0
 
 %build
@@ -201,7 +200,6 @@ cd Math-Pari-%{math_pari_version}
 	--with-readline-lib=%{_libdir} \
 	--with-ncurses-lib=%{_libdir} \
 	--with-gmp-lib=%{_libdir}
-
 
 %{__make} -C Olinux-%{_target_cpu} all \
 	CC="%{__cc}" \
@@ -235,7 +233,7 @@ ln -sf .. pari
 cd ..
 
 # math-pari
-cd Math-Pari-%{math_pari_version}
+cd Math-Pari-%{math_pari_fversion}
 cp -f ../Olinux-%{_target_cpu}/paricfg.h libPARI/paricfg.h
 echo '#define DL_DFLT_NAME NULL' >>libPARI/paricfg.h
 
@@ -274,13 +272,14 @@ tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/galdata
 	DESTDIR=$RPM_BUILD_ROOT
 
 # math-pari
-%{__make} install -C Math-Pari-%{math_pari_version} \
+%{__make} install -C Math-Pari-%{math_pari_fversion} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
 echo ".so gp.1" > $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
 
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/parigp/{examples,doc}
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/gp2c
 %{__rm} $RPM_BUILD_ROOT%{perl_vendorarch}/Math/libPARI*.pod
 
 %clean
@@ -291,8 +290,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS CHANGES* COMPAT MACHINES NEW README examples/Inputrc %{?with_tex:doc/*.pdf}
-%attr(755,root,root) %{_bindir}/gp-2.5
+%doc AUTHORS CHANGES* COMPAT NEW README examples/Inputrc %{?with_tex:doc/*.pdf}
+%attr(755,root,root) %{_bindir}/gp-2.11
 %attr(755,root,root) %{_bindir}/gp
 %attr(755,root,root) %{_bindir}/gphelp
 %attr(755,root,root) %{_bindir}/tex2mail
@@ -311,7 +310,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n pari
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpari-gmp.so.*.*.*
-%ghost %attr(755,root,root) %{_libdir}/libpari-gmp.so.3
+%attr(755,root,root) %ghost %{_libdir}/libpari-gmp.so.6
 %{_libdir}/parigp
 
 %files -n pari-devel
@@ -342,7 +341,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n perl-Math-Pari
 %defattr(644,root,root,755)
-%doc Math-Pari-%{math_pari_version}/{Changes,README,TODO}
+%doc Math-Pari-%{math_pari_fversion}/{Changes,README,TODO}
 %{perl_vendorarch}/Math/Pari.pm
 %{perl_vendorarch}/Math/PariInit.pm
 %dir %{perl_vendorarch}/auto/Math/Pari
