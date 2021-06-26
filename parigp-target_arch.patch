@@ -12,14 +12,13 @@ diff -urNp -x '*.orig' pari-2.5.5.org/config/get_archos pari-2.5.5/config/get_ar
  if test "$fastread" != yes; then
    cat << EOM
  ==========================================================================
-diff -urNp -x '*.orig' pari-2.5.5.org/config/get_config_options pari-2.5.5/config/get_config_options
---- pari-2.5.5.org/config/get_config_options	2013-05-22 14:55:02.000000000 +0200
-+++ pari-2.5.5/config/get_config_options	2021-05-07 23:08:59.794747185 +0200
+--- pari-2.11.4/config/get_config_options.orig	2021-06-26 09:48:23.206303784 +0200
++++ pari-2.11.4/config/get_config_options	2021-06-26 09:50:09.378489327 +0200
 @@ -48,6 +48,7 @@ while test $# -gt 0; do
    --sysdatadir=*) dfltsysdatadir=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
    --time=*) timing_fun=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
    --host=*) target_host=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
 +  --target=*) target_arch=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
    --kernel=*) kernel=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
+   --mt=*) thread_engine=`echo "$1" | sed -e 's/[-a-z]*=//'`;;
    --tune) tune=yes;;
-   --builddir) dfltobjdir=auto;;
