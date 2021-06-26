@@ -3,6 +3,7 @@
 %bcond_without	tex	# TeX documentation
 #
 # latest perl Math::Pari (2.030518) doesn't know of pari >= 2.12
+# see DEVEL-2.13 branch for 2.13.x packaging try
 %define		pari_version		2.11.4
 %define		gp2c_version		0.0.12
 # because of previous 2.x versions with 8 minor digits, keep trailing zeros in package Version
