@@ -239,7 +239,10 @@ cp -f ../Olinux-%{_target_cpu}/paricfg.h libPARI/paricfg.h
 echo '#define DL_DFLT_NAME NULL' >>libPARI/paricfg.h
 
 %{__perl} Makefile.PL \
-	INSTALLDIRS=vendor
+	INSTALLDIRS=vendor \
+%ifarch x32
+	machine=none
+%endif
 
 %{__make} \
 	OPTIMIZE="%{rpmcflags} -I$(pwd)/../Olinux-%{_target_cpu}"
