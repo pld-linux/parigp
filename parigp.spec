@@ -49,6 +49,7 @@ BuildRequires:	texlive-csplain
 BuildRequires:	texlive-dvips
 BuildRequires:	texlive-fonts-cm
 BuildRequires:	texlive-format-pdflatex
+BuildRequires:	texlive-latex-ams
 BuildRequires:	texlive-plain
 BuildRequires:	texlive-pdftex
 BuildRequires:	texlive-tex-babel
