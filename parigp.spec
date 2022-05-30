@@ -7,26 +7,26 @@
 # Failed 19/243 test programs. 176/1476 subtests failed.
 # compared to 2.11.4 with Math-Pari 2.11-diff-all patch:
 # Failed 20/229 test programs. 173/1477 subtests failed.
-%define		pari_version		2.13.1
-%define		gp2c_version		0.0.12
+%define		pari_version		2.13.4
+%define		gp2c_version		0.0.12pl1
 # because of previous 2.x versions with 8 minor digits, keep trailing zeros in package Version
-%define		math_pari_version	2.03051800
-%define		math_pari_fversion	2.030518
+%define		math_pari_version	2.03052300
+%define		math_pari_fversion	2.030523
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	20
+Release:	1
 License:	GPL v2+
 Group:		Applications/Math
 Source0:	http://pari.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
-# Source0-md5:	826064cf75af268be8a482ade6e27501
+# Source0-md5:	b624752c00b4b87b940fd98c910d8c09
 Source1:	http://pari.math.u-bordeaux.fr/pub/pari/packages/galdata.tgz
 # Source1-md5:	f9f61b2930757a785b568e5d307a7d75
 Source2:	http://pari.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
-# Source2-md5:	ab29c383985d1b7d339189ecff31d40a
-Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_fversion}.zip
-# Source3-md5:	f0d1d9f803c92abff0d6349869a82699
+# Source2-md5:	07e5959df2a08e519532a03ff5b8111f
+Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_fversion}.tar.gz
+# Source3-md5:	e5489cb047989bf6ef3f1fdc590ca736
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-target_arch.patch
@@ -35,10 +35,6 @@ Patch3:		perl-Math-Pari-crash-workaround.patch
 Patch4:		perl-Math-Pari-noproccpuinfo.patch
 Patch5:		%{name}-noproccpuinfo.patch
 Patch6:		gmp-version.patch
-Patch7:		Math-Pari-escape-left-braces-in-regex.patch
-Patch8:		perl-Math-Pari-update.patch
-# based on Math-Pari-%{math_pari_fversion}/patches/diff-2.11.0-all
-Patch10:	pari-Math-Pari-diff.patch
 URL:		http://pari.math.u-bordeaux.fr/
 BuildRequires:	autoconf
 BuildRequires:	ctags
@@ -184,7 +180,7 @@ Interfejs Perla do biblioteki PARI.
 
 %prep
 %setup -q -n pari-%{pari_version} -a 2 -a 3
-%patch10 -p1
+patch -p1 < Math-Pari-%{math_pari_fversion}/patches/diff-2.13.3-all
 %patch0 -p1
 %patch2 -p1
 %patch5 -p1
@@ -192,8 +188,6 @@ Interfejs Perla do biblioteki PARI.
 cd Math-Pari-%{math_pari_fversion}
 %patch3 -p1
 %patch4 -p1
-%patch7 -p0
-%patch8 -p1
 
 %build
 # pari & parigp
@@ -235,7 +229,7 @@ ln -sf .. pari
 	--datadir=%{_datadir}/parigp
 
 %{__make}
-%{?with_tex:%{__make} -j1 -C doc docall}
+%{?with_tex:%{__make} -j1 -C doc}
 
 cd ..
 
