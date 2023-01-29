@@ -272,7 +272,7 @@ tar zxvf %{SOURCE1} -C $RPM_BUILD_ROOT%{_datadir}/parigp/galdata
 	DESTDIR=$RPM_BUILD_ROOT
 
 # math-pari
-%{__make} install -C Math-Pari-%{math_pari_fversion} \
+%{__make} -j1 install -C Math-Pari-%{math_pari_fversion} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_mandir}/man1/pari.1
