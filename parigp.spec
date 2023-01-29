@@ -252,7 +252,8 @@ install -d $RPM_BUILD_ROOT{%{_datadir}/parigp/galdata,%{_examplesdir}/parigp} \
 
 # parigp, pari & pari-devel
 %{__make} -C Olinux-%{_target_cpu} install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	%{!?with_tex:TEX=: LATEX=:}
 
 install src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc
 install %{SOURCE4} $RPM_BUILD_ROOT%{_desktopdir}
