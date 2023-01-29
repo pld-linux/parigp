@@ -251,7 +251,7 @@ install -d $RPM_BUILD_ROOT{%{_datadir}/parigp/galdata,%{_examplesdir}/parigp} \
 	$RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
 
 # parigp, pari & pari-devel
-%{__make} install \
+%{__make} -C Olinux-%{_target_cpu} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install src/tags $RPM_BUILD_ROOT%{_datadir}/parigp/misc
