@@ -177,13 +177,13 @@ Interfejs Perla do biblioteki PARI.
 %prep
 %setup -q -n pari-%{pari_version} -a 2 -a 3
 patch -p1 < Math-Pari-%{math_pari_fversion}/patches/diff-2.13.3-all
-%patch0 -p1
-%patch2 -p1
-%patch5 -p1
-%patch6 -p1
+%patch -P0 -p1
+%patch -P2 -p1
+%patch -P5 -p1
+%patch -P6 -p1
 cd Math-Pari-%{math_pari_fversion}
-%patch3 -p1
-%patch4 -p1
+%patch -P3 -p1
+%patch -P4 -p1
 
 %build
 # pari & parigp
