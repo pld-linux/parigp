@@ -6,7 +6,7 @@
 %define		gp2c_version		0.0.12pl1
 # because of previous 2.x versions with 8 minor digits, keep trailing zeros in package Version
 %define		math_pari_version	2.03052300
-%define		math_pari_fversion	2.030523
+%define		math_pari_fversion	2.030528
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
@@ -21,7 +21,7 @@ Source1:	http://pari.math.u-bordeaux.fr/pub/pari/packages/galdata.tgz
 Source2:	http://pari.math.u-bordeaux.fr/pub/pari/GP2C/gp2c-%{gp2c_version}.tar.gz
 # Source2-md5:	07e5959df2a08e519532a03ff5b8111f
 Source3:	http://www.cpan.org/modules/by-module/Math/Math-Pari-%{math_pari_fversion}.tar.gz
-# Source3-md5:	e5489cb047989bf6ef3f1fdc590ca736
+# Source3-md5:	9aa90eec61a460b0e89500867e7940aa
 Source4:	%{name}.desktop
 Source5:	%{name}.png
 Patch0:		%{name}-target_arch.patch
@@ -220,6 +220,7 @@ ln -s Olinux-sparc Olinux-sparc64
 cd gp2c-%{gp2c_version}
 
 ln -sf .. pari
+%{__aclocal}
 %{__autoconf}
 %configure \
 	--datadir=%{_datadir}/parigp
