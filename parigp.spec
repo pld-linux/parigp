@@ -5,13 +5,13 @@
 %define		pari_version		2.13.4
 %define		gp2c_version		0.0.12pl1
 # because of previous 2.x versions with 8 minor digits, keep trailing zeros in package Version
-%define		math_pari_version	2.03052300
+%define		math_pari_version	2.03052800
 %define		math_pari_fversion	2.030528
 Summary:	Number Theory-oriented Computer Algebra System
 Summary(pl.UTF-8):	Komputerowy system obliczeń algebraicznych zorientowany na metody teorii liczb
 Name:		parigp
 Version:	%{pari_version}
-Release:	5
+Release:	6
 License:	GPL v2+
 Group:		Applications/Math
 Source0:	http://pari.math.u-bordeaux.fr/pub/pari/unix/pari-%{pari_version}.tar.gz
@@ -312,12 +312,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -n pari
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libpari-gmp.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libpari-gmp.so.7
+%ghost %{_libdir}/libpari-gmp.so.7
 %{_libdir}/parigp
 
 %files -n pari-devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libpari.so
+%{_libdir}/libpari.so
 %{_includedir}/pari
 
 %files -n pari-static
