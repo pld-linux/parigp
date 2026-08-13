@@ -200,7 +200,7 @@ cd Math-Pari-%{math_pari_fversion}
 
 %{__make} -C Olinux-%{_target_cpu} all \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags} -fno-strict-aliasing -fomit-frame-pointer -fPIC"
+	CFLAGS="%{rpmcflags} -fno-strict-aliasing -fomit-frame-pointer -fPIC -std=gnu17"
 
 %{__make} ctags
 
@@ -242,7 +242,7 @@ echo '#define DL_DFLT_NAME NULL' >>libPARI/paricfg.h
 %endif
 
 %{__make} \
-	OPTIMIZE="%{rpmcflags} -I$(pwd)/../Olinux-%{_target_cpu}"
+	OPTIMIZE="%{rpmcflags} -std=gnu17 -I$(pwd)/../Olinux-%{_target_cpu}"
 
 # %{__make} test
 
